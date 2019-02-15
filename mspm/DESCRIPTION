@@ -1,0 +1,20 @@
+
+Package: mspm
+Title: My Small Project Management
+Version: 0.0.0.1
+Authors@R: person("Claas-Thido", "Pfaff", 
+	          email = "claas-thido.pfaff@uni-leipzig.de", 
+		  role = c("aut", "cre"))
+Description: The package provides a set of utilities for  
+             scientific project and data mangement. It comprises a 
+             predefined folder structure for new science projects. 
+             Helps cleaning data and creating documentation for the
+             project.
+Depends: R (>= 3.5.2),
+Imports:
+    parallel
+Encoding: UTF-8
+LazyData: true
+Suggests: testthat
+RoxygenNote: 6.1.1
+
