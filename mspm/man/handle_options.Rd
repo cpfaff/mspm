@@ -12,7 +12,13 @@ to query for the value. Pass in a name and a value to set
 the value to your liking.}
 }
 \description{
-Get and set options for the package
+the package has an own environment with a list of options.
+it is storing e.g. paths to folders and files in the project
+structure the mspm package generates. It will be used by the
+package itself to enable a project structure awareness throughout
+the mspm package and allows convenient functions for users to
+reference locations and files while writing conducting their
+analysis using the project template.
 }
 \examples{
 \dontrun{

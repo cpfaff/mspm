@@ -14,7 +14,7 @@
 #'        This also allows to createa a flexible named folder for projects.
 #'
 #' @import checkpoint
-#' @importFrom fs path file_create is_file dir_create dir_delete is_dir
+#' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @importFrom magrittr "%>%"
 #' @importFrom tibble as_tibble
 #' @importFrom readr write_csv
