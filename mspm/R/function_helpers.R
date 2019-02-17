@@ -5,10 +5,10 @@
 #
 random_string <- function(n=1, lenght=12)
 {
-    randomString <- c(1:n)                  # initialize vector
+    randomString <- c(1:n)
     for (i in 1:n)
     {
-        randomString[i] <- paste(sample(c(letters, LETTERS),
+        randomString[i] <- paste(sample(c(0:9, letters, LETTERS),
                                         lenght, replace=TRUE),
                                  collapse="")
     }
@@ -33,49 +33,27 @@ quiet <- function(x) {
 # snake case notation
 #
 # @importFrom stringr str_detect str_to_lower str_replace_all
-#
-compile_project_name <- function(current_date = Sys.Date(), first_name, last_name, degree){
+
+compile_project_name <- function(project_date = as.character(Sys.Date()), first_name = NULL, last_name = NULL, project_category = NULL){
   # errors
-  ## arguments given
   if(missing(first_name)){
     stop("compile_project_name: requires the argument first_name")
   }
   if(missing(last_name)){
     stop("compile_project_name: requires the argument last_name")
   }
-  if(missing(current_date)){
-    stop("compile_project_name: requires the argument current_date")
-  }
-  ## content correct
-  ### mandatory
-  if(!str_detect(first_name, pattern = "^[\u00C0-\u017Fa-zA-Z_ ]+?")){
-    stop("compile_project_name: first_name contains invalid characters: A-z letters are allowed and words are separated in snake_case or with spaces")
-  }
-  if(!str_detect(last_name, pattern = "^[\u00C0-\u017Fa-zA-Z_ ]+?")){
-    stop("compile_project_name: last_name contains invalid characters: A-z letters are allowed and words are separated in snake_case with spaces")
-  }
-  ### optional
-  if(!missing(degree)){
-    if(!str_detect(degree, pattern = "^[\u00C0-\u017Fa-zA-Z_ ]+?")){
-      stop("compile_project_name: last_name contains invalid characters: A-z letters are allowed and words are separated in snake_case")
-    }
-  }
-  # function
-  ## mandatory
-  if(missing(degree)){
-    return(
-       paste(c(as.character(current_date),
-               str_replace_all(str_replace_all(str_to_lower(first_name), "\\s+", " "), "\\s", "_"),
-               str_replace_all(str_replace_all(str_to_lower(last_name), "\\s+", " "), "\\s", "_")), collapse = "_")
-    )
-  ## optional
+  # sanitize input
+  first_name =
+    str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(first_name, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
+  last_name =
+    str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(last_name, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
+  # return
+  if(missing(project_category)){
+    return(paste(c(as.character(project_date), first_name, last_name), collapse = "_"))
   } else {
-    return(
-      paste(c(as.character(current_date),
-              str_replace_all(str_replace_all(str_to_lower(first_name), "\\s+", " "), "\\s", "_"),
-              str_replace_all(str_replace_all(str_to_lower(last_name), "\\s+", " "), "\\s", " "),
-              str_replace_all(str_replace_all(str_to_lower(degree), "\\s+", " "), "\\s", " ")), collapse = "_")
-    )
+    project_category =
+      str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(project_category, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
+    return(paste(c(as.character(project_date), first_name, last_name, project_category), collapse = "_" ))
   }
 }
 
