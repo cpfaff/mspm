@@ -1,12 +1,12 @@
 context("mspm package options")
 
-test_that("function: handle_options is defined", {
-  expect_false(identical(find("handle_options"), character(0)))
+test_that("function: project_structure is defined", {
+  expect_false(identical(find("project_structure"), character(0)))
 })
 
-test_that("function: handle_options can set and query options", {
-  mspm::handle_options("test" = "value")
-  expect_equal(mspm::handle_options("test"), "value")
+test_that("function: project_structure can set and query options", {
+  mspm::project_structure("test" = "value")
+  expect_equal(mspm::project_structure("test"), "value")
   # the value remains in the environment after the test
   # we need to remove it again.
   # ls.str(.mspm.env)

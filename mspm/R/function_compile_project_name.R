@@ -22,11 +22,11 @@
 #' @examples
 #' \dontrun{
 #' create_project_name(first_name = "Max",
-#'                      last_name = "Mustermann",
-#'                      project_category = "PhD")
+#'                     last_name = "Mustermann",
+#'                     project_category = "PhD")
 #' }
 #'
-#' @importFrom stringr str_detect str_to_lower str_replace_all
+#' @importFrom stringr str_detect str_to_lower str_replace_all str_trim
 #'
 #' @export compile_project_name
 

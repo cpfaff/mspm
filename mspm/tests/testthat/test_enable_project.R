@@ -5,51 +5,59 @@ test_that("function: enable_project is defined ", {
 })
 
 test_that("function: enable_project accepts required parameters", {
-  expect_true(all(names(formals("enable_project")) %in% c("root_folder", "first_name", "last_name", "full_path")))
+  expect_true(all(names(formals("enable_project")) %in% c("root_folder", "project_name", "project_path")))
 })
 
 test_that("function: enable_project throws an error when the folder does not exist", {
-    folder_name = path("/tmp",random_string())
-    expect_error(enable_project(folder_name))
+    root_folder = path("/tmp")
+    project_name = path(random_string())
+    expect_error(enable_project(root_folder = root_folder, project_name = project_name))
 })
 
 # functionality
 test_that("function: enable_project throws an error when the folder contains no project", {
     wd_before_test = getwd()
-    folder_name = path("/tmp",random_string())
-    dir_create(folder_name)
-    expect_error(enable_project(full_path = folder_name))
-    dir_delete(folder_name)
+    root_folder = path("/tmp")
+    project_name = path(random_string())
+    dir_create(path(root_folder, project_name))
+    expect_error(enable_project(root_folder = root_folder, project_name = project_name))
+    dir_delete(path(root_folder, project_name))
     setwd(wd_before_test)
 })
 
 test_that("function: enable_project sets the working directory to the project", {
     wd_before_test = getwd()
-    folder_name = create_new_test_project()
-    enable_project(full_path = folder_name)
+    repo_before_test = getOption("repos")
+    create_project(root_folder = "/tmp", compile_project_name(first_name = "first_name", last_name = "last_name"))
+    enable_project(root_folder = "/tmp", compile_project_name(first_name = "first_name", last_name = "last_name"))
     wd_after_enabling_project = getwd()
-    expect_equal(path(wd_after_enabling_project), path(folder_name))
-    dir_delete(folder_name)
+    expect_equal(path(wd_after_enabling_project), path("/tmp", paste(c(as.character(Sys.Date()), "first_name_last_name"), collapse = "_")))
+    dir_delete(path("/tmp", paste(c(as.character(Sys.Date()), "first_name_last_name"), collapse = "_")))
+    setwd(wd_before_test)
+    options(repos = repo_before_test)
+})
+
+test_that("function: enable_project sets the project_path in enabled_project", {
+    wd_before_test = getwd()
+    repo_before_test = getOption("repos")
+    create_project(root_folder = "/tmp", compile_project_name(first_name = "first_name", last_name = "last_name"))
+    enable_project(root_folder = "/tmp", compile_project_name(first_name = "first_name", last_name = "last_name"))
+    wd_after_enabling_project = getwd()
+    options(repos = repo_before_test)
+    dir_delete(path("/tmp", paste(c(as.character(Sys.Date()), "first_name_last_name"), collapse = "_")))
+    expect_equal(path(wd_after_enabling_project), path(mspm::enabled_project("project_path")))
     setwd(wd_before_test)
 })
 
-test_that("function: enable_project sets the enabled_project_path in handle_options", {
+test_that("function: enable_project sets the project_checkpoint in enabled_project", {
     wd_before_test = getwd()
-    folder_name = create_new_test_project()
-    enable_project(full_path = folder_name)
-    wd_after_enabling_project = getwd()
-    expect_equal(path(wd_after_enabling_project), path(mspm::handle_options("enabled_project_path")))
-    dir_delete(folder_name)
-    setwd(wd_before_test)
-})
-
-test_that("function: enable_project sets the enabled_project_checkpoint in handle_options", {
-    wd_before_test = getwd()
-    folder_name = create_new_test_project()
-    enable_project(full_path = folder_name)
-    project_creation_date_from_file = as.character(read_dcf_to_list(path(mspm::handle_options("file_metadata_checkpoint"))))
-    project_creation_date_from_options = as.character(mspm::handle_options("enabled_project_checkpoint"))
+    repo_before_test = getOption("repos")
+    create_project(root_folder = "/tmp", compile_project_name(first_name = "first_name", last_name = "last_name"))
+    enable_project(root_folder = "/tmp", compile_project_name(first_name = "first_name", last_name = "last_name"))
+    options(repos = repo_before_test)
+    project_creation_date_from_file = as.character(read_dcf_to_list(path(mspm::project_structure("file_metadata_checkpoint"))))
+    project_creation_date_from_options = as.character(mspm::enabled_project("project_checkpoint"))
+    dir_delete(path("/tmp", paste(c(as.character(Sys.Date()), "first_name_last_name"), collapse = "_")))
     expect_equal(project_creation_date_from_file, project_creation_date_from_options)
-    dir_delete(folder_name)
     setwd(wd_before_test)
 })

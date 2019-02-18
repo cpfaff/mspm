@@ -25,38 +25,6 @@ quiet <- function(x) {
   invisible(force(x))
 }
 
-# compile a valid project name
-#
-# a helper to abstract away the checks for a valid folder name which
-# when creating a project. The name is staring with the current date,
-# is not allowed to contain special characters and needs to follow a
-# snake case notation
-#
-# @importFrom stringr str_detect str_to_lower str_replace_all
-
-compile_project_name <- function(project_date = as.character(Sys.Date()), first_name = NULL, last_name = NULL, project_category = NULL){
-  # errors
-  if(missing(first_name)){
-    stop("compile_project_name: requires the argument first_name")
-  }
-  if(missing(last_name)){
-    stop("compile_project_name: requires the argument last_name")
-  }
-  # sanitize input
-  first_name =
-    str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(first_name, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
-  last_name =
-    str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(last_name, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
-  # return
-  if(missing(project_category)){
-    return(paste(c(as.character(project_date), first_name, last_name), collapse = "_"))
-  } else {
-    project_category =
-      str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(project_category, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
-    return(paste(c(as.character(project_date), first_name, last_name, project_category), collapse = "_" ))
-  }
-}
-
 # define big message pseudo ui
 #
 big_message <- function(say){
@@ -74,8 +42,6 @@ small_message <- function(say){
     message("--------------------------")
     message("")
 }
-
-
 
 # Converts a DCF file into an R list.
 #

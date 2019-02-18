@@ -4,26 +4,34 @@
 \alias{enable_project}
 \title{Enable an existing project}
 \usage{
-enable_project(root_folder = getwd(), first_name, last_name,
-  full_path = NULL)
+enable_project(root_folder = getwd(), project_name = NULL,
+  project_path = NULL)
 }
 \arguments{
-\item{root_folder}{Allows to change the location in which the function
-creates the new project folder. dateFirst and last name together with
-the degree are forming the projct folder name inside the
-root_folder (see next params)}
+\item{root_folder}{The root folder designates the path in the filesystem
+where the project is stored.}
 
-\item{first_name}{Allows to provide the first name of the creator and
-reponsible person for the project.
-project (mandatory)}
+\item{project_name}{The project name is the name of the folder the predefined
+project structure has been created in. This parameter allows you to freely
+name the project. You can use it together with the compile_project_name
+function to get the same streamlined project names as during the project
+creation.}
 
-\item{last_name}{Allows to provide the last name of the creator and
-responsible person for the project.
-project (mandatory)}
-
-\item{full_path}{Allows you to specify the full path to a project root folder.
-This also allows to createa a flexible named folder for projects.}
+\item{project_path}{Instead of using the root_folder and project_name arguments
+the full path to the project folder can be specifified here.}
 }
 \description{
-Enable an existing project
+A function that enables an existing project.
+}
+\examples{
+\dontrun{
+ enable_project(root_folder = getwd(),
+               project_name = compile_project_name(first_name = "Max",
+                                                   last_name = "Mustermann",
+                                                   project_category "Phd"))
+
+ enable_project(root_folder = "~/",
+               project_name = "my_phd_project")
+}
+
 }

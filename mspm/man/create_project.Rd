@@ -4,26 +4,33 @@
 \alias{create_project}
 \title{Create a new project}
 \usage{
-create_project(root_folder = getwd(), first_name, last_name,
-  full_path = NULL)
+create_project(root_folder = getwd(), project_name = NULL,
+  project_path = NULL)
 }
 \arguments{
-\item{root_folder}{Allows to change the location in which the function
-creates the new project folder. dateFirst and last name together with
-the degree are forming the projct folder name inside the
-root_folder (see next params)}
+\item{root_folder}{The root folder designates the location in the filesystem
+where the project will bestored.}
 
-\item{first_name}{Allows to provide the first name of the creator and
-reponsible person for the project.
-project (mandatory)}
+\item{project_name}{The project name is the name of the folder the predefined
+structure is created in. This parameter allows you to freely name the
+project. You can use it together with the compile_project_name
+function to generate streamlined project names.}
 
-\item{last_name}{Allows to provide the last name of the creator and
-responsible person for the project.
-project (mandatory)}
-
-\item{full_path}{Allows you to specify the full path to a project root folder.
-This also allows to createa a flexible named folder for projects.}
+\item{project_path}{Instead of using the root_folder and project name arguments
+the full path to the folder can be specifified in which the project
+structure will be created in.}
 }
 \description{
-Create a new project
+A function that creates a new project. A project consists of a predefined
+folder structure. The structure separates into folder like data, metadata,
+source and reporting to help better organize your new project.
+}
+\examples{
+\dontrun{
+ create_project(root_folder = getwd(),
+                project_name = compile_project_name(first_name = "Max",
+                                                    last_name = "Mustermann",
+                                                    project_category "Phd"))
+}
+
 }
