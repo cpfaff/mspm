@@ -110,7 +110,7 @@ an underscore (e.g. `snake_case.R`, `raw_data.csv`)
             └── 06_model_data.R
 ```
 
-* Data
+* data
 
 ```
 2019-02-19_my_full_name
@@ -139,7 +139,7 @@ analysis or the results.
 Cleaned primary data which is used e.g. in modelling, plotting.
 
 
-* Figure
+* figure
 
 ```
 2019-02-19_my_full_name
@@ -162,7 +162,7 @@ essential for the report part of your project.
 This folder stores figures crated by your R script.
 
 
-* Metadata
+* metadata
 
 ```
 2019-02-19_my_full_name
@@ -190,7 +190,7 @@ The files in here are in Debian control file format (dcf). It is natively
 supported by the R environment and used in many places like e.g. the
 description file in R packages.
 
-* Report
+* report
 
 ```
 2019-02-19_my_full_name
