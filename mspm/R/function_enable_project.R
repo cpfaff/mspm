@@ -34,12 +34,6 @@
 #' @export enable_project
 
 enable_project <- function(root_folder = getwd(), project_name = NULL, project_path = NULL) {
-  if(is.null(project_name)){
-    stop("enable_project: requires the parameter project name")
-  }
-  if(!is.character(project_name)){
-    stop("enable_project: parameter project name needs to be provided as character")
-  }
   if(is.null(project_path)){
     project_path = path(root_folder, project_name)
   }

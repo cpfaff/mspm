@@ -106,4 +106,3 @@ write_list_to_dcf <- function(list, filename)
   database_input <- lapply(list, function(x) paste0(x, collapse = ","))
   quiet(write.dcf(database_input, filename))
 }
-

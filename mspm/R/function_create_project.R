@@ -23,6 +23,7 @@
 #' }
 #'
 #' @importFrom fs path dir_create file_create
+#' @importFrom devtools install_github
 #'
 #' @export create_project
 
@@ -66,6 +67,9 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   dir_create(path(project_path, mspm::project_structure("folder_source_library")))
   dir_create(path(project_path, mspm::project_structure("folder_source_workflow")))
 
+  # constructs and writesthe packages into the package mangement file
+  construct_file_packages(project_path = project_path)
+
   message("")
   message(paste("Create files:"))
   message("")
@@ -92,6 +96,20 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
 
   system_date_for_checkpoint = list(checkpoint = Sys.Date())
   write_list_to_dcf(system_date_for_checkpoint, path(project_path, mspm::project_structure("file_metadata_checkpoint")))
+
+  message("")
+  message(paste("Install packages:"))
+  message("")
+  message(paste("* in:", project_path))
+  message("---")
+
+  wd_before = getwd()
+  repo_before = getOption("repos")
+  enable_project(project_path = project_path)
+  install_github("ctpfaff/mspm", subdir = "mspm")
+  # install additional packages which do not get installed by enable
+  setwd(wd_before)
+  options(repos = repo_before)
 
   message("")
   message("Done:")
