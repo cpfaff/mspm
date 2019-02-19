@@ -68,7 +68,60 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   dir_create(path(project_path, mspm::project_structure("folder_source_workflow")))
 
   # constructs and writesthe packages into the package mangement file
-  construct_file_packages(project_path = project_path)
+
+optional_packages = c("readr",
+                         "preadxl",
+                         "haven",
+                         "httr",
+                         "rvest",
+                         "xml2",
+                         "tidyr",
+                         "purrr",
+                         "dplyr",
+                         "forcats",
+                         "hms",
+                         "lubridate",
+                         "stringr",
+                         "ggplot2",
+                         "broom",
+                         "modelr",
+                         "RColorBrewer")
+
+mandatory_packages = c("import", # for the package management
+                       "devtools", # install from github
+                       "drake", # for the workflow functionality
+                       "tibble", # for better data frames
+                       "magrittr"# for the pipe
+                      )
+
+constructed_library_calls =
+  lapply(optional_packages,
+         function(package){
+           paste0("# ", "library(",package, ")")
+         }
+  )
+
+lapply(constructed_library_calls,
+       function(a_recommended_library){
+         write(a_recommended_library,
+               file = path(project_path, mspm::project_structure("file_packages")),
+               append = TRUE)
+       }
+      )
+
+constructed_library_calls = lapply(mandatory_packages,
+                                   function(package){
+                                     paste0("library(",package, ")")
+                                   }
+                                  )
+
+lapply(constructed_library_calls,
+       function(a_mandatory_library){
+         write(a_mandatory_library,
+               file = path(project_path, mspm::project_structure("file_packages")),
+               append = TRUE)
+         }
+      )
 
   message("")
   message(paste("Create files:"))
@@ -106,6 +159,7 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   wd_before = getwd()
   repo_before = getOption("repos")
   enable_project(project_path = project_path)
+  install.packages(devtools)
   install_github("ctpfaff/mspm", subdir = "mspm")
   # install additional packages which do not get installed by enable
   setwd(wd_before)
