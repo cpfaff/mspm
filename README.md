@@ -5,5 +5,5 @@
 ```r
 install.packages("devtools")
 require(devtools)
-install_github("cpfaff/mspm", subfolder = "mspm")
+install_github("cpfaff/mspm", subdir = "mspm")
 ```
