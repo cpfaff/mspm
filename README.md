@@ -29,7 +29,7 @@ follow the instructions below.
 install.packages("devtools")
 require(devtools)
 install_github("cpfaff/mspm", subdir = "mspm")
-install_github("cpfaff/checkpoint", subdir = "mspm")
+install_github("cpfaff/checkpoint")
 ```
 
 ## Getting started
@@ -49,7 +49,7 @@ The function creates a new project folder structure in the `root_folder` which
 defaults to the current working directory. You should place your projects in a
 path where you store all your R projects. You can provide your project name
 manually, however here a convenient function is used which compiles a project
-name from the information given (YYYY-MM-DD_your_first_name_your_last_name).
+name from the information given (`YYYY-MM-DD_your_first_name_your_last_name`).
 
 Note. The process to create a new project may take a while as it installs an
 independent R environment and packages into your new project. Afterwards you
@@ -67,7 +67,7 @@ documentation of the structure and contents.
 
 NOTE: All files that you place somewhere in the structure should be named in
 snake case. This means you use meaningful names and separate single words with
-an underscore (e.g. snake_case.R, raw_data.csv)
+an underscore (e.g. `snake_case.R`, `raw_data.csv`)
 
 * Full overview
 
@@ -112,6 +112,15 @@ an underscore (e.g. snake_case.R, raw_data.csv)
 
 * Data
 
+```
+2019-02-19_my_full_name
+└── project
+    ├── data
+    │   ├── 01_primary
+    │   ├── 02_interim
+    │   └── 03_cleaned
+```
+
 The data folder is separated into three sub-folders which are prepended with
 numbers for a fixed order.
 
@@ -129,16 +138,17 @@ analysis or the results.
 
 Cleaned primary data which is used e.g. in modelling, plotting.
 
+
+* Figure
+
 ```
 2019-02-19_my_full_name
 └── project
-    ├── data
-    │   ├── 01_primary
-    │   ├── 02_interim
-    │   └── 03_cleaned
-```
+    ├── figure
+    │   ├── external
+    │   └── scripted
 
-* Figure
+```
 
 The figure folder is divided in two sub-folders.
 
@@ -151,13 +161,136 @@ essential for the report part of your project.
 
 This folder stores figures crated by your R script.
 
+
+* Metadata
+
 ```
 2019-02-19_my_full_name
 └── project
-    ├── figure
-    │   ├── external
-    │   └── scripted
+    ├── metadata
+    │   ├── dataset
+    │   └── package
+    │       ├── author.dcf
+    │       └── checkpoint.dcf
+```
+
+The metadata folder is divided into two sub-folders which store
+
+1. dataset
+
+Information about the datasets in your project. You can use the function XXX to
+collect information about your datasets and place it here in a format that you
+can complement with metadata.
+
+2. package
+
+The package folder contains information about the project like the author of
+the project and the checkpoint which is for now the date of project creation.
+The files in here are in Debian control file format (dcf). It is natively
+supported by the R environment and used in many places like e.g. the
+description file in R packages.
+
+* Report
+
+```
+2019-02-19_my_full_name
+└── project
+    ├── report
+    │   ├── presentation
+    │   ├── publication
+    │   └── qualification
 
 ```
 
+The report folder is separated into three sub-folders which are pretty much
+self explaining. Put your presentations or publications which are related to
+this project into the respective folders. In case the project is qualification
+work put the document into that folder.
 
+* source
+
+```
+2019-02-19_my_full_name
+└── project
+    └── source
+        ├── function
+        │   ├── 01_main.R
+        │   ├── 02_import_data.R
+        │   ├── 03_clean_data.R
+        │   ├── 04_transform_data.R
+        │   ├── 05_visualise_data.R
+        │   └── 06_model_data.R
+        ├── library
+        │   └── packages.R
+        └── workflow
+            ├── 01_main.R
+            ├── 01_scratchpad.R
+            ├── 02_import_data.R
+            ├── 03_clean_data.R
+            ├── 04_transform_data.R
+            ├── 05_visualise_data.R
+            └── 06_model_data.R
+```
+
+The source folder is separated into three sub-folders. It is the place which
+stores all external and internal source code. If you include a package it goes
+here.
+
+* source > function
+
+```
+2019-02-19_my_full_name
+└── project
+    └── source
+        ├── function
+        │   ├── 01_main.R
+        │   ├── 02_import_data.R
+        │   ├── 03_clean_data.R
+        │   ├── 04_transform_data.R
+        │   ├── 05_visualise_data.R
+        │   └── 06_model_data.R
+```
+
+As a rule of thumb. When you have to copy and paste code more than 2 times in
+your scripts, write a function from that code so that you can reuse it across
+your project. These functions go into the function folder. The separate files
+in here are prepended with numbers for an ordering. The files are further named
+after typical stages of a scientific data analysis. You can use the files to
+organized your functions.
+
+* source > library
+
+```
+2019-02-19_my_full_name
+└── project
+    └── source
+        ├── library
+        │   └── packages.R
+```
+
+The library contains your package management. In your analysis you will quickly
+want to install the first R packages. Mention them in here and import that file
+in the main script in the workflow folder. This folder is also the place where
+the R packages are installed when you have used the `enable_project()`
+function.
+
+* source > workflow
+
+
+```
+2019-02-19_my_full_name
+└── project
+    └── source
+        └── workflow
+            ├── 01_main.R
+            ├── 02_import_data.R
+            ├── 03_clean_data.R
+            ├── 04_transform_data.R
+            ├── 05_visualise_data.R
+            └── 06_model_data.R
+```
+
+The workflow folder contains your complete analysis script. The separate files
+in here are prepended with numbers for an ordering. The files are further named
+after typical stages of a scientific data analysis. You can use the files to
+organized your script.
