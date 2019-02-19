@@ -37,6 +37,19 @@ create_project(root_folder = choose.dir(),
 					           last_name = "Your last name"))
 ```
 
+This may take a while as it installs an independent R enviroment and packages
+into your new project. Afterwards you can enable the new project from outside
+by executing
+
+```r
+require(mspm)
+enable_project(project_path = <path_to_the_project_directory>)
+```
+
+This may take a while as it installs an independent R enviroment and packages
+into your new project. Afterwards you can enable the new project from outside
+by executing
+
 ### Project structure
 
 ```
