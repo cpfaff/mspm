@@ -50,10 +50,10 @@ task. It makes sense to put this folder inside your users directory somewhere.
 
 ```r
 # syntax
-yspm::setup(root_path = <a new folder which will contain all your projects>)
+yspm::setup_project_managment(root_path = <a new folder which will contain all your projects>)
 
 # example (on linux)
-yspm::setup(root_path = "~/r_projects")
+yspm::setup_project_managment(root_path = "~/r_projects")
 ```
 
 The function creates the folder of your choice and inside of it a file called
