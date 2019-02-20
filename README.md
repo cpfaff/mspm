@@ -381,7 +381,7 @@ into our workflow.
 
 Then we add the following line to our `01_main.R` file
 
-```r
+```
 2019-02-19_my_full_name
 └── project
     └── source
