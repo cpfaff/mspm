@@ -399,7 +399,7 @@ Then we add the following line to our `01_main.R` file
 
             ... file content ...
 
-            source(project_content(source/function/02_import_data.R))
+            source(project_content("source/function/02_import_data.R"))
 
             ...
 ```
@@ -407,5 +407,5 @@ Then we add the following line to our `01_main.R` file
 Which turns into:
 
 ```r
-source(2019-02-19_my_full_name/project/source/function/02_import_data.R))
+source("2019-02-19_my_full_name/project/source/function/02_import_data.R"))
 ```
