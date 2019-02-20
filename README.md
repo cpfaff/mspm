@@ -381,7 +381,7 @@ into our workflow.
 
 Then we add the following line to our `01_main.R` file
 
-```
+```r
 2019-02-19_my_full_name
 └── project
     └── source
@@ -402,4 +402,10 @@ Then we add the following line to our `01_main.R` file
             source(project_content(source/function/02_import_data.R))
 
             ...
+```
+
+Which turns into:
+
+```r
+source(2019-02-19_my_full_name/project/source/function/02_import_data.R))
 ```
