@@ -28,7 +28,7 @@ follow the instructions below.
 ```r
 install.packages("devtools")
 require(devtools)
-install_github("cpfaff/mspm", subdir = "mspm")
+install_github("cpfaff/yspm", subdir = "yspm")
 install_github("cpfaff/checkpoint")
 ```
 
@@ -39,7 +39,7 @@ install_github("cpfaff/checkpoint")
 To create a new project simply call the function below.
 
 ```r
-require(mspm)
+require(yspm)
 create_project(root_folder = choose.dir(),
 	       project_name = compile_project_name(first_name = "Your first name",
 					           last_name = "Your last name"))
@@ -56,7 +56,7 @@ independent R environment and packages into your new project. Afterwards you
 can enable the new project from outside by executing the function below.
 
 ```r
-require(mspm)
+require(yspm)
 enable_project(project_path = <path_to_the_project_directory>)
 ```
 

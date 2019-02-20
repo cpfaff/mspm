@@ -1,5 +1,5 @@
 
-Package: mspm
+Package: yspm
 Title: My Small Project Management
 Version: 0.0.0.1
 Authors@R: person("Claas-Thido", "Pfaff", 

@@ -41,7 +41,7 @@ constructed_library_calls =
 lapply(constructed_library_calls,
        function(a_recommended_library){
          write(a_recommended_library,
-               file = path(project_path, mspm::project_structure("file_packages")),
+               file = path(project_path, yspm::project_structure("file_packages")),
                append = TRUE)
        }
       )
@@ -55,7 +55,7 @@ constructed_library_calls = lapply(mandatory_packages,
 lapply(constructed_library_calls,
        function(a_mandatory_library){
          write(a_mandatory_library,
-               file = path(project_path, mspm::project_structure("file_packages")),
+               file = path(project_path, yspm::project_structure("file_packages")),
                append = TRUE)
          }
       )
