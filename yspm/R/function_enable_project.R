@@ -103,7 +103,7 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
              forceSetMranMirror = T,
              installPackagesWithDependency = T,
              snapshotDate = project_creation_date,
-             scanForPackages = T,
+             scanForPackages = F,
              verbose = F,
              checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
              project = project_path)

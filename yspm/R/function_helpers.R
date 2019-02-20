@@ -106,3 +106,67 @@ write_list_to_dcf <- function(list, filename)
   database_input <- lapply(list, function(x) paste0(x, collapse = ","))
   quiet(write.dcf(database_input, filename))
 }
+
+
+# a directory tree
+show_project_tree <- function(path = getwd(), level = Inf) {
+  fad <-
+    list.files(path = path, recursive = TRUE,no.. = TRUE, include.dirs = TRUE)
+  fad_split_up <- strsplit(fad, "/")
+  too_deep <- lapply(fad_split_up, length) > level
+  fad_split_up[too_deep] <- NULL
+  jfun <- function(x) {
+    n <- length(x)
+    if(n > 1)
+      x[n - 1] <- "|__"
+    if(n > 2)
+      x[1:(n - 2)] <- "   "
+    x <- if(n == 1) c("-- ", x) else c("   ", x)
+    x
+  }
+  fad_subbed_out <- lapply(fad_split_up, jfun)
+  cat(unlist(lapply(fad_subbed_out, paste, collapse = "")), sep = "\n")
+}
+
+
+# get the sourced file name
+get_sourced_file_directory <- function() {
+    cmdArgs <- commandArgs(trailingOnly = FALSE)
+    needle <- "--file="
+    match <- grep(needle, cmdArgs)
+    if (length(match) > 0) {
+        # Rscript
+        return(dirname(normalizePath(sub(needle, "", cmdArgs[match]))))
+    } else {
+        # 'source'd via R console
+        return(dirname(normalizePath(sys.frames()[[1]]$ofile)))
+    }
+}
+
+# file contents
+content_setup_manage_projects = '
+
+# Make sure that the working directory is set to the directory of this file.
+# Afterwards you can start managing your r projects with yspm.
+
+# check where you are
+getwd()
+
+# set it to your project location
+# setdw(<your projects directory>)
+
+# load the project mangement package
+require(yspm)
+
+# create a new project
+# yspm::create_project(project_name = compile_project_name(project_date = "2019-02-20",
+                                                         # first_name = "Claas-Thido",
+                                                         # last_name = "Pfaff",
+                                                         # project_category = "PhD"))
+
+# enable a project
+# yspm::enable_project(project_name = compile_project_name(project_date = "2019-02-20",
+                                                         # first_name = "Claas-Thido",
+                                                         # last_name = "Pfaff",
+                                                         # project_category = "PhD"))
+'

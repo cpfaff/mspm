@@ -28,36 +28,59 @@ follow the instructions below.
 ```r
 install.packages("devtools")
 require(devtools)
-install_github("cpfaff/yspm", subdir = "yspm")
 install_github("cpfaff/checkpoint")
+install_github("cpfaff/yspm", subdir = "yspm")
 ```
 
 ## Getting started
 
-### Create a new project
+### Setup
 
-To create a new project simply call the function below.
+After you have installed everything you need to setup a location where all your
+future r projects will be managed in. The `yspm` package assits you with this
+task. It makes sense to put this folder inside your users directory somwhere.
 
 ```r
-require(yspm)
+# syntax
+yspm::setup(root_path = <a new folder which will contain all your projects>)
+
+# example (on linux)
+yspm::setup(root_path = "~/r_projects")
+```
+
+The function creates the folder of your choice and inside of if a file called
+`manage_projects.R`. From now on you can manage your projects from this file.
+Make sure that you set the working directory to the new projects folder when
+working within the `manage_projects.R` file. It also contains some boilerplate
+code and examples to get you started.
+
+### Create a new project
+
+From now on for project management related task swe are working Inside the
+`manage_projects.R` file. To create a new project simply add the function below
+and call it.
+
+```r
 create_project(root_folder = choose.dir(),
 	       project_name = compile_project_name(first_name = "Your first name",
 					           last_name = "Your last name"))
 ```
 
 The function creates a new project folder structure in the `root_folder` which
-defaults to the current working directory. You should place your projects in a
-path where you store all your R projects. You can provide your project name
-manually, however here a convenient function is used which compiles a project
-name from the information given (`YYYY-MM-DD_your_first_name_your_last_name`).
+defaults to the current working directory and with this to your projects
+folder. You should place your projects in a path where you store all your R
+projects. You can provide your project name manually, however here a convenient
+function is used which compiles a project name from the information given
+(`YYYY-MM-DD_your_first_name_your_last_name`).
 
 Note. The process to create a new project may take a while as it installs an
 independent R environment and packages into your new project. Afterwards you
 can enable the new project from outside by executing the function below.
 
 ```r
-require(yspm)
-enable_project(project_path = <path_to_the_project_directory>)
+enable_project(root_folder = choose.dir(),
+	       project_name = compile_project_name(first_name = "Your first name",
+					           last_name = "Your last name"))
 ```
 
 ### Project structure
@@ -66,8 +89,9 @@ Below you find an overview about the overall folder structure and a
 documentation of the structure and contents.
 
 NOTE: All files that you place somewhere in the structure should be named in
-snake case. This means you use meaningful names and separate single words with
-an underscore (e.g. `snake_case.R`, `raw_data.csv`)
+snake case. This means separate single words with an underscore (e.g.
+`snake_case.R`, `raw_tree_data.csv`). You should also carefully select the
+names of files to best reflect their contents. I know this is hard, but try!
 
 * Full overview
 
@@ -102,7 +126,6 @@ an underscore (e.g. `snake_case.R`, `raw_data.csv`)
         │   └── packages.R
         └── workflow
             ├── 01_main.R
-            ├── 01_scratchpad.R
             ├── 02_import_data.R
             ├── 03_clean_data.R
             ├── 04_transform_data.R
@@ -224,7 +247,6 @@ work put the document into that folder.
         │   └── packages.R
         └── workflow
             ├── 01_main.R
-            ├── 01_scratchpad.R
             ├── 02_import_data.R
             ├── 03_clean_data.R
             ├── 04_transform_data.R

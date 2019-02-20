@@ -30,7 +30,6 @@
       file_library_model_data = "project/source/function/06_model_data.R",
       folder_source_workflow = "project/source/workflow",
       file_workflow_main = "project/source/workflow/01_main.R",
-      file_workflow_scratchpad = "project/source/workflow/01_scratchpad.R",
       file_workflow_import_data = "project/source/workflow/02_import_data.R",
       file_workflow_clean_data = "project/source/workflow/03_clean_data.R",
       file_workflow_transform_data = "project/source/workflow/04_transform_data.R",

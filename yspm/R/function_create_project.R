@@ -84,7 +84,6 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   file_create(path(project_path, yspm::project_structure("file_library_visualise_data")))
   file_create(path(project_path, yspm::project_structure("file_library_model_data")))
   file_create(path(project_path, yspm::project_structure("file_workflow_main")))
-  file_create(path(project_path, yspm::project_structure("file_workflow_scratchpad")))
   file_create(path(project_path, yspm::project_structure("file_workflow_import_data")))
   file_create(path(project_path, yspm::project_structure("file_workflow_clean_data")))
   file_create(path(project_path, yspm::project_structure("file_workflow_transform_data")))
@@ -111,12 +110,14 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
              forceSetMranMirror = T,
              installPackagesWithDependency = T,
              snapshotDate = as.character(Sys.Date()),
-             scanForPackages = T,
-             verbose = F,
+             forceCreateFolders = T,
+             scanForPackages = F,
+             verbose = T,
              checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
              project = project_path)
-  install_github("ctpfaff/yspm", subdir = "yspm")
-  install_github("ctpfaff/checkpoint", subdir = "yspm")
+  install.packages("devtools")
+  install_github("cpfaff/checkpoint")
+  install_github("cpfaff/yspm", subdir = "yspm")
   setwd(wd_before)
   options(repos = repo_before)
 

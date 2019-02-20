@@ -25,8 +25,8 @@ project_content <- function(path = NULL){
         stop("the function project_content: can only work when a project enabled.")
     }
     if(is.null(path)){
-        stop("the function project_content: requires a path to the file or folder you want to reference")
+        show_project_tree(path = path(enabled_project("project_path")))
+    } else {
+        path(enabled_project("project_path"), "project", path)
     }
-
-    path(enabled_project("project_path"), "project", path)
 }
