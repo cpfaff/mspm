@@ -50,40 +50,46 @@ task. It makes sense to put this folder inside your users directory somewhere.
 
 ```r
 # syntax
-yspm::setup_project_managment(root_path = <a new folder which will contain all your projects>)
+yspm::setup(root_path = <a new folder which will contain all your projects>)
 
 # example (on linux)
-yspm::setup_project_managment(root_path = "~/r_projects")
+yspm::setup(root_path = "~/r_projects")
 ```
 
-The function creates the folder of your choice and inside of it a file called
-`manage_projects.R`. From now on you can manage your projects from this file.
-Make sure that you set the working directory to the new projects folder when
-working within the `manage_projects.R` file. It also contains some boilerplate
-code and examples to get you started.
+The function creates the folder of your choice and inside of it a new R file
+called `manage_projects.R`. Using this file as basis you can now start managing
+your projects inside the folder. The file has some example content which helps
+you getting started. Make sure that you set the working directory to the new
+projects folder when working within the `manage_projects.R` file.
+
+```r
+r_projects
+└── manage_projects.R
+```
 
 ### Create a new project
 
-From now on for project management related tasks, we are working inside the
-`manage_projects.R` file. To create a new project simply add the function below
-and call it.
+From inside the `manage_projects.R` file we create a new project simply calling
+the function below.
 
 ```r
-create_project(root_folder = choose.dir(),
-	       project_name = compile_project_name(first_name = "Your first name",
+create_project(project_name = compile_project_name(first_name = "Your first name",
 					           last_name = "Your last name"))
 ```
 
-The function creates a new project folder structure in the `root_folder` which
-defaults to the current working directory and with this to your projects
-folder. You should place your projects in a path where you store all your R
-projects. You can provide your project name manually, however here a convenient
-function is used which compiles a project name from the information given
-(`YYYY-MM-DD_your_first_name_your_last_name`).
+It creates a new project folder in a location you desire. This location
+defaults to the current working directory. If you set this correctly then the
+new project will be created in your projects directory next to the
+`manage_projects.R` file. While you can provide any project folder name we here
+use a function to help us to compile consistent project names
+`compile_project_name()`. It requires your first and lat name and automatically
+prepends the creation date of the project which helps sorring when you have
+many projects in that folder (The format is
+`YYYY-MM-DD_your_first_name_your_last_name`).
 
 Note. The process to create a new project may take a while as it installs an
 independent R environment and packages into your new project. Afterwards you
-can enable the new project from outside by executing the function below.
+can enable the new project by executing the function below.
 
 ```r
 enable_project(root_folder = choose.dir(),
@@ -93,15 +99,17 @@ enable_project(root_folder = choose.dir(),
 
 ### Project structure
 
-Below you find an overview about the overall folder structure and a
-documentation of the structure and contents.
+To get a better overview of the project folder structure a documentation of
+of the folders and files is provided below.
 
-NOTE: All files that you place somewhere in the structure should be named in
-snake case. This means separate single words with an underscore (e.g.
-`snake_case.R`, `raw_tree_data.csv`). You should also carefully select the
-names of files to best reflect their contents. I know this is hard, but try!
+NOTE: While you can name your files whatever you want it is recommended to
+follow some naming conventions. You should only use small letters, no special
+characters, no trailing and leading spaces and separate single words with an
+understore (i.e. snake_case, e.g. raw_tree_data.csv). You should also carefully
+select the names of files to best reflect their contents. I know this is hard,
+but try it!
 
-* Full overview
+* full overview
 
 ```
 2019-02-19_my_full_name
@@ -263,8 +271,8 @@ work put the document into that folder.
 ```
 
 The source folder is separated into three sub-folders. It is the place which
-stores all external and internal source code. If you include a package it goes
-here.
+stores all external and internal source code. If you install a package it goes
+here. If you load a library it goes here. If you analyse data it goes here.
 
 * source > function
 
@@ -282,11 +290,12 @@ here.
 ```
 
 As a rule of thumb. When you have to copy and paste code more than 2 times in
-your scripts, write a function from that code so that you can reuse it across
-your project. These functions go into the function folder. The separate files
-in here are prepended with numbers for an ordering. The files are further named
-after typical stages of a scientific data analysis. You can use the files to
-organized your functions.
+your scripts, write a function so you can reuse it across your project. These
+functions go into the function folder. The separate files in here are prepended
+with numbers for a logical ordering of tasks. The files are named after typical
+stages of a scientific data analysis workflow. You can use the this to organize
+your functions. Then you can source the files in each of the files in the
+workflow folder where it is needed to use the functionality.
 
 * source > library
 
@@ -299,13 +308,13 @@ organized your functions.
 ```
 
 The library contains your package management. In your analysis you will quickly
-want to install the first R packages. Mention them in here and import that file
-in the main script in the workflow folder. This folder is also the place where
-the R packages are installed when you have used the `enable_project()`
-function.
+want to install R packages to use the functionality they are providing. After
+enableling a project install them into the project with the
+`install.packages()` function. Load them from the `packages.R` file with the
+`library(<packagename>)` function. This file should be imported into the main
+script in the workflow folder.
 
 * source > workflow
-
 
 ```
 2019-02-19_my_full_name
@@ -321,6 +330,76 @@ function.
 ```
 
 The workflow folder contains your complete analysis script. The separate files
-in here are prepended with numbers for an ordering. The files are further named
-after typical stages of a scientific data analysis. You can use the files to
-organized your script.
+in here are prepended with numbers for an ordering. The files are named after
+typical stages of a scientific data analysis. You can use the files to
+organized your script. The `01_main.R` file as a special role. It orchestrates
+your whole R project. It sources the the `packages.R` file as well as the
+personal library of functions and the worlflow files if the script is spread
+across multiple files. For this also convenient functions exists to help
+you (e.g. `project_content()`).
+
+
+### References
+
+A typical problem which breaks code is using paths e.g. in setting the working
+directory in the beginning of a script. This is likely only working for the
+very environment and only for a short time. If your code is shared the
+likelyhood of the `setwd()` working on another computer is 0%. Thus the `yspm`
+provides a function to reference content in the project which will always work
+when the tool is setup like explained above and a project is enabled. It works
+similar like the `here` R package and constructs paths always from the top of
+your active project. For example if the project `2019-02-19_my_full_name` is
+activated from your `manage_projects.R` file then the function `reference_content()`
+will use that folder as root to construct paths. As each project contains a
+folder named `project` the function also adds `project` to the path for you.
+
+Lets say we want to source one of the `02_import_data.R` file from the source
+folder in the `01_main.R` file in the workflow folder to import the functions
+into our workflow.
+
+```
+2019-02-19_my_full_name
+└── project
+    └── source
+        ├── function
+        │   ├── 01_main.R
+        │   ├── 02_import_data.R
+        │   ├── 03_clean_data.R
+        │   ├── 04_transform_data.R
+        │   ├── 05_visualise_data.R
+        │   └── 06_model_data.R
+        ├── library
+        │   └── packages.R
+        └── workflow
+            ├── 01_main.R
+            ├── 02_import_data.R
+            ├── 03_clean_data.R
+            ├── 04_transform_data.R
+            ├── 05_visualise_data.R
+            └── 06_model_data.R
+```
+
+Then we add the following line to our `01_main.R` file
+
+```r
+2019-02-19_my_full_name
+└── project
+    └── source
+        ├── function
+        │   ├── 01_main.R
+        │   ├── 02_import_data.R
+        │   ├── 03_clean_data.R
+        │   ├── 04_transform_data.R
+        │   ├── 05_visualise_data.R
+        │   └── 06_model_data.R
+        ├── library
+        │   └── packages.R
+        └── workflow
+            ├── 01_main.R
+
+            ... file content ...
+
+            source(project_content(source/function/02_import_data.R))
+
+            ...
+```

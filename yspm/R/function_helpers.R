@@ -144,29 +144,34 @@ get_sourced_file_directory <- function() {
 }
 
 # file contents
-content_setup_manage_projects = '
-
-# Make sure that the working directory is set to the directory of this file.
+content_setup_manage_projects = '# Make sure that the working directory is set to the directory of this file.
 # Afterwards you can start managing your r projects with yspm.
 
 # check where you are
 getwd()
 
-# set it to your project location
+# if we are not the right directory set it
 # setdw(<your projects directory>)
 
 # load the project mangement package
-require(yspm)
+library(yspm)
 
 # create a new project
-# yspm::create_project(project_name = compile_project_name(project_date = "2019-02-20",
-                                                         # first_name = "Claas-Thido",
-                                                         # last_name = "Pfaff",
-                                                         # project_category = "PhD"))
+create_project(project_name = compile_project_name(project_date = "2019-02-20",
+                                                         first_name = "Claas-Thido",
+                                                         last_name = "Pfaff",
+                                                         project_category = "PhD"))
+
 
 # enable a project
-# yspm::enable_project(project_name = compile_project_name(project_date = "2019-02-20",
-                                                         # first_name = "Claas-Thido",
-                                                         # last_name = "Pfaff",
-                                                         # project_category = "PhD"))
+enable_project(project_name = compile_project_name(project_date = "2019-02-20",
+                                                         first_name = "Claas-Thido",
+                                                         last_name = "Pfaff",
+                                                         project_category = "PhD"))
+
+# shows info for the enabled project
+enabled_project()
+
+# shows the folder structure and files in the active project
+project_content()
 '

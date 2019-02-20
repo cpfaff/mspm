@@ -12,7 +12,9 @@ Description: The package provides a set of utilities for
              project.
 Depends: R (>= 3.5.1),
 Imports:
-    parallel
+    parallel,
+    import,
+    magrittr
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat

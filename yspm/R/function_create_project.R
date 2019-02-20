@@ -112,12 +112,13 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
              snapshotDate = as.character(Sys.Date()),
              forceCreateFolders = T,
              scanForPackages = F,
-             verbose = T,
+             verbose = F,
              checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
              project = project_path)
+
   install.packages("devtools")
-  install_github("cpfaff/checkpoint")
-  install_github("cpfaff/yspm", subdir = "yspm")
+  devtools::install_github("cpfaff/checkpoint")
+  devtools::install_github("cpfaff/yspm", subdir = "yspm")
   setwd(wd_before)
   options(repos = repo_before)
 
