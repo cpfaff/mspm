@@ -1,16 +1,20 @@
 # Your small project management
 
 This repository provides an R package which helps with project management in R.
-It provides a predefined folder and file structure, and convenient functions
-which help make the project self contained, shareable and reproducible.
+It provides functions to create a predefined folder structure. It has the
+primary goal to help you structure your projects while convenient functions
+allow you creating self contained, shareable and reproducible code. For this
+several nice tools (e.g. the checkpoint package, ProjectTemplate) and ideas
+(like form the here package) which are floating around in the R community are
+wrapped up into a streamlined solution.
 
 ## Installation
 
 In order to work with the project management tool you need to be able building
-R packages locally. This includes the installation of the GNU software
-development tools which comprise a C/C++ compiler and LaTeX for building R
-manuals and vignettes. Below are links or instructions for different operating
-systems.
+R packages locally on your computer. This requires the installation of the GNU
+software development tools which comprise a C/C++ compiler and LaTeX if you
+want to be able building R manuals and vignettes. Below you can find links and
+instructions for different operating systems.
 
 * Windows:
     - https://cran.rstudio.com/bin/windows/Rtools/
@@ -21,9 +25,13 @@ systems.
     - https://itunes.apple.com/us/app/xcode/id497799835?mt=12
     - http://www.tug.org/mactex/downloading.html
 
+* Linux
+    - Well that highly depends on your Linux-Distribution. Check out the Wiki
+      of your distribution or ask google.
+
 The package can be installed from GitHub using the `devtools` package. It also
-requires a modified version of the checkpoint package to be installed. Just
-follow the instructions below.
+requires a modified version of the checkpoint package to be installed which is
+is more adjustable in its behavior. Just follow the instructions below.
 
 ```r
 install.packages("devtools")
@@ -36,9 +44,9 @@ install_github("cpfaff/yspm", subdir = "yspm")
 
 ### Setup
 
-After you have installed everything you need to setup a location where all your
-future r projects will be managed in. The `yspm` package assits you with this
-task. It makes sense to put this folder inside your users directory somwhere.
+After you have installed everything, you need to setup a location where all
+your future R-projects will reside in. The `yspm` package assists you with this
+task. It makes sense to put this folder inside your users directory somewhere.
 
 ```r
 # syntax
@@ -48,7 +56,7 @@ yspm::setup(root_path = <a new folder which will contain all your projects>)
 yspm::setup(root_path = "~/r_projects")
 ```
 
-The function creates the folder of your choice and inside of if a file called
+The function creates the folder of your choice and inside of it a file called
 `manage_projects.R`. From now on you can manage your projects from this file.
 Make sure that you set the working directory to the new projects folder when
 working within the `manage_projects.R` file. It also contains some boilerplate
@@ -56,7 +64,7 @@ code and examples to get you started.
 
 ### Create a new project
 
-From now on for project management related task swe are working Inside the
+From now on for project management related tasks, we are working inside the
 `manage_projects.R` file. To create a new project simply add the function below
 and call it.
 
