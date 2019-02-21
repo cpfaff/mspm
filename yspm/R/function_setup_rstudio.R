@@ -1,5 +1,5 @@
 setup_rstudio <- function(path, ...) {
-  require(mspm)
+  require(yspm)
   arg.list <- list(root_folder = path(path), ...)
-  do.call(mspm::setup,arg.list)
+  do.call(yspm::setup,arg.list)
 }
