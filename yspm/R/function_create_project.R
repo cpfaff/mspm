@@ -24,6 +24,7 @@
 #'
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
+#' @importFrom withr with_libpaths
 #'
 #' @export create_project
 
@@ -105,6 +106,9 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
 
   wd_before = getwd()
   repo_before = getOption("repos")
+  lib_paths_before = unique(.libPaths())
+
+  setwd(project_path)
 
   # if we run in rstudio
   if(Sys.getenv("RSTUDIO") == "1"){
@@ -114,7 +118,6 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
     quiet(suppressWarnings(lapply(detachable_packages, function(package) { try(detach(paste0("package:", package), character.only=TRUE, unload=TRUE, force=TRUE), silent = T)})))
   }
 
-  setwd(project_path)
   checkpoint(authorizeFileSystemUse = F,
              forceSetMranMirror = T,
              installPackagesWithDependency = T,
@@ -125,9 +128,13 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
              checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
              project = project_path)
 
-  install.packages("devtools")
-  devtools::install_github("cpfaff/checkpoint")
-  devtools::install_github("cpfaff/yspm", subdir = "yspm")
+  lib_path_for_project = unique(.libPaths())
+
+  .libPaths(lib_paths_before)
+
+  withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/checkpoint"))
+  withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/yspm", subdir = "yspm"))
+
   setwd(wd_before)
   options(repos = repo_before)
 
