@@ -44,6 +44,8 @@ install_github("cpfaff/yspm", subdir = "yspm")
 
 ### Setup
 
+#### From an r-script
+
 After you have installed everything, you need to setup a location where all
 your future R-projects will reside in. The `yspm` package assists you with this
 task. It makes sense to put this folder inside your users directory somewhere.
@@ -59,13 +61,20 @@ yspm::setup(root_path = "~/r_projects")
 The function creates the folder of your choice and inside of it a new R file
 called `manage_projects.R`. Using this file as basis you can now start managing
 your projects inside the folder. The file has some example content which helps
-you getting started. Make sure that you set the working directory to the new
-projects folder when working within the `manage_projects.R` file.
+you getting started. Open the file and make sure that you set the working
+directory to the new projects folder when working.
 
 ```r
 r_projects
 └── manage_projects.R
 ```
+
+#### From an R-studio
+
+You can also use R-Studio to setup your new project management. Just click on
+
+* File > New Project > New Directory
+
 
 ### Create a new project
 
