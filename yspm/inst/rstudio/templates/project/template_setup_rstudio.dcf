@@ -1,0 +1,9 @@
+Binding: setup_rstudio
+Title: My Small Project Template
+OpenFiles: */manage_projects.R 
+
+Parameter: root_folder
+Widget: TextInput
+Label: The project folder
+Default:
+Position: left
