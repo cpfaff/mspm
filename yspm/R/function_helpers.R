@@ -150,24 +150,21 @@ content_setup_manage_projects = '# Make sure that the working directory is set t
 # check where you are
 getwd()
 
-# if we are not the right directory set it
+# if we are not in the right directory set it now
 # setdw(<your projects directory>)
 
 # load the project mangement package
 library(yspm)
 
 # create a new project
-create_project(project_name = compile_project_name(project_date = "2019-02-20",
-                                                         first_name = "Claas-Thido",
-                                                         last_name = "Pfaff",
-                                                         project_category = "PhD"))
-
+create_project(project_name = compile_project_name(first_name = "Claas-Thido",
+                                                   last_name = "Pfaff",
+                                                   project_category = "PhD"))
 
 # enable a project
-enable_project(project_name = compile_project_name(project_date = "2019-02-20",
-                                                         first_name = "Claas-Thido",
-                                                         last_name = "Pfaff",
-                                                         project_category = "PhD"))
+enable_project(project_name = compile_project_name(first_name = "Claas-Thido",
+                                                   last_name = "Pfaff",
+                                                   project_category = "PhD"))
 
 # shows info for the enabled project
 enabled_project()

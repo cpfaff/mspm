@@ -110,15 +110,13 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
 
   setwd(project_path)
 
-  # if we run in rstudio
+  # if we run in rstudio to prevent the dialogue
   if(Sys.getenv("RSTUDIO") == "1"){
     loaded_packages = names(sessionInfo()$otherPkgs)
      if("devtools" %in% loaded_packages){
       detachable_packages = "devtools"
       quiet(suppressWarnings(lapply(detachable_packages, function(package) { try(detach(paste0("package:", package), character.only=TRUE, unload=TRUE, force=TRUE), silent = T)})))
      }
-    # detachable_packages = current_session_packages[!current_session_packages %in% c("yspm", "nvimcom")]
-    # quiet(suppressWarnings(lapply(detachable_packages, function(package) { try(detach(paste0("package:", package), character.only=TRUE, unload=TRUE, force=TRUE), silent = T)})))
   }
 
   checkpoint(authorizeFileSystemUse = F,
@@ -140,12 +138,7 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
 
   setwd(wd_before)
   options(repos = repo_before)
-
-  # if we run in rstudio
-  # if(Sys.getenv("RSTUDIO") == "1"){
-    # # reload the packages
-    # quiet(suppressWarnings(lapply(loaded_packages, function(package){try(require(package, character.only = TRUE), silent = T)})))
-  # }
+  quiet(require(yspm))
 
   message("")
   message("Done:")
