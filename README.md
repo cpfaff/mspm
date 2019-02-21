@@ -83,7 +83,7 @@ Management Template" and select it.
 Next you have to fill out a small form providing a folder name that should be
 used for all your new R projects and a location this folder should be based in.
 
-![select template](assets/figures/documentation_dialogue_project_template.png "Select Template")
+![select template](assets/figures/documentation_dialogue_fill_template_fields.png "Select Template")
 
 The process creates the new folder and the `manage_projects.R` file. Finally it
 open the project management file  and you can directly start from there.
