@@ -105,6 +105,7 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
 
   wd_before = getwd()
   repo_before = getOption("repos")
+
   setwd(project_path)
   checkpoint(authorizeFileSystemUse = F,
              forceSetMranMirror = T,
@@ -116,11 +117,25 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
              checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
              project = project_path)
 
+  # if we run in rstudio
+  if(Sys.getenv("RSTUDIO") == "1"){
+    loaded_packages = names(sessionInfo()$otherPkgs)
+    detachable_packages = loaded_packages
+    # detachable_packages = current_session_packages[!current_session_packages %in% c("yspm", "nvimcom")]
+    quiet(suppressWarnings(lapply(detachable_packages, function(package) { try(detach(paste0("package:", package), character.only=TRUE, unload=TRUE, force=TRUE), silent = T)})))
+  }
+
   install.packages("devtools")
   devtools::install_github("cpfaff/checkpoint")
   devtools::install_github("cpfaff/yspm", subdir = "yspm")
   setwd(wd_before)
   options(repos = repo_before)
+
+  # if we run in rstudio
+  if(Sys.getenv("RSTUDIO") == "1"){
+    # reload the packages
+    quiet(suppressWarnings(lapply(loaded_packages, function(package){try(require(package, character.only = TRUE), silent = T)})))
+  }
 
   message("")
   message("Done:")
