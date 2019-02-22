@@ -22,13 +22,13 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#' 
+#'
 #' enable_project(
 #'   root_folder = "~/",
 #'   project_name = "my_phd_project"
 #' )
 #' }
-#' 
+#'
 #' @import checkpoint
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @importFrom magrittr "%>%"
@@ -96,7 +96,6 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
   message(paste("* to:", project_path))
   message("---")
 
-  setwd(project_path)
   yspm::enabled_project("project_path" = project_path)
 
   project_creation_date <-

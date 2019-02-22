@@ -91,12 +91,15 @@ enable_project(project_name = compile_project_name(first_name = "Max",
                                                    last_name = "Mustermann",
                                                    project_category = "PhD"))
 
-# shows info for the enabled project
+# shows info about the enabled project
 enabled_project()
 
 # shows the folder structure and files in the active project
 project_content()
 
-# stype project
+# or provides you stable references to files and folders
+project_content("source/library/01_packages.R")
+
+# allows you to style the source code of the active project
 style_project()
 '

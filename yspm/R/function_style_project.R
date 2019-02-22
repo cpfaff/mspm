@@ -6,10 +6,10 @@
 #' @examples
 #' \dontrun{
 #' enable_project(...)
-#' 
-#' style_active_project()
+#'
+#' style_project()
 #' }
-#' 
+#'
 #' @importFrom styler style_dir
 #'
 #' @export style_project
