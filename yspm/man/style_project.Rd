@@ -14,7 +14,7 @@ the source code of your whole project for better readability.
 \dontrun{
 enable_project(...)
 
-style_active_project()
+style_project()
 }
 
 }

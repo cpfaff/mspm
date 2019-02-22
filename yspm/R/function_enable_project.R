@@ -22,21 +22,15 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#'
+#' 
 #' enable_project(
 #'   root_folder = "~/",
 #'   project_name = "my_phd_project"
 #' )
 #' }
-#'
-#' @import checkpoint
+#' 
+#' @importFrom checkpoint checkpoint
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
-#' @importFrom magrittr "%>%"
-#' @importFrom tibble as_tibble
-#' @importFrom readr write_csv
-#' @importFrom stringr str_extract_all str_split
-#' @importFrom magrittr use_series
-#'
 #' @export enable_project
 
 enable_project <- function(root_folder = getwd(), project_name = NULL, project_path = NULL) {

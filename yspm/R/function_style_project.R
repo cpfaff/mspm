@@ -6,12 +6,11 @@
 #' @examples
 #' \dontrun{
 #' enable_project(...)
-#'
+#' 
 #' style_project()
 #' }
-#'
+#' 
 #' @importFrom styler style_dir
-#'
 #' @export style_project
 
 style_project <- function(path = yspm::enabled_project("project_path")) {

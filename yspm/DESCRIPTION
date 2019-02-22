@@ -16,7 +16,9 @@ Imports:
     import,
     magrittr,
     styler,
-    withr
+    withr,
+    devtools,
+    fs
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
