@@ -36,7 +36,6 @@ is more adjustable in its behavior. Just follow the instructions below.
 ```r
 install.packages("devtools")
 require(devtools)
-install_github("cpfaff/checkpoint")
 install_github("cpfaff/yspm", subdir = "yspm")
 ```
 
