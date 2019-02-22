@@ -23,13 +23,13 @@ allows references to files which do not break.
 }
 \examples{
 \dontrun{
- project_content("data/raw/iris.csv")
-     "project_name/project/data/raw/iris.csv"
- project_content()
-    project
-      data
-        ...
-      ...
+project_content("data/raw/iris.csv")
+"project_name/project/data/raw/iris.csv"
+project_content()
+project
+data
+...
+...
 }
 
 }

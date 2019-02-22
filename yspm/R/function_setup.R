@@ -12,11 +12,11 @@
 #' @importFrom fs path dir_create file_create dir_exists
 #'
 #' @export setup
-setup <- function(root_path = NULL){
-  if(is.null(root_path)){
+setup <- function(root_path = NULL) {
+  if (is.null(root_path)) {
     stop("setup failed: it requies the parameter root_folder as otherwise it does not know wehre to set things up.")
   }
-  if(dir_exists(root_path)){
+  if (dir_exists(root_path)) {
     stop("setup failed: the root_folder that you provide already exists!")
   }
 

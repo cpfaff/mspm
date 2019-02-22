@@ -14,7 +14,8 @@ Depends: R (>= 3.5.1),
 Imports:
     parallel,
     import,
-    magrittr
+    magrittr,
+    styler
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat

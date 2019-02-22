@@ -14,26 +14,24 @@
 #'
 #' @examples
 #' \dontrun{
-#'  project_content("data/raw/iris.csv")
-#'      "project_name/project/data/raw/iris.csv"
-#'  project_content()
-#'     project
-#'       data
-#'         ...
-#'       ...
+#' project_content("data/raw/iris.csv")
+#' "project_name/project/data/raw/iris.csv"
+#' project_content()
+#' project
+#' data
+#' ...
+#' ...
 #' }
 #'
 #' @importFrom fs path
 #'
 #' @export project_content
 
-project_content <- function(path = NULL){
-    if(is.null(enabled_project("project_path"))){
-        stop("the function project_content: can only work when a project enabled.")
-    }
-    if(is.null(path)){
-        show_project_tree(path = path(enabled_project("project_path")))
-    } else {
-        path(enabled_project("project_path"), "project", path)
-    }
+project_content <- function(path = NULL) {
+  check_if_project_is_enable()
+  if (is.null(path)) {
+    show_project_tree(path = path(enabled_project("project_path")))
+  } else {
+    path(enabled_project("project_path"), "project", path)
+  }
 }

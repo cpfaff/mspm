@@ -27,10 +27,14 @@ source and reporting to help better organize your new project.
 }
 \examples{
 \dontrun{
- create_project(root_folder = getwd(),
-                project_name = compile_project_name(first_name = "Max",
-                                                    last_name = "Mustermann",
-                                                    project_category "Phd"))
+create_project(
+  root_folder = getwd(),
+  project_name = compile_project_name(
+    first_name = "Max",
+    last_name = "Mustermann",
+    project_category = "Phd"
+  )
+)
 }
 
 }

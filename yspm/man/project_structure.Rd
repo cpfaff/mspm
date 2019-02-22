@@ -23,13 +23,13 @@ Query locations of folder and files
 }
 \examples{
 \dontrun{
- # list all
- agwdm::project_structure()
+# list all
+agwdm::project_structure()
 }
 
 \dontrun{
- # list all
- agwdm::project_structure()
+# list all
+agwdm::project_structure()
 }
 
 }

@@ -21,34 +21,36 @@
 #'
 #' @examples
 #' \dontrun{
-#' create_project_name(first_name = "Max",
-#'                     last_name = "Mustermann",
-#'                     project_category = "PhD")
+#' create_project_name(
+#'   first_name = "Max",
+#'   last_name = "Mustermann",
+#'   project_category = "PhD"
+#' )
 #' }
-#'
+#' 
 #' @importFrom stringr str_detect str_to_lower str_replace_all str_trim
 #'
 #' @export compile_project_name
 
-compile_project_name <- function(project_date = as.character(Sys.Date()), first_name = NULL, last_name = NULL, project_category = NULL){
+compile_project_name <- function(project_date = as.character(Sys.Date()), first_name = NULL, last_name = NULL, project_category = NULL) {
   # errors
-  if(missing(first_name)){
+  if (missing(first_name)) {
     stop("compile_project_name: requires the argument first_name")
   }
-  if(missing(last_name)){
+  if (missing(last_name)) {
     stop("compile_project_name: requires the argument last_name")
   }
   # sanitize input
-  first_name =
+  first_name <-
     str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(first_name, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
-  last_name =
+  last_name <-
     str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(last_name, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
   # return
-  if(missing(project_category)){
+  if (missing(project_category)) {
     return(paste(c(as.character(project_date), first_name, last_name), collapse = "_"))
   } else {
-    project_category =
+    project_category <-
       str_to_lower(str_replace_all(str_trim(str_replace_all(str_replace_all(project_category, "[[:punct:]]", " "), "\\s+", " "), side = "both"), "\\s", "_"))
-    return(paste(c(as.character(project_date), first_name, last_name, project_category), collapse = "_" ))
+    return(paste(c(as.character(project_date), first_name, last_name, project_category), collapse = "_"))
   }
 }

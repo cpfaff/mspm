@@ -15,10 +15,10 @@ Query information about the active project
 }
 \examples{
 \dontrun{
- # list all
- agwdm::enabled_project()
- # get the active project checkpoint
- agwdm::enabled_project("project_checkpoint")
+# list all
+agwdm::enabled_project()
+# get the active project checkpoint
+agwdm::enabled_project("project_checkpoint")
 }
 
 }

@@ -33,9 +33,11 @@ except for the date. An example folder name woujld be
 }
 \examples{
 \dontrun{
-create_project_name(first_name = "Max",
-                    last_name = "Mustermann",
-                    project_category = "PhD")
+create_project_name(
+  first_name = "Max",
+  last_name = "Mustermann",
+  project_category = "PhD"
+)
 }
 
 }

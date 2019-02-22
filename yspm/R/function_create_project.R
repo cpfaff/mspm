@@ -16,10 +16,14 @@
 #'
 #' @examples
 #' \dontrun{
-#'  create_project(root_folder = getwd(),
-#'                 project_name = compile_project_name(first_name = "Max",
-#'                                                     last_name = "Mustermann",
-#'                                                     project_category "Phd"))
+#' create_project(
+#'   root_folder = getwd(),
+#'   project_name = compile_project_name(
+#'     first_name = "Max",
+#'     last_name = "Mustermann",
+#'     project_category = "Phd"
+#'   )
+#' )
 #' }
 #'
 #' @importFrom fs path dir_create file_create
@@ -29,14 +33,14 @@
 #' @export create_project
 
 create_project <- function(root_folder = getwd(), project_name = NULL, project_path = NULL) {
-  if(is.null(project_name)){
+  if (is.null(project_name)) {
     stop("create_project: requires the parameter project name")
   }
-  if(!is.character(project_name)){
+  if (!is.character(project_name)) {
     stop("create_project: parameter project name needs to be provided as character")
   }
-  if(is.null(project_path)){
-    project_path = path(root_folder, project_name)
+  if (is.null(project_path)) {
+    project_path <- path(root_folder, project_name)
   }
 
   big_message("Creating your project")
@@ -48,7 +52,7 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   message(paste("* in:", project_path))
   message("---")
 
-  if(is_dir(path(project_path, "project"))){
+  if (is_dir(path(project_path, "project"))) {
     stop("The function create_project: cannot create a project inside an existing one.
          Please Select another project folder. If you want to work on the project
          then execute the function enable_project(<project_path>)")
@@ -94,7 +98,7 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   construct_file_packages(project_path = project_path)
 
   # setting system checkpoint date into checkpoint file
-  system_date_for_checkpoint = list(checkpoint = Sys.Date())
+  system_date_for_checkpoint <- list(checkpoint = Sys.Date())
   write_list_to_dcf(system_date_for_checkpoint, path(project_path, yspm::project_structure("file_metadata_checkpoint")))
 
   message("")
@@ -103,32 +107,36 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   message(paste("* in:", project_path))
   message("---")
 
-  wd_before = getwd()
-  repo_before = getOption("repos")
-  lib_paths_before = unique(.libPaths())
+  wd_before <- getwd()
+  repo_before <- getOption("repos")
+  lib_paths_before <- unique(.libPaths())
 
   setwd(project_path)
 
   # if we run in rstudio to prevent the dialogue when devtools is loaded (can be other packages as well actually)
-  if(Sys.getenv("RSTUDIO") == "1"){
-    loaded_packages = names(sessionInfo()$otherPkgs)
-     if("devtools" %in% loaded_packages){
-      detachable_packages = "devtools"
-      quiet(suppressWarnings(lapply(detachable_packages, function(package) { try(detach(paste0("package:", package), character.only=TRUE, unload=TRUE, force=TRUE), silent = T)})))
-     }
+  if (Sys.getenv("RSTUDIO") == "1") {
+    loaded_packages <- names(sessionInfo()$otherPkgs)
+    if ("devtools" %in% loaded_packages) {
+      detachable_packages <- "devtools"
+      quiet(suppressWarnings(lapply(detachable_packages, function(package) {
+        try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
+      })))
+    }
   }
 
-  checkpoint(authorizeFileSystemUse = F,
-             forceSetMranMirror = T,
-             installPackagesWithDependency = T,
-             snapshotDate = as.character(Sys.Date()),
-             forceCreateFolders = T,
-             scanForPackages = F,
-             verbose = F,
-             checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
-             project = project_path)
+  checkpoint(
+    authorizeFileSystemUse = F,
+    forceSetMranMirror = T,
+    installPackagesWithDependency = T,
+    snapshotDate = as.character(Sys.Date()),
+    forceCreateFolders = T,
+    scanForPackages = F,
+    verbose = F,
+    checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
+    project = project_path
+  )
 
-  lib_path_for_project = unique(.libPaths())
+  lib_path_for_project <- unique(.libPaths())
 
   .libPaths(lib_paths_before)
 

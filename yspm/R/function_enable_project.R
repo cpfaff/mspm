@@ -14,15 +14,21 @@
 #'
 #' @examples
 #' \dontrun{
-#'  enable_project(root_folder = getwd(),
-#'                project_name = compile_project_name(first_name = "Max",
-#'                                                    last_name = "Mustermann",
-#'                                                    project_category "Phd"))
-#'
-#'  enable_project(root_folder = "~/",
-#'                project_name = "my_phd_project")
+#' enable_project(
+#'   root_folder = getwd(),
+#'   project_name = compile_project_name(
+#'     first_name = "Max",
+#'     last_name = "Mustermann",
+#'     project_category = "Phd"
+#'   )
+#' )
+#' 
+#' enable_project(
+#'   root_folder = "~/",
+#'   project_name = "my_phd_project"
+#' )
 #' }
-#'
+#' 
 #' @import checkpoint
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @importFrom magrittr "%>%"
@@ -34,49 +40,53 @@
 #' @export enable_project
 
 enable_project <- function(root_folder = getwd(), project_name = NULL, project_path = NULL) {
-  if(is.null(project_path)){
-    project_path = path(root_folder, project_name)
+  if (is.null(project_path)) {
+    project_path <- path(root_folder, project_name)
   }
 
   # does the project_path exist at all
-  if(!is_dir(path(project_path))){
-      stop(paste("enable_project failed: The project_path you provide does not exist.
+  if (!is_dir(path(project_path))) {
+    stop(paste(
+      "enable_project failed: The project_path you provide does not exist.
                  Please check the spelling.",
-                 project_path))
+      project_path
+    ))
   }
 
   big_message("Enable project")
   small_message("Tasks")
 
-  if(!all(dir_exists(path(project_path, yspm::project_structure("folder_primary_data"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_interim_data"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_cleaned_data"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_figure_external"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_figure_scripted"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_metadata_dataset"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_metadata_package"))),
-          file_exists(path(project_path, yspm::project_structure("file_metadata_checkpoint"))),
-          file_exists(path(project_path, yspm::project_structure("file_metadata_author"))),
-          file_exists(path(project_path, yspm::project_structure("file_metadata_license"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_report_presentation"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_report_publication"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_report_qualification"))),
-          file_exists(path(project_path, yspm::project_structure("file_library_packages"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_source_library"))),
-          file_exists(path(project_path, yspm::project_structure("file_library_main"))),
-          file_exists(path(project_path, yspm::project_structure("file_library_import_data"))),
-          file_exists(path(project_path, yspm::project_structure("file_library_clean_data"))),
-          file_exists(path(project_path, yspm::project_structure("file_library_transform_data"))),
-          file_exists(path(project_path, yspm::project_structure("file_library_visualise_data"))),
-          file_exists(path(project_path, yspm::project_structure("file_library_model_data"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_source_workflow"))),
-          file_exists(path(project_path, yspm::project_structure("file_workflow_main"))),
-          file_exists(path(project_path, yspm::project_structure("file_workflow_import_data"))),
-          file_exists(path(project_path, yspm::project_structure("file_workflow_clean_data"))),
-          file_exists(path(project_path, yspm::project_structure("file_workflow_transform_data"))),
-          file_exists(path(project_path, yspm::project_structure("file_workflow_visualise_data"))),
-          file_exists(path(project_path, yspm::project_structure("file_workflow_model_data"))))){
-      stop(paste("enable_project failed: The project_path seems not to contain a valid project.
+  if (!all(
+    dir_exists(path(project_path, yspm::project_structure("folder_primary_data"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_interim_data"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_cleaned_data"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_figure_external"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_figure_scripted"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_metadata_dataset"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_metadata_package"))),
+    file_exists(path(project_path, yspm::project_structure("file_metadata_checkpoint"))),
+    file_exists(path(project_path, yspm::project_structure("file_metadata_author"))),
+    file_exists(path(project_path, yspm::project_structure("file_metadata_license"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_report_presentation"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_report_publication"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_report_qualification"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_packages"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_source_library"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_main"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_import_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_clean_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_transform_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_visualise_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_model_data"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_source_workflow"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_main"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_import_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_clean_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_transform_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_visualise_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_model_data")))
+  )) {
+    stop(paste("enable_project failed: The project_path seems not to contain a valid project.
                  Choose a different location, or check the spelling."))
   }
 
@@ -89,7 +99,7 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
   setwd(project_path)
   yspm::enabled_project("project_path" = project_path)
 
-  project_creation_date =
+  project_creation_date <-
     as.character(read_dcf_to_list(path(project_path, yspm::project_structure("file_metadata_checkpoint"))))
 
   message("")
@@ -98,14 +108,16 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
   message(paste("* to:", project_creation_date))
   message("---")
 
-  checkpoint(authorizeFileSystemUse = F,
-             forceSetMranMirror = T,
-             installPackagesWithDependency = T,
-             snapshotDate = project_creation_date,
-             scanForPackages = F,
-             verbose = F,
-             checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
-             project = project_path)
+  checkpoint(
+    authorizeFileSystemUse = F,
+    forceSetMranMirror = T,
+    installPackagesWithDependency = T,
+    snapshotDate = project_creation_date,
+    scanForPackages = F,
+    verbose = F,
+    checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
+    project = project_path
+  )
 
   yspm::enabled_project("project_checkpoint" = project_creation_date)
 

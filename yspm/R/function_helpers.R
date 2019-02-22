@@ -3,16 +3,18 @@
 # This creates a random string of specified length
 # Can be use in testing e.g. to create folder and filenames.
 #
-random_string <- function(n=1, lenght=12)
-{
-    randomString <- c(1:n)
-    for (i in 1:n)
-    {
-        randomString[i] <- paste(sample(c(0:9, letters, LETTERS),
-                                        lenght, replace=TRUE),
-                                 collapse="")
-    }
-    return(randomString)
+random_string <- function(n = 1, lenght = 12) {
+  randomString <- c(1:n)
+  for (i in 1:n)
+  {
+    randomString[i] <- paste(sample(c(0:9, letters, LETTERS),
+      lenght,
+      replace = TRUE
+    ),
+    collapse = ""
+    )
+  }
+  return(randomString)
 }
 
 # silence a funtion
@@ -27,20 +29,20 @@ quiet <- function(x) {
 
 # define big message pseudo ui
 #
-big_message <- function(say){
-    message("========================================O")
-    message(say)
-    message("========================================O")
-    message("")
+big_message <- function(say) {
+  message("========================================O")
+  message(say)
+  message("========================================O")
+  message("")
 }
 
 # define small message pseudo ui
 #
-small_message <- function(say){
-    message("")
-    message(say)
-    message("--------------------------")
-    message("")
+small_message <- function(say) {
+  message("")
+  message(say)
+  message("--------------------------")
+  message("")
 }
 
 # Converts a DCF file into an R list.
@@ -67,21 +69,20 @@ small_message <- function(say){
 
 #' @importFrom stats setNames
 
-read_dcf_to_list <- function(filename)
-{
+read_dcf_to_list <- function(filename) {
   settings <- read.dcf(filename)
   settings <- setNames(as.list(as.character(settings)), colnames(settings))
 
   # Check each setting to see if it contains R code or a comment
   for (s in names(settings)) {
-    if (grepl('^#', s)) {
+    if (grepl("^#", s)) {
       settings[[s]] <- NULL
       next
     }
     value <- settings[[s]]
     r_code <- gsub("^`(.*)`$", "\\1", value)
     if (nchar(r_code) != nchar(value)) {
-      settings[[s]] <- eval(parse(text=r_code))
+      settings[[s]] <- eval(parse(text = r_code))
     }
   }
   settings
@@ -101,8 +102,7 @@ read_dcf_to_list <- function(filename)
 #
 # @export
 
-write_list_to_dcf <- function(list, filename)
-{
+write_list_to_dcf <- function(list, filename) {
   database_input <- lapply(list, function(x) paste0(x, collapse = ","))
   quiet(write.dcf(database_input, filename))
 }
@@ -111,17 +111,19 @@ write_list_to_dcf <- function(list, filename)
 # a directory tree
 show_project_tree <- function(path = getwd(), level = Inf) {
   fad <-
-    list.files(path = path, recursive = TRUE,no.. = TRUE, include.dirs = TRUE)
+    list.files(path = path, recursive = TRUE, no.. = TRUE, include.dirs = TRUE)
   fad_split_up <- strsplit(fad, "/")
   too_deep <- lapply(fad_split_up, length) > level
   fad_split_up[too_deep] <- NULL
   jfun <- function(x) {
     n <- length(x)
-    if(n > 1)
+    if (n > 1) {
       x[n - 1] <- "|__"
-    if(n > 2)
+    }
+    if (n > 2) {
       x[1:(n - 2)] <- "   "
-    x <- if(n == 1) c("-- ", x) else c("   ", x)
+    }
+    x <- if (n == 1) c("-- ", x) else c("   ", x)
     x
   }
   fad_subbed_out <- lapply(fad_split_up, jfun)
@@ -131,20 +133,20 @@ show_project_tree <- function(path = getwd(), level = Inf) {
 
 # get the sourced file name
 get_sourced_file_directory <- function() {
-    cmdArgs <- commandArgs(trailingOnly = FALSE)
-    needle <- "--file="
-    match <- grep(needle, cmdArgs)
-    if (length(match) > 0) {
-        # Rscript
-        return(dirname(normalizePath(sub(needle, "", cmdArgs[match]))))
-    } else {
-        # 'source'd via R console
-        return(dirname(normalizePath(sys.frames()[[1]]$ofile)))
-    }
+  cmdArgs <- commandArgs(trailingOnly = FALSE)
+  needle <- "--file="
+  match <- grep(needle, cmdArgs)
+  if (length(match) > 0) {
+    # Rscript
+    return(dirname(normalizePath(sub(needle, "", cmdArgs[match]))))
+  } else {
+    # 'source'd via R console
+    return(dirname(normalizePath(sys.frames()[[1]]$ofile)))
+  }
 }
 
 # file contents
-content_setup_manage_projects = '# Make sure that the working directory is set to the directory of this file.
+content_setup_manage_projects <- '# Make sure that the working directory is set to the directory of this file.
 # Afterwards you can start managing your r projects with yspm.
 
 # check where you are
@@ -172,3 +174,12 @@ enabled_project()
 # shows the folder structure and files in the active project
 project_content()
 '
+
+# check if a project is enabled.
+# all functions that act on a project can use it to be sure that they can act on a project.
+check_if_project_is_enabled <- function(function_name){
+  if (is.null(enabled_project("project_path"))) {
+    stop(paste("the function", function_name, ": can only work when a project is enabled."))
+  }
+}
+

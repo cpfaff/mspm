@@ -25,13 +25,19 @@ A function that enables an existing project.
 }
 \examples{
 \dontrun{
- enable_project(root_folder = getwd(),
-               project_name = compile_project_name(first_name = "Max",
-                                                   last_name = "Mustermann",
-                                                   project_category "Phd"))
+enable_project(
+  root_folder = getwd(),
+  project_name = compile_project_name(
+    first_name = "Max",
+    last_name = "Mustermann",
+    project_category = "Phd"
+  )
+)
 
- enable_project(root_folder = "~/",
-               project_name = "my_phd_project")
+enable_project(
+  root_folder = "~/",
+  project_name = "my_phd_project"
+)
 }
 
 }

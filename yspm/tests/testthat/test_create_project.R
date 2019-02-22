@@ -14,7 +14,7 @@ require(lubridate)
 context("Create project")
 
 test_that("function: create_project is defined ", {
-  expect_false(identical(find('create_project'), character(0)))
+  expect_false(identical(find("create_project"), character(0)))
 })
 
 test_that("function: create_project accepts required parameters", {
@@ -22,7 +22,7 @@ test_that("function: create_project accepts required parameters", {
 })
 
 test_that("function: create_project: creates valid folder structure", {
-  test_project_folder = create_new_test_project()
+  test_project_folder <- create_new_test_project()
 
   expect_true(dir_exists(test_project_folder))
 
@@ -64,14 +64,14 @@ test_that("function: create_project: creates valid folder structure", {
 })
 
 test_that("function: create_project throws an error when the folder already exists", {
-  test_project_folder = create_new_test_project()
+  test_project_folder <- create_new_test_project()
   expect_true(dir.exists(test_project_folder))
   expect_error(suppressWarnings(create_project(test_project_folder)))
   dir_delete(test_project_folder)
 })
 
 test_that("function: create_project is writing a valid date for checkpoint", {
-  test_project_folder = create_new_test_project()
-  package_checkpoint = read_dcf_to_list(path(test_project_folder, yspm::project_structure("file_metadata_checkpoint")))
+  test_project_folder <- create_new_test_project()
+  package_checkpoint <- read_dcf_to_list(path(test_project_folder, yspm::project_structure("file_metadata_checkpoint")))
   expect_true(is.Date(ymd(package_checkpoint)))
 })
