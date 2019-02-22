@@ -59,5 +59,35 @@ lapply(constructed_library_calls,
                append = TRUE)
        }
       )
-
 }
+
+# file contents
+content_setup_manage_projects = '# Make sure that the working directory is set to the directory of this file.
+# Afterwards you can start managing your r projects with yspm.
+
+# check where you are
+getwd()
+
+# if we are not in the right directory set it now
+# setdw(<your projects directory>)
+
+# load the project mangement package
+library(yspm)
+
+# create a new project
+create_project(project_name = compile_project_name(first_name = "Claas-Thido",
+                                                   last_name = "Pfaff",
+                                                   project_category = "PhD"))
+
+# enable a project
+enable_project(project_name = compile_project_name(first_name = "Claas-Thido",
+                                                   last_name = "Pfaff",
+                                                   project_category = "PhD"))
+
+# shows info for the enabled project
+enabled_project()
+
+# shows the folder structure and files in the active project
+project_content()
+'
+

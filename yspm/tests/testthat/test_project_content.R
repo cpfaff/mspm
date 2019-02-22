@@ -5,6 +5,6 @@ test_that("function: project_content is defined ", {
 })
 
 test_that("function: project_content accepts required parameters", {
-  expect_true(all(names(formals("enable_project")) %in% c("path")))
+  expect_true(all(names(formals("project_content")) %in% c("path")))
 })
 
