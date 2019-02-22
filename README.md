@@ -69,14 +69,14 @@ r_projects
 └── manage_projects.R
 ```
 
-#### From an R-studio
+#### From R-studio
 
 You can also use R-Studio to setup your new project management. Just click on
 
 * File > New Project > New Directory
 
-There you can select a new template. Watch out for the "My Small Project
-Management Template" and select it.
+    There you can select a new template. Watch out for the "My Small Project
+    Management Template" and select it.
 
 ![select template](assets/figures/documentation_dialogue_project_template.png "Select Template")
 
@@ -185,17 +185,17 @@ numbers for a fixed order.
 
 1. Primary data
 
-  It stores primary data of your research. Non of your R scripts should write
-  here.
+    It stores primary data of your research. Non of your R scripts should write
+    here.
 
 2. Interim data
 
-  Transformed, filtered, merged data products which are important for the
-  analysis or the results.
+    Transformed, filtered, merged data products which are important for the
+    analysis or the results.
 
 3. Cleaned data
 
-  Cleaned primary data which is used e.g. in modelling, plotting.
+    Cleaned primary data which is used e.g. in modelling, plotting.
 
 * figure
 
