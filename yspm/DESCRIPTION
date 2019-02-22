@@ -12,16 +12,17 @@ Description: The package provides a set of utilities for
              project.
 Depends: R (>= 3.5.1),
 Imports:
-    parallel,
     import,
+    devtools,
+    parallel,
     magrittr,
     styler,
     withr,
-    httr,
-    devtools,
-    fs
+    fs,
+    checkpoint
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
+Remotes: github::cpfaff/checkpoint
 RoxygenNote: 6.1.1
 

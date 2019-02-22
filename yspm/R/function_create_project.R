@@ -124,6 +124,7 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
     }
   }
 
+  # set up the new local package library and repository url
   checkpoint(
     authorizeFileSystemUse = F,
     forceSetMranMirror = T,
@@ -136,9 +137,10 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
     project = project_path
   )
 
+  # get the new set library path
   lib_path_for_project <- unique(.libPaths())
 
-  withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/checkpoint"))
+  # install from github the project management into the new project
   withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T))
 
   .libPaths(lib_paths_before)
