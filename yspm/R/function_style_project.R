@@ -15,5 +15,5 @@
 
 style_project <- function(path = yspm::enabled_project("project_path")) {
   check_if_project_is_enabled()
-  suppressWarning(style_dir(path))
+  suppressWarnings(style_dir(path))
 }
