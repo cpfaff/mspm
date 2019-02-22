@@ -64,7 +64,6 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   dir_create(path(project_path, yspm::project_structure("folder_report_presentation")))
   dir_create(path(project_path, yspm::project_structure("folder_report_publication")))
   dir_create(path(project_path, yspm::project_structure("folder_report_qualification")))
-  dir_create(path(project_path, yspm::project_structure("folder_source_function")))
   dir_create(path(project_path, yspm::project_structure("folder_source_library")))
   dir_create(path(project_path, yspm::project_structure("folder_source_workflow")))
 

@@ -61,7 +61,6 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
           dir_exists(path(project_path, yspm::project_structure("folder_report_presentation"))),
           dir_exists(path(project_path, yspm::project_structure("folder_report_publication"))),
           dir_exists(path(project_path, yspm::project_structure("folder_report_qualification"))),
-          dir_exists(path(project_path, yspm::project_structure("folder_source_function"))),
           file_exists(path(project_path, yspm::project_structure("file_library_packages"))),
           dir_exists(path(project_path, yspm::project_structure("folder_source_library"))),
           file_exists(path(project_path, yspm::project_structure("file_library_main"))),

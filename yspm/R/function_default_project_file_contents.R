@@ -1,7 +1,7 @@
 # an internal function which supports the create_project function in writing
 # the package management into the packages file
 
-construct_file_library_packages <- function(project_path){
+construct_file_packages <- function(project_path){
 
 file_documentation = list("# This file is for the management of your required packages and functions.",
               "# Add all packages here into a library call call if you want to include all",

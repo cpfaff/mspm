@@ -19,18 +19,15 @@
       folder_report_presentation = "project/report/presentation",
       folder_report_publication = "project/report/publication",
       folder_report_qualification = "project/report/qualification",
-
-      folder_source_function = "project/source/function",
-
-
+      # folder_source_function = "project/source/function",
       folder_source_library = "project/source/library",
       file_library_packages = "project/source/library/packages.R",
-      file_library_main = "project/source/function/01_main.R",
-      file_library_import_data = "project/source/function/02_import_data.R",
-      file_library_clean_data = "project/source/function/03_clean_data.R",
-      file_library_transform_data = "project/source/function/04_transform_data.R",
-      file_library_visualise_data = "project/source/function/05_visualise_data.R",
-      file_library_model_data = "project/source/function/06_model_data.R",
+      file_library_main = "project/source/library/01_main.R",
+      file_library_import_data = "project/source/library/02_import_data.R",
+      file_library_clean_data = "project/source/library/03_clean_data.R",
+      file_library_transform_data = "project/source/library/04_transform_data.R",
+      file_library_visualise_data = "project/source/library/05_visualise_data.R",
+      file_library_model_data = "project/source/library/06_model_data.R",
 
       folder_source_workflow = "project/source/workflow",
       file_workflow_main = "project/source/workflow/01_main.R",
