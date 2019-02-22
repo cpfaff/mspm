@@ -22,7 +22,7 @@
 #' ...
 #' ...
 #' }
-#'
+#' 
 #' @importFrom fs path
 #'
 #' @export project_content

@@ -177,9 +177,8 @@ project_content()
 
 # check if a project is enabled.
 # all functions that act on a project can use it to be sure that they can act on a project.
-check_if_project_is_enabled <- function(function_name){
+check_if_project_is_enabled <- function(function_name) {
   if (is.null(enabled_project("project_path"))) {
     stop(paste("the function", function_name, ": can only work when a project is enabled."))
   }
 }
-

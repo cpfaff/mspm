@@ -10,11 +10,10 @@
 #' # get the active project checkpoint
 #' enabled_project("project_checkpoint")
 #' }
-#'
+#' 
 #' @export enabled_project
 
 enabled_project <- function(...) {
-
   check_if_project_is_enabled()
 
   lst <- list(...)
@@ -51,7 +50,7 @@ enabled_project <- function(...) {
 #' # list all
 #' agwdm::project_structure()
 #' }
-#'
+#' 
 #' @export project_structure
 
 project_structure <- function(...) {

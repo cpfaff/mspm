@@ -6,16 +6,15 @@
 #' @examples
 #' \dontrun{
 #' enable_project(...)
-#'
+#' 
 #' style_active_project()
 #' }
-#'
+#' 
 #' @importFrom styler style_dir
 #'
-#' @export style_active_project
+#' @export style_project
 
-style_active_project <- function(){
-    check_if_project_is_enabled()
-    style_dir(getwd())
+style_project <- function(path = yspm::enabled_project("project_path")) {
+  check_if_project_is_enabled()
+  style_dir(path)
 }
-

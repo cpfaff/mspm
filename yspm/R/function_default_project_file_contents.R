@@ -82,13 +82,13 @@ getwd()
 library(yspm)
 
 # create a new project
-create_project(project_name = compile_project_name(first_name = "Claas-Thido",
-                                                   last_name = "Pfaff",
+create_project(project_name = compile_project_name(first_name = "Max",
+                                                   last_name = "Mustermann",
                                                    project_category = "PhD"))
 
 # enable a project
-enable_project(project_name = compile_project_name(first_name = "Claas-Thido",
-                                                   last_name = "Pfaff",
+enable_project(project_name = compile_project_name(first_name = "Max",
+                                                   last_name = "Mustermann",
                                                    project_category = "PhD"))
 
 # shows info for the enabled project
@@ -96,4 +96,7 @@ enabled_project()
 
 # shows the folder structure and files in the active project
 project_content()
+
+# stype project
+style_project()
 '
