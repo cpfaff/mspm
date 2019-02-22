@@ -43,7 +43,7 @@ test_that("function: create_project: creates valid folder structure", {
   expect_true(dir_exists(path(test_project_folder, yspm::project_structure("folder_report_qualification"))))
   expect_true(dir_exists(path(test_project_folder, yspm::project_structure("folder_source_function"))))
 
-  expect_true(file_exists(path(test_project_folder, yspm::project_structure("file_packages"))))
+  expect_true(file_exists(path(test_project_folder, yspm::project_structure("file_library_packages"))))
 
   expect_true(dir_exists(path(test_project_folder, yspm::project_structure("folder_source_library"))))
 

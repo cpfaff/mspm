@@ -74,7 +74,7 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   message(paste("* in:", project_path))
   message("---")
 
-  file_create(path(project_path, yspm::project_structure("file_packages")))
+  file_create(path(project_path, yspm::project_structure("file_library_packages")))
   file_create(path(project_path, yspm::project_structure("file_metadata_checkpoint")))
   file_create(path(project_path, yspm::project_structure("file_metadata_author")))
   file_create(path(project_path, yspm::project_structure("file_metadata_license")))

@@ -1,7 +1,7 @@
 # an internal function which supports the create_project function in writing
 # the package management into the packages file
 
-construct_file_packages <- function(project_path){
+construct_file_library_packages <- function(project_path){
 
 file_documentation = list("# This file is for the management of your required packages and functions.",
               "# Add all packages here into a library call call if you want to include all",
@@ -16,7 +16,7 @@ file_documentation = list("# This file is for the management of your required pa
 lapply(file_documentation,
        function(one_line){
          write(one_line,
-               file = path(project_path, yspm::project_structure("file_packages")),
+               file = path(project_path, yspm::project_structure("file_library_packages")),
                append = TRUE)
        }
       )
@@ -55,7 +55,7 @@ constructed_library_calls =
 lapply(constructed_library_calls,
        function(a_recommended_library){
          write(a_recommended_library,
-               file = path(project_path, yspm::project_structure("file_packages")),
+               file = path(project_path, yspm::project_structure("file_library_packages")),
                append = TRUE)
        }
       )
