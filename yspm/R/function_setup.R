@@ -6,6 +6,9 @@
 #' You can place the project mangement in any folder you like. It makes sense
 #' to place this e.g. somewhere in your users home directory.
 #'
+#' @param root_path allows you to specify where the new project management
+#'        folder will be created.
+#'
 #' @importFrom fs path dir_create file_create dir_exists
 #'
 #' @export setup
