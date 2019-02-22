@@ -25,7 +25,7 @@
 #'   )
 #' )
 #' }
-#' 
+#'
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
 #' @importFrom withr with_libpaths
@@ -138,11 +138,10 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
 
   lib_path_for_project <- unique(.libPaths())
 
-  .libPaths(lib_paths_before)
-
   withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/checkpoint"))
-  withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/yspm", subdir = "yspm"))
+  withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T))
 
+  .libPaths(lib_paths_before)
   setwd(wd_before)
   options(repos = repo_before)
   quiet(require(yspm))
