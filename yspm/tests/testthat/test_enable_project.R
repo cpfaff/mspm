@@ -25,6 +25,8 @@ test_that("function: enable_project throws an error when the folder contains no 
     setwd(wd_before_test)
 })
 
+if (TRUE) skip("These test take way to long!")
+
 test_that("function: enable_project sets the working directory to the project", {
     wd_before_test = getwd()
     repo_before_test = getOption("repos")

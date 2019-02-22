@@ -8,12 +8,19 @@
 #'
 #' @param path The path to the file or folder inside the project.
 #'
-#' @return a string path pointing to the file or folder
+#' @return a string path pointing to the file or folder or when called
+#'         without arguments an overview about the structure and files of the
+#'          project
 #'
 #' @examples
 #' \dontrun{
 #'  project_content("data/raw/iris.csv")
 #'      "project_name/project/data/raw/iris.csv"
+#'  project_content()
+#'     project
+#'       data
+#'         ...
+#'       ...
 #' }
 #'
 #' @importFrom fs path

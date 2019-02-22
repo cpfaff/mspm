@@ -6,6 +6,10 @@
 \usage{
 setup(root_path = NULL)
 }
+\arguments{
+\item{root_path}{allows you to specify where the new project management
+folder will be created.}
+}
 \description{
 It makes sense to have all your R projects in a single location to keep a
 better overview and simply their management. This function initizlizes such a
