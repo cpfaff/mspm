@@ -17,6 +17,7 @@ Imports:
     magrittr,
     styler,
     withr,
+    httr,
     devtools,
     fs
 Encoding: UTF-8
