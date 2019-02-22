@@ -28,7 +28,7 @@
 #' @export project_content
 
 project_content <- function(path = NULL) {
-  check_if_project_is_enable()
+  check_if_project_is_enabled()
   if (is.null(path)) {
     show_project_tree(path = path(enabled_project("project_path")))
   } else {
