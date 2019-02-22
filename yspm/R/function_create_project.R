@@ -25,7 +25,7 @@
 #'   )
 #' )
 #' }
-#' 
+#'
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
 #' @importFrom withr with_libpaths
