@@ -81,7 +81,7 @@ You can also use R-Studio to setup your new project management. Just click on
 Next you have to fill out a small form providing a folder name that should be
 used for all your new R projects and a location this folder should be based in.
 
-![select template](assets/figures/documentation_dialogue_fill_template_fields_with_rectangle.png "Select Template")
+![select template](assets/figures/documentation_dialogue_project_template_with_rectangle.png "Select Template")
 
 The process creates the new folder and the `manage_projects.R` file. Finally it
 open the project management file  and you can directly start from there.
