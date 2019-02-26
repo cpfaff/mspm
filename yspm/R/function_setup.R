@@ -26,7 +26,7 @@ setup <- function(root_path = NULL) {
 
   message(paste("* create folder:", root_path))
 
-  root_path = path(root_path)
+  root_path = normalizePath(path(root_path))
 
   dir_create(root_path)
 
