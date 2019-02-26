@@ -114,7 +114,6 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
 
   yspm::enabled_project("project_checkpoint" = project_creation_date)
 
-
   if (Sys.getenv("RSTUDIO") == "1") {
     message("")
     message(paste("Clean your workspace:"))
