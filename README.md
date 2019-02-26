@@ -30,8 +30,9 @@ instructions for different operating systems.
       of your distribution or ask google.
 
 The package can be installed from GitHub using the `devtools` package. It also
-requires a modified version of the checkpoint package to be installed which is
-is more adjustable in its behavior. Just follow the instructions below.
+requires a modified version of the checkpoint package. Do not worry it is
+compatible to the actual checkpoint package and you can use it as the original
+(just in case aour already use it).
 
 ```r
 install.packages("devtools")
