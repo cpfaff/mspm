@@ -36,7 +36,7 @@ compatible to the actual checkpoint package and you can use it as the original
 
 ```r
 install.packages("devtools")
-devtools::install_github("cpfaff/yspm", subdir = "yspm")
+devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T)
 ```
 
 ## Getting started
