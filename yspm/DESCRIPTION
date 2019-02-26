@@ -12,18 +12,18 @@ Description: The package provides a set of utilities for
              project.
 Depends: R (>= 3.5.1),
 Imports:
+    fs,
+    enc,
+    httr,
     import,
     devtools,
     parallel,
+    checkpoint,
     magrittr,
     styler,
-    withr,
-    httr,
-    fs,
-    checkpoint,
-    rio,
     tidyr,
-    enc
+    withr,
+    rio,
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
