@@ -26,6 +26,8 @@ setup <- function(root_path = NULL) {
 
   message(paste("* create folder:", root_path))
 
+  root_path = path(root_path)
+
   dir_create(root_path)
 
   message(paste("* create file manage_projects.R in :", root_path))
