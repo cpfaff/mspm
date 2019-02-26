@@ -108,7 +108,7 @@ style_project()
 # require(tibble)
 # require(readr)
 # require(magrittr)
-# mtcars %>% rownames_to_column("car_name") %>% write_csv(project_content("data/01_primary/mtcars.csv"))
+# mtcars %>% tibble::rownames_to_column("car_name") %>% readr::write_csv(project_content("data/01_primary/mtcars.csv"))
 
 # collect metadata
 collect_csv_variables()
