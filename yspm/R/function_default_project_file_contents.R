@@ -68,8 +68,10 @@ construct_file_packages <- function(project_path) {
   )
 }
 
-# file contents
-content_setup_manage_projects <- '# Make sure that the working directory is set to the directory of this file.
+content_setup_manage_projects <- '# In this file you can manage all your future R projects.
+#Below you can find some example code to get you started.
+
+#Before you start make sure your working directory is set to the directory of this file.
 # Afterwards you can start managing your r projects with yspm.
 
 # check where you are
