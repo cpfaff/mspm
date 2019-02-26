@@ -114,19 +114,6 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
 
   yspm::enabled_project("project_checkpoint" = project_creation_date)
 
-  if (Sys.getenv("RSTUDIO") == "1") {
-    message("")
-    message(paste("Clean your workspace:"))
-    message("")
-
-    loaded_packages <- names(sessionInfo()$otherPkgs)
-    quiet(suppressWarnings(lapply(loaded_packages, function(package) {
-      try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
-    })))
-  }
-
-  require(yspm)
-
   message("")
   message(paste("Done"))
   message("--------------------------")
