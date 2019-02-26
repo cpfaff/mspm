@@ -32,7 +32,7 @@ setup <- function(root_path = NULL) {
 
   message(paste("* create file manage_projects.R in :", root_path))
 
-  file_create(path(root_path), "manage_projects.R")
+  file_create(path(root_path, "manage_projects", ext = "R"))
 
   write(content_setup_manage_projects, file = path(root_path, "manage_projects", ext = "R"))
 
