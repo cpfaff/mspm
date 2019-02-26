@@ -108,7 +108,7 @@ write_list_to_dcf <- function(list, filename) {
 }
 
 
-# a directory tree
+# a directory tree structure
 show_project_tree <- function(path = getwd(), level = Inf) {
   fad <-
     list.files(path = path, recursive = TRUE, no.. = TRUE, include.dirs = TRUE)
@@ -154,4 +154,28 @@ check_if_project_is_enabled <- function(function_name = NULL) {
   if (is.null(enabled_project("project_path"))) {
     stop(paste("the function", function_name, ": can only work when a project is enabled."))
   }
+}
+
+
+# helpers to act on columns in a lapply function call
+get_variable_names <- function(dataset) {
+  list(names(dataset))
+}
+
+get_variable_classes <- function(dataset) {
+  list(unlist(lapply(dataset, class), use.names = F))
+}
+
+get_variable_completeness <- function(dataset) {
+  list(colMeans(is.na(dataset)))
+}
+
+get_category_instances <- function(dataset) {
+  lapply(dataset, function(column) {
+    if (is.character(column)) {
+      unique(column)
+    } else if (is.factor(column)) {
+      unique(as.character(column))
+    }
+  })
 }

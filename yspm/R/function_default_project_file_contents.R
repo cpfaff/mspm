@@ -102,4 +102,17 @@ project_content("source/library/01_packages.R")
 
 # allows you to style the source code of the active project
 style_project()
+
+# create example content to collect metadata
+# install.packages(c("tibble", "readr", "magrittr"))
+# require(tibble)
+# require(readr)
+# require(magrittr)
+# mtcars %>% rownames_to_column("car_name") %>% write_csv(project_content("data/01_primary/mtcars.csv"))
+
+# collect metadata
+collect_csv_variables()
+
+# collect metadata
+collect_csv_categories()
 '

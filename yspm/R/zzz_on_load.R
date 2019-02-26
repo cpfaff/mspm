@@ -6,6 +6,7 @@
   )
 
   .yspm.env$.yspm.project_structure <- list(
+    folder_data = "project/data",
     folder_primary_data = "project/data/01_primary",
     folder_interim_data = "project/data/02_interim",
     folder_cleaned_data = "project/data/03_cleaned",

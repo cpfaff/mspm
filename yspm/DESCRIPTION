@@ -19,7 +19,9 @@ Imports:
     styler,
     withr,
     fs,
-    checkpoint
+    checkpoint,
+    rio,
+    tidyr
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
