@@ -108,7 +108,9 @@ style_project()
 # require(tibble)
 # require(readr)
 # require(magrittr)
+# add example content
 # mtcars %>% tibble::rownames_to_column("car_name") %>% readr::write_csv(project_content("data/01_primary/mtcars.csv"))
+# iris %>% readr::write_csv(project_content("data/01_primary/iris.csv"))
 
 # collect metadata
 collect_csv_variables()
