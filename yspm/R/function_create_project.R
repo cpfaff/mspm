@@ -141,7 +141,7 @@ create_project <- function(root_folder = getwd(), project_name = NULL, project_p
   lib_path_for_project <- unique(.libPaths())
 
   # install from github the project management into the new project
-  withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T))
+  withr::with_libpaths(lib_path_for_project, devtools::install_github("cpfaff/yspm", subdir = "yspm"))
 
   .libPaths(lib_paths_before)
   setwd(wd_before)
