@@ -22,13 +22,13 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#' 
+#'
 #' enable_project(
 #'   root_folder = "~/",
 #'   project_name = "my_phd_project"
 #' )
 #' }
-#' 
+#'
 #' @importFrom checkpoint checkpoint
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @export enable_project
@@ -113,6 +113,20 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
   )
 
   yspm::enabled_project("project_checkpoint" = project_creation_date)
+
+
+  if (Sys.getenv("RSTUDIO") == "1") {
+    message("")
+    message(paste("Clean your workspace:"))
+    message("")
+
+    loaded_packages <- names(sessionInfo()$otherPkgs)
+      quiet(suppressWarnings(lapply(detachable_packages, function(package) { try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T) })))
+    }
+
+  }
+
+  require(yspm)
 
   message("")
   message(paste("Done"))
