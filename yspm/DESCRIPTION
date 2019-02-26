@@ -16,7 +16,7 @@ Imports:
     enc,
     httr,
     import,
-    devtools,
+    remotes,
     parallel,
     checkpoint,
     magrittr,
