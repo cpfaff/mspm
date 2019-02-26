@@ -22,7 +22,8 @@ Imports:
     fs,
     checkpoint,
     rio,
-    tidyr
+    tidyr,
+    enc
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
