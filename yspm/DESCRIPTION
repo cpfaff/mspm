@@ -17,6 +17,7 @@ Imports:
     httr,
     import,
     remotes,
+    stringr,
     parallel,
     checkpoint,
     magrittr,
