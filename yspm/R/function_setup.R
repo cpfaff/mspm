@@ -16,11 +16,12 @@ setup <- function(root_path = NULL) {
   if (is.null(root_path)) {
     stop("setup failed: it requies the parameter root_folder as otherwise it does not know wehre to set things up.")
   }
+
+  normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
+
   if (dir_exists(root_path)) {
     stop("setup failed: the root_folder that you provide already exists!")
   }
-
-  normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
   big_message("Setup project management")
 
