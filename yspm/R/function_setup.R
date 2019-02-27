@@ -12,15 +12,16 @@
 #' @importFrom fs path dir_create file_create dir_exists
 #'
 #' @export setup
+
 setup <- function(root_path = NULL) {
   if (is.null(root_path)) {
-    stop("setup failed: it requies the parameter root_folder as otherwise it does not know wehre to set things up.")
+    stop("setup failed: it requies the parameter root_path as otherwise it does not know wehre to set things up.")
   }
 
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
   if (dir_exists(normalized_root_path)) {
-    stop("setup failed: the root_path that you provide already exists!")
+    stop("setup failed: the root_path that you have provided already exists!")
   }
 
   big_message("Setup project management")
