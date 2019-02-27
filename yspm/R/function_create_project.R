@@ -142,7 +142,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   tryCatch(
         {
-        devtools::install_github("cpfaff/yspm", subdir = "yspm")
+        remotes::install_github("cpfaff/yspm", subdir = "yspm")
         },
         error=function(cond) {
           .libPaths(lib_paths_before)
