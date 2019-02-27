@@ -16,7 +16,9 @@ install_packages <- function(name) {
     message("")
 
     loaded_packages <- names(sessionInfo()$otherPkgs)
-    quiet(suppressWarnings(lapply(loaded_packages, function(package) {
+    exclude_packages <- c("yspm")
+    detachable_packages <- setdiff(loaded_packages, exclude_packages)
+    quiet(suppressWarnings(lapply(detachable_packages, function(package) {
       try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
     })))
   }
@@ -27,6 +29,6 @@ install_packages <- function(name) {
     message("")
     message(paste("Restore your workspace with packages:"))
     message("")
-    lapply(loaded_packages, require, character.only = TRUE)
+    suppressWarnings(lapply(loaded_packages, require, character.only = TRUE))
   }
 }
