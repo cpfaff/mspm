@@ -11,10 +11,10 @@
 #' @examples
 #' \dontrun{
 #' enable_project(...)
-#'
+#' 
 #' style_project()
 #' }
-#'
+#' 
 #' @importFrom styler style_dir
 #' @importFrom fs path
 #' @export standardize_project_code

@@ -140,34 +140,38 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
     project = project_path
   )
 
-  tryCatch(
-        {
-        devtools::install_github("cpfaff/yspm", subdir = "yspm")
-        },
-        error=function(cond) {
-          .libPaths(lib_paths_before)
-          setwd(wd_before)
-          options(repos = repo_before)
+  tryCatch({
+    devtools::install_github("cpfaff/yspm", subdir = "yspm")
 
-          message("")
-          message("Oh no something went wrong:")
-          message("")
-          message("--------------------------")
+    # again working around windows and rstudio quirks
+    if (Sys.getenv("RSTUDIO") == "1") {
+      exclude_packages <- c("yspm", "checkpoint")
+      installed_packages <- unname(installed.packages()[, "Package"])
+      updatable_packages <- setdiff(installed_packages, exclude_packages)
+      update.packages(updatable_packages, dependencies = F, checkBuilt = T, ask = F)
+    }
+  },
+  error = function(cond) {
+    .libPaths(lib_paths_before)
+    setwd(wd_before)
+    options(repos = repo_before)
 
-        },
-        finally={
-          .libPaths(lib_paths_before)
-          setwd(wd_before)
+    message("")
+    message("Oh no something went wrong:")
+    message("")
+    message("--------------------------")
+  },
+  finally = {
+    .libPaths(lib_paths_before)
+    setwd(wd_before)
 
-          options(repos = repo_before)
+    options(repos = repo_before)
 
-          message("")
-          message("Done:")
-          message("")
-          message("You can use the fuction enable_project() to initialize it for usage.")
-          message("--------------------------")
-
-        }
-    )
-
+    message("")
+    message("Done:")
+    message("")
+    message("You can use the fuction enable_project() to initialize it for usage.")
+    message("--------------------------")
+  }
+  )
 }

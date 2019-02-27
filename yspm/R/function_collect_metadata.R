@@ -13,7 +13,7 @@
 #' \dontrun{
 #' collect_csv_variables()
 #' }
-#'
+#' 
 #' @return No value is returned; this function is called for its side effects.
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
@@ -98,7 +98,7 @@ collect_csv_variables <- function(input_path = yspm::project_content("data"), ou
 #' \dontrun{
 #' collect_csv_variables()
 #' }
-#'
+#' 
 #' @return No value is returned; this function is called for its side effects.
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
