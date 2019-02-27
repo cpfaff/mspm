@@ -25,7 +25,7 @@
 #'   )
 #' )
 #' }
-#' 
+#'
 #' @importFrom fs path dir_create file_create
 #' @importFrom remotes install_github
 #' @importFrom withr with_libpaths
@@ -33,8 +33,6 @@
 #' @export create_project
 
 create_project <- function(root_path = getwd(), project_name = NULL, project_path = NULL) {
-  normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
-
   if (is.null(project_name)) {
     stop("create_project: requires the parameter project name")
   }
@@ -46,6 +44,11 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   } else {
     project_path <- suppressWarnings(normalizePath(path(project_path)))
   }
+  if (is_dir(path(project_path, "project"))) {
+    stop("The function create_project: cannot create a project inside an existing one.
+         Please Select another project folder. If you want to work on the project
+         then execute the function enable_project(<project_path>)")
+  }
 
   big_message("Creating your project")
   small_message("Tasks")
@@ -56,11 +59,6 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message(paste("* in:", project_path))
   message("---")
 
-  if (is_dir(path(project_path, "project"))) {
-    stop("The function create_project: cannot create a project inside an existing one.
-         Please Select another project folder. If you want to work on the project
-         then execute the function enable_project(<project_path>)")
-  }
 
   dir_create(path(project_path, yspm::project_structure("folder_primary_data")))
   dir_create(path(project_path, yspm::project_structure("folder_interim_data")))
