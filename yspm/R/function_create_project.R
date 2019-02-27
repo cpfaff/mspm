@@ -62,40 +62,40 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("---")
   message("")
 
-  message(yspm::project_structure("folder_primary_data"))
+  message(paste("*", yspm::project_structure("folder_primary_data")))
   dir_create(path(project_path, yspm::project_structure("folder_primary_data")))
 
-  message(yspm::project_structure("folder_interim_data"))
+  message(paste("*", yspm::project_structure("folder_interim_data")))
   dir_create(path(project_path, yspm::project_structure("folder_interim_data")))
 
-  message(yspm::project_structure("folder_cleaned_data"))
+  message(paste("*", yspm::project_structure("folder_cleaned_data")))
   dir_create(path(project_path, yspm::project_structure("folder_cleaned_data")))
 
-  message(yspm::project_structure("folder_figure_external"))
+  message(paste("*", yspm::project_structure("folder_figure_external")))
   dir_create(path(project_path, yspm::project_structure("folder_figure_external")))
 
-  message(yspm::project_structure("folder_figure_scripted"))
+  message(paste("*", yspm::project_structure("folder_figure_scripted")))
   dir_create(path(project_path, yspm::project_structure("folder_figure_scripted")))
 
-  message(yspm::project_structure("folder_metadata_dataset"))
+  message(paste("*", yspm::project_structure("folder_metadata_dataset")))
   dir_create(path(project_path, yspm::project_structure("folder_metadata_dataset")))
 
-  message(yspm::project_structure("folder_metadata_package"))
+  message(paste("*", yspm::project_structure("folder_metadata_package")))
   dir_create(path(project_path, yspm::project_structure("folder_metadata_package")))
 
-  message(yspm::project_structure("folder_report_presentation"))
+  message(paste("*", yspm::project_structure("folder_report_presentation")))
   dir_create(path(project_path, yspm::project_structure("folder_report_presentation")))
 
-  message(yspm::project_structure("folder_report_publication"))
+  message(paste("*", yspm::project_structure("folder_report_publication")))
   dir_create(path(project_path, yspm::project_structure("folder_report_publication")))
 
-  message(yspm::project_structure("folder_report_qualification"))
+  message(paste("*", yspm::project_structure("folder_report_qualification")))
   dir_create(path(project_path, yspm::project_structure("folder_report_qualification")))
 
-  message(yspm::project_structure("folder_source_library"))
+  message(paste("*", yspm::project_structure("folder_source_library")))
   dir_create(path(project_path, yspm::project_structure("folder_source_library")))
 
-  message(yspm::project_structure("folder_source_workflow"))
+  message(paste("*", yspm::project_structure("folder_source_workflow")))
   dir_create(path(project_path, yspm::project_structure("folder_source_workflow")))
 
   message("")
@@ -105,52 +105,52 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("---")
   message("")
 
-  message(yspm::project_structure("file_library_packages"))
+  message(paste("*", yspm::project_structure("file_library_packages")))
   file_create(path(project_path, yspm::project_structure("file_library_packages")))
 
-  message(yspm::project_structure("file_metadata_checkpoint"))
+  message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
   file_create(path(project_path, yspm::project_structure("file_metadata_checkpoint")))
 
-  message(yspm::project_structure("file_metadata_author"))
+  message(paste("*", yspm::project_structure("file_metadata_author")))
   file_create(path(project_path, yspm::project_structure("file_metadata_author")))
 
-  message(yspm::project_structure("file_metadata_license"))
+  message(paste("*", yspm::project_structure("file_metadata_license")))
   file_create(path(project_path, yspm::project_structure("file_metadata_license")))
 
-  message(yspm::project_structure("file_library_main"))
+  message(paste("*", yspm::project_structure("file_library_main")))
   file_create(path(project_path, yspm::project_structure("file_library_main")))
 
-  message(yspm::project_structure("file_library_import_data"))
+  message(paste("*", yspm::project_structure("file_library_import_data")))
   file_create(path(project_path, yspm::project_structure("file_library_import_data")))
 
-  message(yspm::project_structure("file_library_clean_data"))
+  message(paste("*", yspm::project_structure("file_library_clean_data")))
   file_create(path(project_path, yspm::project_structure("file_library_clean_data")))
 
-  message(yspm::project_structure("file_library_transform_data"))
+  message(paste("*", yspm::project_structure("file_library_transform_data")))
   file_create(path(project_path, yspm::project_structure("file_library_transform_data")))
 
-  message(yspm::project_structure("file_library_visualise_data"))
+  message(paste("*", yspm::project_structure("file_library_visualise_data")))
   file_create(path(project_path, yspm::project_structure("file_library_visualise_data")))
 
-  message(yspm::project_structure("file_library_model_data"))
+  message(paste("*", yspm::project_structure("file_library_model_data")))
   file_create(path(project_path, yspm::project_structure("file_library_model_data")))
 
-  message(yspm::project_structure("file_workflow_main"))
+  message(paste("*", yspm::project_structure("file_workflow_main")))
   file_create(path(project_path, yspm::project_structure("file_workflow_main")))
 
-  message(yspm::project_structure("file_workflow_import_data"))
+  message(paste("*", yspm::project_structure("file_workflow_import_data")))
   file_create(path(project_path, yspm::project_structure("file_workflow_import_data")))
 
-  message(yspm::project_structure("file_workflow_clean_data"))
+  message(paste("*", yspm::project_structure("file_workflow_clean_data")))
   file_create(path(project_path, yspm::project_structure("file_workflow_clean_data")))
 
-  message(yspm::project_structure("file_workflow_transform_data"))
+  message(paste("*", yspm::project_structure("file_workflow_transform_data")))
   file_create(path(project_path, yspm::project_structure("file_workflow_transform_data")))
 
-  message(yspm::project_structure("file_workflow_visualise_data"))
+  message(paste("*", yspm::project_structure("file_workflow_visualise_data")))
   file_create(path(project_path, yspm::project_structure("file_workflow_visualise_data")))
 
-  message(yspm::project_structure("file_workflow_model_data"))
+  message(paste("*", yspm::project_structure("file_workflow_model_data")))
   file_create(path(project_path, yspm::project_structure("file_workflow_model_data")))
 
   # constructing default file content
