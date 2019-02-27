@@ -113,7 +113,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   wd_before <- getwd()
   repo_before <- getOption("repos")
-  lib_paths_before <- unique(.libPaths())
+  lib_paths_before <- suppressWarnings(normalizePath(unique(.libPaths())))
 
   setwd(project_path)
 
@@ -121,7 +121,6 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   if (Sys.getenv("RSTUDIO") == "1") {
     loaded_packages <- names(sessionInfo()$otherPkgs)
     if ("devtools" %in% loaded_packages) {
-      detachable_packages <- "devtools"
       quiet(suppressWarnings(lapply(detachable_packages, function(package) {
         try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
       })))
@@ -137,19 +136,19 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
     forceCreateFolders = T,
     scanForPackages = F,
     verbose = F,
-    checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
+    checkpointLocation = suppressWarnings(normalizePath(path(project_path, yspm::project_structure("folder_source_library")))),
     project = project_path
   )
 
   # get the new set library path
-  lib_path_for_project <- unique(.libPaths())
-
-  # install from github the project management into the new project
-  withr::with_libpaths(lib_path_for_project, remotes::install_github("cpfaff/yspm", subdir = "yspm"))
+  lib_path_for_project <- suppressWarnings(normalizePath(unique(.libPaths())))
 
   .libPaths(lib_paths_before)
   setwd(wd_before)
   options(repos = repo_before)
+
+  # install from github the project management into the new project
+  withr::with_libpaths(lib_path_for_project, remotes::install_github("cpfaff/yspm", subdir = "yspm"))
 
   message("")
   message("Done:")
