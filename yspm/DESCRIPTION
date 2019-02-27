@@ -16,7 +16,7 @@ Imports:
     enc,
     httr,
     import,
-    remotes,
+    devtools,
     stringr,
     parallel,
     checkpoint,

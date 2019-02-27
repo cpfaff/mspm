@@ -27,7 +27,7 @@
 #' }
 #'
 #' @importFrom fs path dir_create file_create
-#' @importFrom remotes install_github
+#' @importFrom devtools install_github
 #' @importFrom withr with_libpaths
 #'
 #' @export create_project
@@ -142,7 +142,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   tryCatch(
         {
-        remotes::install_github("cpfaff/yspm", subdir = "yspm")
+        devtools::install_github("cpfaff/yspm", subdir = "yspm")
         },
         error=function(cond) {
           .libPaths(lib_paths_before)
@@ -150,7 +150,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
           options(repos = repo_before)
 
           message("")
-          message("Oh no:")
+          message("Oh no something went wrong:")
           message("")
           message("--------------------------")
 
