@@ -115,12 +115,13 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     snapshotDate = project_creation_date,
     scanForPackages = F,
     verbose = F,
-    checkpointLocation = path(project_path, yspm::project_structure("folder_source_library")),
+    checkpointLocation = normalizePath(fs::path(project_path, yspm::project_structure("folder_source_library"))),
     project = project_path
   )
 
   yspm::enabled_project("project_checkpoint" = project_creation_date)
   # this part needs to go into a try catch to revert the changes
+  quiet(require(yspm))
 
   message("")
   message(paste("Done"))
