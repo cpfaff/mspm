@@ -118,8 +118,6 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     })))
   }
 
-
-  # this part needs to go into a try catch to revert the changes
   checkpoint::checkpoint(
     authorizeFileSystemUse = F,
     forceSetMranMirror = T,
@@ -132,7 +130,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   )
 
   yspm::enabled_project("project_checkpoint" = project_creation_date)
-  # this part needs to go into a try catch to revert the changes
+
   require(yspm)
 
   message("")
