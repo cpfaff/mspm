@@ -103,7 +103,7 @@ project_content()
 project_content("source/library/01_packages.R")
 
 # allows you to style the source code of the active project
-style_project()
+standardize_project_code()
 
 # create example content to collect metadata
 # install.packages(c("tibble", "readr", "magrittr"))

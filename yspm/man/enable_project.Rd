@@ -4,11 +4,11 @@
 \alias{enable_project}
 \title{Enable an existing project}
 \usage{
-enable_project(root_folder = getwd(), project_name = NULL,
+enable_project(root_path = getwd(), project_name = NULL,
   project_path = NULL)
 }
 \arguments{
-\item{root_folder}{The root folder designates the path in the filesystem
+\item{root_path}{The root folder designates the path in the filesystem
 where the project is stored.}
 
 \item{project_name}{The project name is the name of the folder the predefined
@@ -17,7 +17,7 @@ name the project. You can use it together with the compile_project_name
 function to get the same streamlined project names as during the project
 creation.}
 
-\item{project_path}{Instead of using the root_folder and project_name arguments
+\item{project_path}{Instead of using the root_path and project_name arguments
 the full path to the project folder can be specifified here.}
 }
 \description{
@@ -26,7 +26,7 @@ A function that enables an existing project.
 \examples{
 \dontrun{
 enable_project(
-  root_folder = getwd(),
+  root_path = getwd(),
   project_name = compile_project_name(
     first_name = "Max",
     last_name = "Mustermann",
@@ -35,7 +35,7 @@ enable_project(
 )
 
 enable_project(
-  root_folder = "~/",
+  root_path = "~/",
   project_name = "my_phd_project"
 )
 }

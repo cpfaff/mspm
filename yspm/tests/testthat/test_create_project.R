@@ -18,7 +18,7 @@ test_that("function: create_project is defined ", {
 })
 
 test_that("function: create_project accepts required parameters", {
-  expect_true(all(names(formals("create_project")) %in% c("root_folder", "project_name", "project_path")))
+  expect_true(all(names(formals("create_project")) %in% c("root_path", "project_name", "project_path")))
 })
 
 test_that("function: create_project: creates valid folder structure", {

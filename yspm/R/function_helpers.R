@@ -110,6 +110,8 @@ write_list_to_dcf <- function(list, filename) {
 
 # a directory tree structure
 show_project_tree <- function(path = getwd(), level = Inf) {
+  path <- suppressWarnings(normalizePath(path(path)))
+
   fad <-
     list.files(path = path, recursive = TRUE, no.. = TRUE, include.dirs = TRUE)
   fad_split_up <- strsplit(fad, "/")
@@ -129,7 +131,6 @@ show_project_tree <- function(path = getwd(), level = Inf) {
   fad_subbed_out <- lapply(fad_split_up, jfun)
   cat(unlist(lapply(fad_subbed_out, paste, collapse = "")), sep = "\n")
 }
-
 
 # get the sourced file name
 get_sourced_file_directory <- function() {

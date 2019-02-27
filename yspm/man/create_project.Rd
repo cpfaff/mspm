@@ -4,21 +4,21 @@
 \alias{create_project}
 \title{Create a new project}
 \usage{
-create_project(root_folder = getwd(), project_name = NULL,
+create_project(root_path = getwd(), project_name = NULL,
   project_path = NULL)
 }
 \arguments{
-\item{root_folder}{The root folder designates the location in the filesystem
-where the project will bestored.}
+\item{root_path}{The path to theroot folder designates the location in the
+filesystem where the project will bestored.}
 
 \item{project_name}{The project name is the name of the folder the predefined
 structure is created in. This parameter allows you to freely name the
 project. You can use it together with the compile_project_name
 function to generate streamlined project names.}
 
-\item{project_path}{Instead of using the root_folder and project name arguments
-the full path to the folder can be specifified in which the project
-structure will be created in.}
+\item{project_path}{Instead of using the root_folder and project_name arguments
+the full path allows to specify the the path to the folder in which which
+the predefined project folder structure will be created in.}
 }
 \description{
 A function that creates a new project. A project consists of a predefined
@@ -28,7 +28,7 @@ source and reporting to help better organize your new project.
 \examples{
 \dontrun{
 create_project(
-  root_folder = getwd(),
+  root_path = getwd(),
   project_name = compile_project_name(
     first_name = "Max",
     last_name = "Mustermann",

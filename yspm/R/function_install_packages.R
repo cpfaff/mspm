@@ -9,7 +9,7 @@
 #' @return The function is called for its side effects
 #' @export install_packages
 
-install_packages <- function(name){
+install_packages <- function(name) {
   if (Sys.getenv("RSTUDIO") == "1") {
     message("")
     message(paste("Clean your workspace from packages:"))
@@ -30,4 +30,3 @@ install_packages <- function(name){
     lapply(loaded_packages, require, character.only = TRUE)
   }
 }
-

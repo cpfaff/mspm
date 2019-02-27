@@ -2,40 +2,44 @@
 #'
 #' A function that enables an existing project.
 #'
-#' @param root_folder The root folder designates the path in the filesystem
+#' @param root_path The root folder designates the path in the filesystem
 #'        where the project is stored.
 #' @param project_name The project name is the name of the folder the predefined
 #'        project structure has been created in. This parameter allows you to freely
 #'        name the project. You can use it together with the compile_project_name
 #'        function to get the same streamlined project names as during the project
 #'        creation.
-#' @param project_path Instead of using the root_folder and project_name arguments
+#' @param project_path Instead of using the root_path and project_name arguments
 #'        the full path to the project folder can be specifified here.
 #'
 #' @examples
 #' \dontrun{
 #' enable_project(
-#'   root_folder = getwd(),
+#'   root_path = getwd(),
 #'   project_name = compile_project_name(
 #'     first_name = "Max",
 #'     last_name = "Mustermann",
 #'     project_category = "Phd"
 #'   )
 #' )
-#'
+#' 
 #' enable_project(
-#'   root_folder = "~/",
+#'   root_path = "~/",
 #'   project_name = "my_phd_project"
 #' )
 #' }
-#'
+#' 
 #' @importFrom checkpoint checkpoint
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @export enable_project
 
-enable_project <- function(root_folder = getwd(), project_name = NULL, project_path = NULL) {
+enable_project <- function(root_path = getwd(), project_name = NULL, project_path = NULL) {
+  normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
+
   if (is.null(project_path)) {
-    project_path <- path(root_folder, project_name)
+    project_path <- path(normalized_root_path, project_name)
+  } else {
+    project_path <- suppressWarnings(normalizePath(path(project_path)))
   }
 
   # does the project_path exist at all
@@ -50,6 +54,9 @@ enable_project <- function(root_folder = getwd(), project_name = NULL, project_p
   big_message("Enable project")
   small_message("Tasks")
 
+  # that might be a to restrictive test as the structure might need to be a little
+  # bit more flexible to adapt by the user. It should be a suggestion so maybe we
+  # rather check for the first level of folder under the project folder only.
   if (!all(
     dir_exists(path(project_path, yspm::project_structure("folder_primary_data"))),
     dir_exists(path(project_path, yspm::project_structure("folder_interim_data"))),

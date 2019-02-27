@@ -20,25 +20,34 @@ setup <- function(root_path = NULL) {
     stop("setup failed: the root_folder that you provide already exists!")
   }
 
+  normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
+
   big_message("Setup project management")
 
   small_message("Create content")
 
-  message(paste("* create folder:", root_path))
+  message(paste("* folder:"))
+  message("")
+  message(paste(normalized_root_path))
+  message("")
 
-  root_path = normalizePath(path(root_path))
+  dir_create(normalized_root_path)
 
-  dir_create(root_path)
+  message(paste("* file:"))
+  message("")
+  message(paste("manage_projects.R"))
+  message("")
 
-  message(paste("* create file manage_projects.R in :", root_path))
+  file_create(path(normalized_root_path, "manage_projects", ext = "R"))
 
-  file_create(path(root_path, "manage_projects", ext = "R"))
-
-  write(content_setup_manage_projects, file = path(root_path, "manage_projects", ext = "R"))
+  write(content_setup_manage_projects, file = path(normalized_root_path, "manage_projects", ext = "R"))
 
   message("")
   message("Done:")
   message("")
-  message(paste("Open manage_projects.R in:", root_path, "with your favorite editor to get started."))
+  message("Now you can open the manage_projects.R file in the path below to get started:")
+  message("")
+  message(normalized_root_path)
+  message("")
   message("--------------------------")
 }
