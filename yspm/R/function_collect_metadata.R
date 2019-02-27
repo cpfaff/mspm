@@ -13,7 +13,7 @@
 #' \dontrun{
 #' collect_csv_variables()
 #' }
-#' 
+#'
 #' @return No value is returned; this function is called for its side effects.
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
@@ -22,7 +22,11 @@
 
 collect_csv_variables <- function(input_path = yspm::project_content("data"), output_path = yspm::project_content("metadata/dataset")) {
   check_if_project_is_enabled("collect_csv_variables")
-  csv_file_paths <- normalizePath(list.files(input_path, pattern = "*.(csv|tsv)", ignore.case = TRUE, recursive = T, full.names = T))
+
+  normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
+  normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
+
+  csv_file_paths <- normalizePath(list.files(normalized_input_path, pattern = "*.(csv|tsv)", ignore.case = TRUE, recursive = T, full.names = T))
 
   if (identical(csv_file_paths, character(0))) {
     stop("collect_csv_variables failed: There is no data in your folder")
@@ -77,8 +81,8 @@ collect_csv_variables <- function(input_path = yspm::project_content("data"), ou
 
   additional_columns <- c("variable_description")
   output_with_variable_class[, additional_columns] <- NA
-  write.csv(output_with_variable_class, paste0(path(output_path, "csv_variables.csv")), row.names = F)
-  if (file_exists(paste0(path(output_path, "csv_variables.csv")))) {
+  write.csv(output_with_variable_class, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = F)
+  if (file_exists(paste0(path(normalized_output_path, "csv_variables.csv")))) {
     message("File csv_variables.csv has been created successfully.")
   }
 }
@@ -94,14 +98,20 @@ collect_csv_variables <- function(input_path = yspm::project_content("data"), ou
 #' \dontrun{
 #' collect_csv_variables()
 #' }
-#' 
+#'
 #' @return No value is returned; this function is called for its side effects.
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
 #' @export collect_csv_categories
 
 collect_csv_categories <- function(input_path = yspm::project_content("data"), output_path = yspm::project_content("metadata/dataset")) {
-  csv_file_paths <- normalizePath(list.files(input_path, pattern = "*.(csv|tsv)", ignore.case = TRUE, recursive = T, full.names = T))
+  check_if_project_is_enabled("collect_csv_categories")
+
+  normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
+  normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
+
+
+  csv_file_paths <- normalizePath(list.files(normalized_input_path, pattern = "*.(csv|tsv)", ignore.case = TRUE, recursive = T, full.names = T))
 
   if (identical(csv_file_paths, character(0))) {
     stop("collect_csv_categories failed: There is no data in your folder")
@@ -149,8 +159,8 @@ collect_csv_categories <- function(input_path = yspm::project_content("data"), o
 
   additional_columns <- c("variable_description")
   output_separated[, additional_columns] <- NA
-  write.csv(output_separated[!is.na(output_separated$variable_category), ], paste0(path(output_path, "csv_categories.csv")), row.names = F)
-  if (file_exists(paste0(path(output_path, "csv_categories.csv")))) {
+  write.csv(output_separated[!is.na(output_separated$variable_category), ], paste0(path(normalized_output_path, "csv_categories.csv")), row.names = F)
+  if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
     message("File csv_categories.csv has been created successfully.")
   }
 }
