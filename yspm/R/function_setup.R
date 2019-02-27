@@ -19,8 +19,8 @@ setup <- function(root_path = NULL) {
 
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
-  if (dir_exists(root_path)) {
-    stop("setup failed: the root_folder that you provide already exists!")
+  if (dir_exists(normalized_root_path)) {
+    stop("setup failed: the root_path that you provide already exists!")
   }
 
   big_message("Setup project management")
