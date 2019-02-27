@@ -68,7 +68,6 @@ small_message <- function(say) {
 # \dontrun{translate.dcf(file.path('config', 'global.dcf'))}
 
 #' @importFrom stats setNames
-
 read_dcf_to_list <- function(filename) {
   settings <- read.dcf(filename)
   settings <- setNames(as.list(as.character(settings)), colnames(settings))

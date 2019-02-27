@@ -22,13 +22,13 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#' 
+#'
 #' enable_project(
 #'   root_path = "~/",
 #'   project_name = "my_phd_project"
 #' )
 #' }
-#' 
+#'
 #' @importFrom checkpoint checkpoint
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @export enable_project
@@ -90,17 +90,6 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
                  Choose a different location, or check the spelling."))
   }
 
-  # if we run in rstudio to prevent the dialogue
-  if (Sys.getenv("RSTUDIO") == "1") {
-    loaded_packages <- names(sessionInfo()$otherPkgs)
-    detachable_packages <- loaded_packages
-    # exclude_packages <- c("yspm")
-    # detachable_packages <- setdiff(loaded_packages, exclude_packages)
-    quiet(suppressWarnings(lapply(detachable_packages, function(package) {
-      try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
-    })))
-  }
-
   message("")
   message(paste("Set working diretory:"))
   message("")
@@ -117,6 +106,18 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("")
   message(paste("* to:", project_creation_date))
   message("---")
+
+  # if we run in rstudio to prevent the dialogue
+  if (Sys.getenv("RSTUDIO") == "1") {
+    loaded_packages <- names(sessionInfo()$otherPkgs)
+    detachable_packages <- loaded_packages
+    # exclude_packages <- c("yspm")
+    # detachable_packages <- setdiff(loaded_packages, exclude_packages)
+    quiet(suppressWarnings(lapply(detachable_packages, function(package) {
+      try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
+    })))
+  }
+
 
   # this part needs to go into a try catch to revert the changes
   checkpoint::checkpoint(
