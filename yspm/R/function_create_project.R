@@ -120,15 +120,15 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   # if we run in rstudio to prevent the dialogue when devtools is loaded (can be other packages as well actually)
   if (Sys.getenv("RSTUDIO") == "1") {
     loaded_packages <- names(sessionInfo()$otherPkgs)
-    if ("devtools" %in% loaded_packages) {
-      quiet(suppressWarnings(lapply(detachable_packages, function(package) {
-        try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
-      })))
-    }
+    exclude_packages <- c("yspm")
+    detachable_packages <- setdiff(loaded_packages, exclude_packages)
+    quiet(suppressWarnings(lapply(detachable_packages, function(package) {
+      try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
+    })))
   }
 
   # set up the new local package library and repository url
-  checkpoint(
+  checkpoint::checkpoint(
     authorizeFileSystemUse = F,
     forceSetMranMirror = T,
     installPackagesWithDependency = T,
@@ -136,23 +136,38 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
     forceCreateFolders = T,
     scanForPackages = F,
     verbose = F,
-    checkpointLocation = suppressWarnings(normalizePath(path(project_path, yspm::project_structure("folder_source_library")))),
+    checkpointLocation = suppressWarnings(normalizePath(fs::path(project_path, yspm::project_structure("folder_source_library")))),
     project = project_path
   )
 
-  # get the new set library path
-  lib_path_for_project <- suppressWarnings(normalizePath(unique(.libPaths())))
+  tryCatch(
+        {
+        devtools::install_github("cpfaff/yspm", subdir = "yspm")
+        },
+        error=function(cond) {
+          .libPaths(lib_paths_before)
+          setwd(wd_before)
+          options(repos = repo_before)
 
-  .libPaths(lib_paths_before)
-  setwd(wd_before)
-  options(repos = repo_before)
+          message("")
+          message("Oh no:")
+          message("")
+          message("--------------------------")
 
-  # install from github the project management into the new project
-  withr::with_libpaths(lib_path_for_project, remotes::install_github("cpfaff/yspm", subdir = "yspm"))
+        },
+        finally={
+          .libPaths(lib_paths_before)
+          setwd(wd_before)
 
-  message("")
-  message("Done:")
-  message("")
-  message("You can use the fuction enable_project() to initialize it for usage.")
-  message("--------------------------")
+          options(repos = repo_before)
+
+          message("")
+          message("Done:")
+          message("")
+          message("You can use the fuction enable_project() to initialize it for usage.")
+          message("--------------------------")
+
+        }
+    )
+
 }
