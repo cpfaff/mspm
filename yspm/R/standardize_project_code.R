@@ -16,8 +16,10 @@
 #' }
 #'
 #' @importFrom styler style_dir
+#' @importFrom fs path
 #' @export standardize_project_code
 
 standardize_project_code <- function(project_path = yspm::enabled_project("project_path")) {
+  project_path <- suppressWarnings(normalizePath(path(project_path)))
   suppressWarnings(style_dir(path))
 }
