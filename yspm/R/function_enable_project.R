@@ -22,13 +22,13 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#' 
+#'
 #' enable_project(
 #'   root_path = "~/",
 #'   project_name = "my_phd_project"
 #' )
 #' }
-#' 
+#'
 #' @importFrom checkpoint checkpoint
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @export enable_project
@@ -42,7 +42,6 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     project_path <- suppressWarnings(normalizePath(path(project_path)))
   }
 
-  # does the project_path exist at all
   if (!is_dir(path(project_path))) {
     stop(paste(
       "enable_project failed: The project_path you provide does not exist.
@@ -108,6 +107,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message(paste("* to:", project_creation_date))
   message("---")
 
+  # this part needs to go into a try catch to revert the changes
   checkpoint(
     authorizeFileSystemUse = F,
     forceSetMranMirror = T,
@@ -120,6 +120,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   )
 
   yspm::enabled_project("project_checkpoint" = project_creation_date)
+  # this part needs to go into a try catch to revert the changes
 
   message("")
   message(paste("Done"))

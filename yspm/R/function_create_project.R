@@ -33,6 +33,8 @@
 #' @export create_project
 
 create_project <- function(root_path = getwd(), project_name = NULL, project_path = NULL) {
+  normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
+
   if (is.null(project_name)) {
     stop("create_project: requires the parameter project name")
   }
