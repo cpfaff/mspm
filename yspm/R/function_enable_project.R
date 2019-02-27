@@ -90,6 +90,17 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
                  Choose a different location, or check the spelling."))
   }
 
+  # if we run in rstudio to prevent the dialogue
+  if (Sys.getenv("RSTUDIO") == "1") {
+    loaded_packages <- names(sessionInfo()$otherPkgs)
+    detachable_packages <- loaded_packages
+    # exclude_packages <- c("yspm")
+    # detachable_packages <- setdiff(loaded_packages, exclude_packages)
+    quiet(suppressWarnings(lapply(detachable_packages, function(package) {
+      try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
+    })))
+  }
+
   message("")
   message(paste("Set working diretory:"))
   message("")
@@ -99,7 +110,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   yspm::enabled_project("project_path" = project_path)
 
   project_creation_date <-
-    as.character(read_dcf_to_list(path(project_path, yspm::project_structure("file_metadata_checkpoint"))))
+    as.character(yspm::read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_checkpoint"))))
 
   message("")
   message(paste("Set checkpoint:"))
@@ -108,7 +119,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("---")
 
   # this part needs to go into a try catch to revert the changes
-  checkpoint(
+  checkpoint::checkpoint(
     authorizeFileSystemUse = F,
     forceSetMranMirror = T,
     installPackagesWithDependency = T,
@@ -121,7 +132,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   yspm::enabled_project("project_checkpoint" = project_creation_date)
   # this part needs to go into a try catch to revert the changes
-  quiet(require(yspm))
+  require(yspm)
 
   message("")
   message(paste("Done"))
