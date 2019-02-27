@@ -117,7 +117,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   setwd(project_path)
 
-  # if we run in rstudio to prevent the dialogue when devtools is loaded (can be other packages as well actually)
+  # if we run in rstudio to prevent the dialogue
   if (Sys.getenv("RSTUDIO") == "1") {
     loaded_packages <- names(sessionInfo()$otherPkgs)
     exclude_packages <- c("yspm")
