@@ -27,7 +27,7 @@
 #' }
 #'
 #' @importFrom fs path dir_create file_create
-#' @importFrom devtools install_github
+#' @importFrom devtools install_github update_packages
 #' @importFrom withr with_libpaths
 #'
 #' @export create_project
@@ -145,10 +145,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
     # again working around windows and rstudio quirks
     if (Sys.getenv("RSTUDIO") == "1") {
-      exclude_packages <- c("yspm", "checkpoint")
-      installed_packages <- unname(installed.packages()[, "Package"])
-      updatable_packages <- setdiff(installed_packages, exclude_packages)
-      update.packages(updatable_packages, dependencies = F, checkBuilt = T, ask = F)
+      devtools::update_packages(upgrade = "always")
     }
   },
   error = function(cond) {
