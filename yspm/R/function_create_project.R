@@ -27,7 +27,8 @@
 #' }
 #'
 #' @importFrom fs path dir_create file_create
-#' @importFrom devtools install_github update_packages
+#' @importFrom devtools install_github
+#' @importFrom remotes update_packages
 #' @importFrom withr with_libpaths
 #'
 #' @export create_project
@@ -200,7 +201,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
     # just in case we have old versions of packages installed from binaries
     if (Sys.getenv("RSTUDIO") == "1") {
-      devtools::update_packages(upgrade = "always")
+      remotes::update_packages(upgrade = "always", build = TRUE)
 
     }
   },
