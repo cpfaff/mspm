@@ -197,13 +197,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   )
 
   tryCatch({
-    devtools::install_github("cpfaff/yspm", subdir = "yspm")
-
-    # just in case we have old versions of packages installed from binaries
-    if (Sys.getenv("RSTUDIO") == "1") {
-      remotes::update_packages(upgrade = "always", build = TRUE)
-
-    }
+    devtools::install_github("cpfaff/yspm", subdir = "yspm", type = "source", dependencies = TRUE, quiet = TRUE)
   },
   error = function(cond) {
     .libPaths(lib_paths_before)
@@ -211,9 +205,8 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
     options(repos = repo_before)
 
     message("")
-    message("Oh no something went wrong:")
+    message("Some problems occured during installing the environment")
     message("")
-    message("--------------------------")
   },
   finally = {
     .libPaths(lib_paths_before)

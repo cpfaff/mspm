@@ -109,8 +109,6 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   if (Sys.getenv("RSTUDIO") == "1") {
     loaded_packages <- names(sessionInfo()$otherPkgs)
     detachable_packages <- loaded_packages
-    # exclude_packages <- c("yspm")
-    # detachable_packages <- setdiff(loaded_packages, exclude_packages)
     quiet(suppressWarnings(lapply(detachable_packages, function(package) {
       try(detach(paste0("package:", package), character.only = TRUE, unload = TRUE, force = TRUE), silent = T)
     })))
