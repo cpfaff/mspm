@@ -198,7 +198,9 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   tryCatch({
     devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
-    update.packages(ask = F, checkBuilt = T)
+    # update packages in the personal library as the system library is often
+    # not writable by the user.
+    update.packages(ask = F, checkBuilt = T, instlib = .libPaths()[1])
   },
   error = function(cond) {
     .libPaths(lib_paths_before)
