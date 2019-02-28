@@ -10,7 +10,7 @@ Description: The package provides a set of utilities for
              predefined folder structure for new science projects. 
              Helps cleaning data and creating documentation for the
              project.
-Depends: R (>= 3.5.1),
+Depends: R (>= 3.5.2),
 Imports:
     fs,
     enc,
