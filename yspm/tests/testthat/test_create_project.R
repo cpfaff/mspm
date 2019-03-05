@@ -35,7 +35,7 @@ test_that("function: create_project: creates valid folder structure", {
   expect_true(dir_exists(path(test_project_folder, yspm::project_structure("folder_metadata_package"))))
 
   expect_true(file_exists(path(test_project_folder, yspm::project_structure("file_metadata_checkpoint"))))
-  expect_true(file_exists(path(test_project_folder, yspm::project_structure("file_metadata_author"))))
+  expect_true(file_exists(path(test_project_folder, yspm::project_structure("file_metadata_project"))))
   expect_true(file_exists(path(test_project_folder, yspm::project_structure("file_metadata_license"))))
 
   expect_true(dir_exists(path(test_project_folder, yspm::project_structure("folder_report_presentation"))))
