@@ -1,18 +1,19 @@
 # Your small project management
 
-This repository provides the 'yspm' R package which is a project management
+This repository contains the 'yspm' R package which is a project management
 tool for the famous R statistics environment. The package provides tools to
 easily create a predefined project folder structure, to create relative file
 and folder reference inside a project and a package management to allow for
 better reproducible project. It helps you creating self contained, shareable
 and reproducible packages of projects. Several nice tools and ideas (e.g. the
-checkpoint package, ProjectTemplate or the 'here' package) which are floating
-around in the R user community have been wrapped up into a streamlined solution.
+checkpoint package, ProjectTemplate, drake or the 'here' package), which are
+floating around in the R community, have been wrapped up into a streamlined
+solution.
 
 ## Installation
 
 In order to work with the project management tool you need to be able building
-R packages locally on your computer. This requires the installation of the GNU
+R packages locally on your computer. It requires the installation of the GNU
 software development tools which comprise a C/C++ compiler and LaTeX if you
 want to be able building R manuals and vignettes. Below you can find links and
 instructions for different operating systems.
