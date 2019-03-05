@@ -243,9 +243,9 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   tryCatch({
     devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
-    # update packages in the personal library as the system library is often
-    # not writable by the user.
-    update.packages(ask = F, checkBuilt = T, instlib = .libPaths()[1])
+    non_writable_libraries = as.numeric(which(file.access(.libPaths(), mode = 2) == -1))
+    update.packages(ask = F, checkBuilt = T, instlib = .libPaths()[-non_writable_libraries])
+
   },
   error = function(cond) {
     .libPaths(lib_paths_before)
@@ -253,13 +253,12 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
     options(repos = repo_before)
 
     message("")
-    message("Some problems occured during installing the environment")
+    message("Some problems occured installing and updating packages in the environment.")
     message("")
   },
   finally = {
     .libPaths(lib_paths_before)
     setwd(wd_before)
-
     options(repos = repo_before)
 
     message("")
