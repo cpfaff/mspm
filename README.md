@@ -4,13 +4,10 @@ This repository provides the 'yspm' R package which is a project management
 tool for the famous R statistics environment. The package provides tools to
 easily create a predefined project folder structure, to create relative file
 and foldre reference inside a project and a package mangement to allow for
-better reproducible project.
-
-It further
-convenient functions allow you creating self contained, shareable and
-reproducible code. For this several nice tools (e.g. the checkpoint package,
-ProjectTemplate) and ideas (like form the here package) which are floating
-around in the R community are wrapped up into a streamlined solution.
+better reproducible project. It helps you creating self contained, shareable
+and reproducible packages of projects. Several nice tools and ideas (e.g. the
+checkpoint package, ProjectTemplate or the 'here' package) which are floating
+around in the R user community have been wraped up into a streamlined solution.
 
 ## Installation
 
