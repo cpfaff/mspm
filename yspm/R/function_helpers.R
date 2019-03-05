@@ -179,3 +179,18 @@ get_category_instances <- function(dataset) {
     }
   })
 }
+
+# functions to coerce a call into a list to deconstruct
+# functions passed into parameters of other functions
+convert_call_to_list <- function(x) {
+  if (is.call(x)) as.list(x) else x
+}
+
+convert_params_to_list <- function() {
+  first_pass <- as.list(match.call())
+  second_pass <- lapply(first_pass, convert_call_to_list)
+  setNames(second_pass, names(first_pass))
+  return(second_pass)
+}
+
+
