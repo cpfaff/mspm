@@ -97,12 +97,17 @@ create_project(project_name = compile_project_name(first_name = "Your first name
 It creates a new project folder in a location you desire. This location
 defaults to the current working directory. If you set this correctly then the
 new project will be created in your projects directory next to the
-`manage_projects.R` file. While you can provide any project folder name we here
-use a function to help us to compile consistent project names
-`compile_project_name()`. It requires your first and lat name and automatically
-prepends the creation date of the project which helps sorring when you have
-many projects in that folder (The format is
-`YYYY-MM-DD_your_first_name_your_last_name`).
+`manage_projects.R` file. While you can provide any project folder name that
+you want we here use a constructor function of yspm to help us to compile
+consistent project names `compile_project_name()`. It requires your first and
+last name and automatically prepends the creation date of the project which
+helps sorring when you have many projects in that folder (The format is
+`YYYY-MM-DD_your_first_name_your_last_name`). You can also create your own
+constructor function to use here. The only thing you need to ensure is that
+your functions returns a single string with the name of the folder that you
+want. If you pass in a function into the parameter `project_name` the function
+`create_project` collects the parameter names and the values and stores them as
+metadata in the metadata folder (see below) as a file called `project.dcf`
 
 Note. The process to create a new project may take a while as it installs an
 independent R environment and packages into your new project. Afterwards you
