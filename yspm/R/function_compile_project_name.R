@@ -27,7 +27,7 @@
 #'   project_category = "PhD"
 #' )
 #' }
-#' 
+#'
 #' @importFrom stringr str_detect str_to_lower str_replace_all str_trim
 #'
 #' @export compile_project_name

@@ -229,7 +229,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   }
 
   # set up the new local package library and repository url
-  yspm-checkpoint::checkpoint(
+  yspmcheckpoint::checkpoint(
     authorizeFileSystemUse = F,
     forceSetMranMirror = T,
     installPackagesWithDependency = T,
