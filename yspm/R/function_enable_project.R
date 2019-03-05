@@ -114,7 +114,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     })))
   }
 
-  checkpoint::checkpoint(
+  yspm-checkpoint::checkpoint(
     authorizeFileSystemUse = F,
     forceSetMranMirror = T,
     installPackagesWithDependency = T,

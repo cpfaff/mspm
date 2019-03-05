@@ -29,6 +29,6 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
-Remotes: github::cpfaff/checkpoint
+Remotes: github::cpfaff/yspm-checkpoint
 RoxygenNote: 6.1.1
 
