@@ -65,7 +65,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     dir_exists(path(project_path, yspm::project_structure("folder_metadata_dataset"))),
     dir_exists(path(project_path, yspm::project_structure("folder_metadata_package"))),
     file_exists(path(project_path, yspm::project_structure("file_metadata_checkpoint"))),
-    file_exists(path(project_path, yspm::project_structure("file_metadata_author"))),
+    file_exists(path(project_path, yspm::project_structure("file_metadata_project"))),
     file_exists(path(project_path, yspm::project_structure("file_metadata_license"))),
     dir_exists(path(project_path, yspm::project_structure("folder_report_presentation"))),
     dir_exists(path(project_path, yspm::project_structure("folder_report_publication"))),

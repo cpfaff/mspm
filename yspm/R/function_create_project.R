@@ -112,8 +112,8 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
   file_create(path(project_path, yspm::project_structure("file_metadata_checkpoint")))
 
-  message(paste("*", yspm::project_structure("file_metadata_author")))
-  file_create(path(project_path, yspm::project_structure("file_metadata_author")))
+  message(paste("*", yspm::project_structure("file_metadata_project")))
+  file_create(path(project_path, yspm::project_structure("file_metadata_project")))
 
   message(paste("*", yspm::project_structure("file_metadata_license")))
   file_create(path(project_path, yspm::project_structure("file_metadata_license")))
