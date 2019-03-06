@@ -95,6 +95,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("")
   message(paste("* to:", project_path))
   message("---")
+  message("")
 
   project_creation_date <-
     as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_checkpoint"))))
@@ -104,6 +105,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("")
   message(paste("* to:", project_creation_date))
   message("---")
+  message("")
 
   # if we run in rstudio to prevent the dialogue
   if (Sys.getenv("RSTUDIO") == "1") {
