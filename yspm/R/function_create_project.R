@@ -29,7 +29,7 @@
 #'   )
 #' )
 #' }
-#'
+#' 
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
 #' @importFrom remotes update_packages
@@ -41,20 +41,20 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
   # if we have a function call in here evaluate it to check if it is a valid call
-  if(is.call(project_name)){
+  if (is.call(project_name)) {
     eval(project_name)
   }
 
   # test if we get back a string
-  if(is.call(project_name)){
-    if(!is.character(eval(project_name))){
+  if (is.call(project_name)) {
+    if (!is.character(eval(project_name))) {
       stop("Your project name constructor does not return a string!")
     }
   }
 
   # check if we have a single string
-  if(length(eval(project_name)) > 1){
-      stop(paste("Your project name constructor needs to return a single string! Instead of", length(eval(project_name))))
+  if (length(eval(project_name)) > 1) {
+    stop(paste("Your project name constructor needs to return a single string! Instead of", length(eval(project_name))))
   }
 
   # if we get a constructor passed into the project name then deconstruct the given parameters
@@ -66,9 +66,9 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   second_pass <- lapply(first_pass, convert_call_to_list)
   setNames(second_pass, names(first_pass))
 
-  if(is.list(second_pass$project_name)){
+  if (is.list(second_pass$project_name)) {
     # get_metadata_positions = names(second_pass$project_name) %in% c("first_name", "last_name", "project_category")
-    metadata_from_parameters = second_pass$project_name[-1]
+    metadata_from_parameters <- second_pass$project_name[-1]
   }
 
   if (is.null(project_name)) {
@@ -201,7 +201,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   system_date_for_checkpoint <- list(checkpoint = Sys.Date())
   write_list_to_dcf(system_date_for_checkpoint, path(project_path, yspm::project_structure("file_metadata_checkpoint")))
 
-  if(exists("metadata_from_parameters")){
+  if (exists("metadata_from_parameters")) {
     message(paste("*", yspm::project_structure("file_metadata_project")))
     write_list_to_dcf(metadata_from_parameters, path(project_path, yspm::project_structure("file_metadata_project")))
   }
@@ -243,9 +243,8 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   tryCatch({
     devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
-    non_writable_libraries = as.numeric(which(file.access(.libPaths(), mode = 2) == -1))
+    non_writable_libraries <- as.numeric(which(file.access(.libPaths(), mode = 2) == -1))
     update.packages(ask = F, checkBuilt = T, instlib = .libPaths()[-non_writable_libraries])
-
   },
   error = function(cond) {
     .libPaths(lib_paths_before)

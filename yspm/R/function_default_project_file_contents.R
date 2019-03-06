@@ -11,7 +11,7 @@ construct_file_packages <- function(project_path) {
     "# package into your project environment. Thus you can import single functions",
     "# like so import::from(<package>, <function>) e.g. import::from('dplyr', 'filter')",
     "",
-    "# packages"
+    "# packages:"
   )
 
   lapply(

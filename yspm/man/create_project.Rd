@@ -14,7 +14,11 @@ filesystem where the project will bestored.}
 \item{project_name}{The project name is the name of the folder the predefined
 structure is created in. This parameter allows you to freely name the
 project. You can use it together with the compile_project_name
-function to generate streamlined project names.}
+function to generate streamlined project names. It allows you to pass
+in a constructor function. It collects all parameters names and their
+values to write them as a key value pair into a metadata file called
+project.dc in the metadata folder of the project. The package comes
+with a default constructor called compile_project_name()}
 
 \item{project_path}{Instead of using the root_folder and project_name arguments
 the full path allows to specify the the path to the folder in which which

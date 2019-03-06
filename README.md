@@ -4,7 +4,7 @@ This repository contains the 'yspm' R package which is a project management
 tool for the famous R statistics environment. The package provides tools to
 easily create a predefined project folder structure, to create relative file
 and folder reference inside a project and a package management to allow for
-better reproducible project. It helps you creating self contained, shareable
+better reproducible project. It helps you to create self-contained, shareable
 and reproducible packages of projects. Several nice tools and ideas (e.g. the
 checkpoint package, ProjectTemplate, drake or the 'here' package), which are
 floating around in the R community, have been wrapped up into a streamlined
@@ -42,7 +42,7 @@ devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T)
 
 #### From an r-script
 
-After you have installed everything, you need to setup a location where all
+After you have installed everything, you need to set up a location where all
 your future R-projects will reside in. The `yspm` package assists you with this
 task. It makes sense to put this folder inside your users directory somewhere.
 
@@ -67,7 +67,7 @@ r_projects
 
 #### From R-studio
 
-You can also use R-Studio to setup your new project management. Just click on
+You can also use R-Studio to set up your new project management. Just click on
 
 * File > New Project > New Directory
 
@@ -81,7 +81,7 @@ used for all your new R projects and a location this folder should be based in.
 
 ![select template](assets/figures/documentation_dialogue_project_template_with_rectangle.png "Select Template")
 
-The process creates the new folder and the `manage_projects.R` file. Finally it
+The process creates the new folder and the `manage_projects.R` file. Finally, it
 open the project management file  and you can directly start from there.
 
 ### Create a new project
@@ -95,9 +95,9 @@ create_project(project_name = compile_project_name(first_name = "Your first name
 ```
 
 It creates a new project folder in a location you desire. This location
-defaults to the current working directory. If you set this correctly then the
+defaults to the current working directory. When you set this correctly then the
 new project will be created in your projects directory next to the
-`manage_projects.R` file. While you can provide any project folder name that
+`manage_projects.R` file. You can provide any project folder name that
 you want we here use a constructor function of yspm to help us to compile
 consistent project names `compile_project_name()`. It requires your first and
 last name and automatically prepends the creation date of the project which

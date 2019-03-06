@@ -192,5 +192,3 @@ convert_params_to_list <- function() {
   setNames(second_pass, names(first_pass))
   return(second_pass)
 }
-
-
