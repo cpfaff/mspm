@@ -1,36 +1,47 @@
-#' A fuction to compile project paths
+#' Project overview
 #'
-#' This function compiles a project path which is always constructued
-#' from the root folder of the project. As the predefined folder structure
-#' has the folder "project" on top this is taken as the root inside the
-#' actual project name. This makes the project more self contained and
-#' allows references to files which do not break.
+#' This functions provides a tree like overview about the folder structure
+#' and files which reside in an activated project.
 #'
-#' @param path The path to the file or folder inside the project.
-#'
-#' @return a string path pointing to the file or folder or when called
-#'         without arguments an overview about the structure and files of the
-#'          project
+#' @return Called for its side effects. A tree with folders and files
+#'         is shown
 #'
 #' @examples
 #' \dontrun{
-#' project_content("data/raw/iris.csv")
-#' "project_name/project/data/raw/iris.csv"
-#' project_content()
+#' show_content()
 #' project
 #' data
 #' ...
 #' ...
 #' }
-#' 
+#'
 #' @importFrom fs path
 #'
-#' @export project_content
+#' @export show_content
 
-project_content <- function(path = NULL) {
+show_content <- function() {
+  check_if_project_is_enabled()
+  project_tree(path = path(yspm::enabled_project("project_path")))
+}
+
+#' Project references
+#'
+#' This function allows to compile relative paths from the root folder of the
+#' enabled project. This prevents setwd() calls and allows to create shareable
+#' projects.
+#'
+#' @param path The path to the file or folder inside the project that is to be
+#'        referenced.
+#'
+#' @return a string path pointing to the file or folder or when called
+#'         without arguments an overview about the structure and files of the
+#'          project
+
+#' @export reference_content
+reference_content <- function(path = NULL) {
   check_if_project_is_enabled()
   if (is.null(path)) {
-    show_project_tree(path = path(enabled_project("project_path")))
+    stop("You need to provide a path to create a reference")
   } else {
     path(enabled_project("project_path"), "project", path)
   }
