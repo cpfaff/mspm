@@ -66,9 +66,19 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   second_pass <- lapply(first_pass, convert_call_to_list)
   setNames(second_pass, names(first_pass))
 
+  # if there is calls in the parameters they need evaluation as otherwise
+  # the function calls end up in the metadata instead of the actual evaluated
+  # content e.g. a system date.
   if (is.list(second_pass$project_name)) {
-    # get_metadata_positions = names(second_pass$project_name) %in% c("first_name", "last_name", "project_category")
     metadata_from_parameters <- second_pass$project_name[-1]
+    metadata_from_parameters <- lapply(metadata_from_parameters, function(parameter){
+             if (is.call(parameter)) {
+              eval(parameter)
+             } else {
+               parameter
+             }
+           }
+         )
   }
 
   if (is.null(project_name)) {
@@ -79,6 +89,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   } else {
     project_path <- suppressWarnings(normalizePath(path(project_path)))
   }
+
   if (is_dir(path(project_path, "project"))) {
     stop("The function create_project: cannot create a project inside an existing one.
          Please Select another project folder. If you want to work on the project
@@ -196,15 +207,26 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("---")
   message("")
 
-  message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
-  # setting system checkpoint date into checkpoint file
-  system_date_for_checkpoint <- list(checkpoint = Sys.Date())
-  write_list_to_dcf(system_date_for_checkpoint, path(project_path, yspm::project_structure("file_metadata_checkpoint")))
 
-  if (exists("metadata_from_parameters")) {
+  message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
+  # the checkpoint is modifyable however the creation date of the project is set
+  # automatically to the sytem date we create the project
+  if (exists("metadata_from_parameters")){
+    if("project_date" %in% names(metadata_from_parameters)){
+      checkpoint = list(checkpoint = metadata_from_parameters$project_date)
+    }
     message(paste("*", yspm::project_structure("file_metadata_project")))
     write_list_to_dcf(metadata_from_parameters, path(project_path, yspm::project_structure("file_metadata_project")))
+
+  } else {
+      checkpoint <- list(checkpoint = Sys.Date())
   }
+
+  write_list_to_dcf(checkpoint, path(project_path, yspm::project_structure("file_metadata_checkpoint")))
+
+  message(paste("*", yspm::project_structure("file_metadata_license")))
+  license_for_project <- list(license = "https://creativecommons.org/licenses/by-sa/4.0/")
+  write_list_to_dcf(license_for_project, path(project_path, yspm::project_structure("file_metadata_license")))
 
   message("")
   message(paste("Install packages:"))
