@@ -42,6 +42,10 @@ create_project <- function(root_path = getwd(),
                            project_path = NULL) {
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
+  if (is.null(project_name)) {
+    stop("create_project: requires the parameter project name")
+  }
+
   # if we have a function call in here evaluate it to check if it is a valid call
   if (is.call(project_name)) {
     eval(project_name)
@@ -84,9 +88,6 @@ create_project <- function(root_path = getwd(),
          )
   }
 
-  if (is.null(project_name)) {
-    stop("create_project: requires the parameter project name")
-  }
   if (is.null(project_path)) {
     project_path <- path(normalized_root_path, project_name)
   } else {
@@ -209,7 +210,6 @@ create_project <- function(root_path = getwd(),
   message(paste("* in:", project_path))
   message("---")
   message("")
-
 
   message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
   # the checkpoint is modifyable however the creation date of the project is set
