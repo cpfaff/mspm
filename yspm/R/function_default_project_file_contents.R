@@ -89,9 +89,7 @@ create_project(project_name = compile_project_name(first_name = "Max",
                                                    project_category = "PhD"))
 
 # enable a project
-enable_project(project_name = compile_project_name(first_name = "Max",
-                                                   last_name = "Mustermann",
-                                                   project_category = "PhD"))
+enable_project(project_path = "<date>_max_mustermann_phd")
 
 # shows info about the enabled project
 enabled_project()
