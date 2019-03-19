@@ -21,10 +21,11 @@ Imports:
     stringr,
     parallel,
     magrittr,
+    yspmcheckpoint,
     styler,
     tidyr,
     withr,
-    rio,
+    rio
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
