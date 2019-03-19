@@ -20,7 +20,6 @@ Imports:
     remotes,
     stringr,
     parallel,
-    checkpoint,
     magrittr,
     styler,
     tidyr,
