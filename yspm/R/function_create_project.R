@@ -228,7 +228,6 @@ create_project <- function(root_path = getwd(),
   if (exists("metadata_from_parameters")) {
     message(paste("*", yspm::project_structure("file_metadata_project")))
     metadata_from_parameters = c(project_date = unname(checkpoint), metadata_from_parameters)
-    return(metadata_from_parameters)
     write_list_to_dcf(metadata_from_parameters, path(project_path, yspm::project_structure("file_metadata_project")))
   }
 
