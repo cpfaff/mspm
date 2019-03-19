@@ -22,13 +22,13 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#'
+#' 
 #' enable_project(
 #'   root_path = "~/",
 #'   project_name = "my_phd_project"
 #' )
 #' }
-#'
+#' 
 #' @importFrom checkpoint checkpoint
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @export enable_project

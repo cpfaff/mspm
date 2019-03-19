@@ -29,7 +29,7 @@
 #'   )
 #' )
 #' }
-#'
+#' 
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
 #' @importFrom remotes update_packages
@@ -78,14 +78,13 @@ create_project <- function(root_path = getwd(),
   # content e.g. a system date.
   if (is.list(second_pass$project_name)) {
     metadata_from_parameters <- second_pass$project_name[-1]
-    metadata_from_parameters <- lapply(metadata_from_parameters, function(parameter){
-             if (is.call(parameter)) {
-              eval(parameter)
-             } else {
-               parameter
-             }
-           }
-         )
+    metadata_from_parameters <- lapply(metadata_from_parameters, function(parameter) {
+      if (is.call(parameter)) {
+        eval(parameter)
+      } else {
+        parameter
+      }
+    })
   }
 
   if (is.null(project_path)) {
@@ -214,15 +213,14 @@ create_project <- function(root_path = getwd(),
   message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
   # the checkpoint is modifyable however the creation date of the project is set
   # automatically to the sytem date we create the project
-  if (exists("metadata_from_parameters")){
-    if("project_date" %in% names(metadata_from_parameters)){
-      checkpoint = list(checkpoint = metadata_from_parameters$project_date)
+  if (exists("metadata_from_parameters")) {
+    if ("project_date" %in% names(metadata_from_parameters)) {
+      checkpoint <- list(checkpoint = metadata_from_parameters$project_date)
     }
     message(paste("*", yspm::project_structure("file_metadata_project")))
     write_list_to_dcf(metadata_from_parameters, path(project_path, yspm::project_structure("file_metadata_project")))
-
   } else {
-      checkpoint <- list(checkpoint = Sys.Date())
+    checkpoint <- list(checkpoint = Sys.Date())
   }
 
   write_list_to_dcf(checkpoint, path(project_path, yspm::project_structure("file_metadata_checkpoint")))
