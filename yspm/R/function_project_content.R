@@ -14,7 +14,7 @@
 #' ...
 #' ...
 #' }
-#' 
+#'
 #' @importFrom fs path
 #'
 #' @export show_content
@@ -38,6 +38,7 @@ show_content <- function() {
 #'          project
 
 #' @export reference_content
+
 reference_content <- function(path = NULL) {
   check_if_project_is_enabled()
   if (is.null(path)) {

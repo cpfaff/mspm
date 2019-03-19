@@ -13,14 +13,14 @@
 #' \dontrun{
 #' collect_csv_variables()
 #' }
-#' 
+#'
 #' @return No value is returned; this function is called for its side effects.
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
 #' @importFrom fs file_exists
 #' @export collect_csv_variables
 
-collect_csv_variables <- function(input_path = yspm::project_content("data"), output_path = yspm::project_content("metadata/dataset")) {
+collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
   check_if_project_is_enabled("collect_csv_variables")
 
   normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
@@ -98,13 +98,13 @@ collect_csv_variables <- function(input_path = yspm::project_content("data"), ou
 #' \dontrun{
 #' collect_csv_variables()
 #' }
-#' 
+#'
 #' @return No value is returned; this function is called for its side effects.
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
 #' @export collect_csv_categories
 
-collect_csv_categories <- function(input_path = yspm::project_content("data"), output_path = yspm::project_content("metadata/dataset")) {
+collect_csv_categories <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
   check_if_project_is_enabled("collect_csv_categories")
 
   normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
