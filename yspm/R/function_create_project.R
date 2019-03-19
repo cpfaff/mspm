@@ -37,7 +37,9 @@
 #'
 #' @export create_project
 
-create_project <- function(root_path = getwd(), project_name = NULL, project_path = NULL) {
+create_project <- function(root_path = getwd(),
+                           project_name = NULL,
+                           project_path = NULL) {
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
   # if we have a function call in here evaluate it to check if it is a valid call
@@ -62,6 +64,7 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   convert_call_to_list <- function(x) {
     if (is.call(x)) as.list(x) else x
   }
+
   first_pass <- as.list(match.call())
   second_pass <- lapply(first_pass, convert_call_to_list)
   setNames(second_pass, names(first_pass))
@@ -233,7 +236,6 @@ create_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("")
   message(paste("* in:", project_path))
   message("---")
-
   wd_before <- getwd()
   repo_before <- getOption("repos")
   lib_paths_before <- suppressWarnings(normalizePath(unique(.libPaths())))
