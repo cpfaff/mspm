@@ -108,7 +108,7 @@ write_list_to_dcf <- function(list, filename) {
 
 
 # a directory tree structure
-show_project_tree <- function(path = getwd(), level = Inf) {
+project_tree <- function(path = getwd(), level = Inf) {
   path <- suppressWarnings(normalizePath(path(path)))
 
   fad <-
