@@ -95,10 +95,10 @@ enable_project(project_path = "<date>_max_mustermann_phd")
 enabled_project()
 
 # shows the folder structure and files in the active project
-project_content()
+show_content()
 
 # or provides you stable references to files and folders
-project_content("source/library/01_packages.R")
+reference_content("source/library/01_packages.R")
 
 # allows you to style the source code of the active project
 standardize_project_code()

@@ -99,12 +99,6 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   package_date <-
     as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_checkpoint"))))
 
-  project_metadata <-
-    as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_project"))))
-
-  project_license <-
-    as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_license"))))
-
   message("")
   message(paste("Set checkpoint:"))
   message("")

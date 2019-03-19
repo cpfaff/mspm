@@ -4,8 +4,8 @@
 \alias{collect_csv_variables}
 \title{Collect all csv variables as metadata sheet}
 \usage{
-collect_csv_variables(input_path = yspm::project_content("data"),
-  output_path = yspm::project_content("metadata/dataset"))
+collect_csv_variables(input_path = yspm::reference_content("data"),
+  output_path = yspm::reference_content("metadata/dataset"))
 }
 \arguments{
 \item{input_path}{A path to look for csv files. Defaults to the data
