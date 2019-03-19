@@ -96,13 +96,19 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("---")
   message("")
 
-  project_creation_date <-
+  package_date <-
     as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_checkpoint"))))
+
+  project_metadata <-
+    as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_project"))))
+
+  project_license <-
+    as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_license"))))
 
   message("")
   message(paste("Set checkpoint:"))
   message("")
-  message(paste("* to:", project_creation_date))
+  message(paste("* to:", package_date))
   message("---")
   message("")
 
@@ -119,7 +125,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     authorizeFileSystemUse = F,
     forceSetMranMirror = T,
     installPackagesWithDependency = T,
-    snapshotDate = project_creation_date,
+    snapshotDate = package_date,
     scanForPackages = F,
     verbose = F,
     checkpointLocation = normalizePath(fs::path(project_path, yspm::project_structure("folder_source_library"))),
@@ -127,7 +133,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   )
 
   require(yspm)
-  yspm::enabled_project("project_checkpoint" = project_creation_date)
+  yspm::enabled_project("project_checkpoint" = package_date)
   yspm::enabled_project("project_path" = project_path)
 
   message("")
