@@ -40,6 +40,7 @@
 create_project <- function(root_path = getwd(),
                            project_name = NULL,
                            project_path = NULL) {
+
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
   if (is.null(project_name)) {
@@ -216,14 +217,18 @@ create_project <- function(root_path = getwd(),
   if (exists("metadata_from_parameters")) {
     if ("project_date" %in% names(metadata_from_parameters)) {
       checkpoint <- list(checkpoint = metadata_from_parameters$project_date)
+    } else {
+      checkpoint <- list(checkpoint = Sys.Date())
     }
-    message(paste("*", yspm::project_structure("file_metadata_project")))
-    write_list_to_dcf(metadata_from_parameters, path(project_path, yspm::project_structure("file_metadata_project")))
   } else {
     checkpoint <- list(checkpoint = Sys.Date())
   }
-
   write_list_to_dcf(checkpoint, path(project_path, yspm::project_structure("file_metadata_checkpoint")))
+
+  if (exists("metadata_from_parameters")) {
+    message(paste("*", yspm::project_structure("file_metadata_project")))
+    write_list_to_dcf(metadata_from_parameters, path(project_path, yspm::project_structure("file_metadata_project")))
+  }
 
   message(paste("*", yspm::project_structure("file_metadata_license")))
   license_for_project <- list(license = "https://creativecommons.org/licenses/by-sa/4.0/")
