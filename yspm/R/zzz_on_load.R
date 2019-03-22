@@ -20,6 +20,7 @@
     folder_report_presentation = "project/report/presentation",
     folder_report_publication = "project/report/publication",
     folder_report_qualification = "project/report/qualification",
+    folder_source = "project/source",
     folder_source_library = "project/source/library",
     file_library_generic = "project/source/library/00_generic.R",
     file_library_main = "project/source/library/01_main.R",

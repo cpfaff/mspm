@@ -96,6 +96,8 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("---")
   message("")
 
+  setwd(project_path)
+
   package_date <-
     as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_checkpoint"))))
 
@@ -126,9 +128,11 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     project = project_path
   )
 
-  require(yspm)
+  # require(yspm)
   yspm::enabled_project("project_checkpoint" = package_date)
   yspm::enabled_project("project_path" = project_path)
+
+  install_requirements()
 
   message("")
   message(paste("Done"))
