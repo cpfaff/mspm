@@ -18,7 +18,7 @@ construct_file_packages <- function(project_path) {
     file_documentation,
     function(one_line) {
       write(one_line,
-        file = path(project_path, yspm::project_structure("file_library_packages")),
+        file = path(project_path, yspm::project_structure("file_workflow_packages")),
         append = TRUE
       )
     }
@@ -61,7 +61,7 @@ construct_file_packages <- function(project_path) {
     constructed_library_calls,
     function(a_recommended_library) {
       write(a_recommended_library,
-        file = path(project_path, yspm::project_structure("file_library_packages")),
+        file = path(project_path, yspm::project_structure("file_workflow_packages")),
         append = TRUE
       )
     }
@@ -109,8 +109,8 @@ standardize_project_code()
 # require(readr)
 # require(magrittr)
 # add example content
-# mtcars %>% tibble::rownames_to_column("car_name") %>% readr::write_csv(project_content("data/01_primary/mtcars.csv"))
-# iris %>% readr::write_csv(project_content("data/01_primary/iris.csv"))
+# mtcars %>% tibble::rownames_to_column("car_name") %>% readr::write_csv(reference_content("data/01_primary/mtcars.csv"))
+# iris %>% readr::write_csv(reference_content("data/01_primary/iris.csv"))
 
 # collect metadata
 collect_csv_variables()
