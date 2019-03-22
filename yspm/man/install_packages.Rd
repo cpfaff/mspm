@@ -2,7 +2,7 @@
 % Please edit documentation in R/function_install_packages.R
 \name{install_packages}
 \alias{install_packages}
-\title{A function to install packages #'}
+\title{A function to install packages}
 \usage{
 install_packages(name)
 }
