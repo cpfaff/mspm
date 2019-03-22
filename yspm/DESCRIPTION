@@ -11,8 +11,10 @@ Description: The package provides a set of utilities for
              Helps cleaning data and creating documentation for the
              project.
 Depends: R (>= 3.5.2),
+License: CC0
 Imports:
     fs,
+    utils,
     enc,
     httr,
     import,
