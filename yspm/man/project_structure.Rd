@@ -28,8 +28,7 @@ agwdm::project_structure()
 }
 
 \dontrun{
-# list all
-agwdm::project_structure()
+project_structure(...)
 }
 
 }

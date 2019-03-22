@@ -6,6 +6,10 @@
 \usage{
 use_that(feature)
 }
+\arguments{
+\item{feature}{This allows adjusting whwat will be done later... e.g. inserting
+a package into a project.}
+}
 \description{
 Each project is different and everybody has a different taste and needs of
 packages. Thus the yspm is modular allowing to script each project to your

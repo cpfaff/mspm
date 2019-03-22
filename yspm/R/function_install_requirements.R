@@ -14,7 +14,7 @@ install_requirements <- function(path = yspm::project_structure("folder_source")
   check_if_project_is_enabled("install_requirements")
 
   list_of_files <-
-    normalizePath(list.files(path = path, recursive = T, ignore.case = T, pattern = "*.R"))
+    list.files(path = path, recursive = T, ignore.case = T, pattern = "*.R")
 
   list_of_files_with_path <-
     lapply(list_of_files, function(file_name) path(path, file_name))
