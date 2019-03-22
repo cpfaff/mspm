@@ -13,7 +13,7 @@
 #' \dontrun{
 #' collect_csv_variables()
 #' }
-#'
+#' 
 #' @return No value is returned; this function is called for its side effects.
 #' @import dplyr
 #' @importFrom rio import
@@ -91,80 +91,80 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
     # new table.
     current_data <- subset(output_with_variable_class, select = -c(variable_unit, variable_description))
     csv_variable_metadata <- subset(read.csv(path(normalized_output_path, "csv_variables.csv"), row.names = NULL),
-                                    select = c("variable_name", "variable_class", "variable_unit", "variable_description"))
+      select = c("variable_name", "variable_class", "variable_unit", "variable_description")
+    )
 
     updated_csv_variable_metadata <- merge(x = current_data, y = csv_variable_metadata, by = c("variable_name", "variable_class"), all = TRUE)[, union(names(current_data), names(csv_variable_metadata))]
 
     # read the metadata information from before (however only preserve information for the merge
     csv_variable_metadata <- subset(read.csv(path(normalized_output_path, "csv_variables.csv"), row.names = NULL), select = -c(file_id, file_name, missing_values, variable_category))
     if (any(names(csv_variable_metadata) %in% "fix_variable")) {
-    # it needs to find what to replace variable_category and replace_by fix_variable
-    apply(
-      csv_variable_metadata[!(is.na(csv_variable_metadata$fix_variable) | csv_variable_metadata$fix_variable == ""), ], 1,
-      function(a_row) {
-        old_term <- unname(unlist(a_row["variable_name"]))
-        new_term <- unname(unlist(a_row["fix_variable"]))
-        fix_factor_globally(list_of_files = csv_file_paths, search_term = old_term, replace_term = new_term)
-      }
-    )
-
-    # when we do this we need to read the files again
-    list_of_imported_data <- rio::import_list(csv_file_paths)
-    repetition_pattern <- list(unlist(lapply(list_of_imported_data, length), recursive = T, use.names = F))
-    file_id <- list(seq_along(all_file_paths))
-    all_variables_file_id <- data.frame(file_id = mapply(rep, file_id, repetition_pattern))
-    all_file_names_per_variable <- data.frame(file_name = mapply(rep, list(all_file_names), repetition_pattern))
-    file_id_path_and_name <- data.frame(id = seq_along(all_file_paths), file_path = all_file_paths, file_name = all_file_names)
-    all_variable_names <- lapply(list_of_imported_data, get_variable_names)
-    names(all_variable_names) <- unlist(file_id_path_and_name["id"])
-
-    all_category_instances <- lapply(list_of_imported_data, get_category_instances)
-    names(all_category_instances) <- unlist(file_id_path_and_name["id"])
-
-    all_category_instances <-
-      lapply(all_category_instances, function(element) {
-        lapply(element, function(sub_element) {
-          if (is.null(sub_element)) {
-            NA
-          } else {
-            paste0(sub_element, collapse = ",")
-          }
-        })
-      })
-
-    all_category_instances <-
-      setNames(stack(all_category_instances)[2:1], c("id", "variable_category"))
-
-    output <-
-      data.frame(all_variables_file_id,
-        file_name = all_file_names_per_variable,
-        variable_name = do.call("rbind.data.frame", all_variable_names)[[1]],
-        variable_class = do.call("rbind.data.frame", all_variable_classes)[[1]],
-        missing_values = do.call("rbind.data.frame", all_variable_completeness)[[1]],
-        variable_category = all_category_instances["variable_category"]
+      # it needs to find what to replace variable_category and replace_by fix_variable
+      apply(
+        csv_variable_metadata[!(is.na(csv_variable_metadata$fix_variable) | csv_variable_metadata$fix_variable == ""), ], 1,
+        function(a_row) {
+          old_term <- unname(unlist(a_row["variable_name"]))
+          new_term <- unname(unlist(a_row["fix_variable"]))
+          fix_factor_globally(list_of_files = csv_file_paths, search_term = old_term, replace_term = new_term)
+        }
       )
 
-    csv_variable_metadata$variable_name <- ifelse(csv_variable_metadata$fix_variable == "" | is.na(csv_variable_metadata$fix_variable),
-      as.character(csv_variable_metadata$variable_name),
-      as.character(csv_variable_metadata$fix_variable)
-    )
+      # when we do this we need to read the files again
+      list_of_imported_data <- rio::import_list(csv_file_paths)
+      repetition_pattern <- list(unlist(lapply(list_of_imported_data, length), recursive = T, use.names = F))
+      file_id <- list(seq_along(all_file_paths))
+      all_variables_file_id <- data.frame(file_id = mapply(rep, file_id, repetition_pattern))
+      all_file_names_per_variable <- data.frame(file_name = mapply(rep, list(all_file_names), repetition_pattern))
+      file_id_path_and_name <- data.frame(id = seq_along(all_file_paths), file_path = all_file_paths, file_name = all_file_names)
+      all_variable_names <- lapply(list_of_imported_data, get_variable_names)
+      names(all_variable_names) <- unlist(file_id_path_and_name["id"])
 
-    # then check for descriptions
-    sorted_data <- csv_variable_metadata[with(csv_variable_metadata, order(variable_name, variable_class)), ]
-    # for(i in 2:nrow(sorted_data)) if(!is.na(sorted_data$fix_variable[i]) | sorted_data$fix_variable[i] != "") sorted_data$variable_description[i] <- sorted_data$variable_description[i-1]
-    csv_variable_metadata <- subset(unique(sorted_data), select = -c(fix_variable))
-  }
+      all_category_instances <- lapply(list_of_imported_data, get_category_instances)
+      names(all_category_instances) <- unlist(file_id_path_and_name["id"])
+
+      all_category_instances <-
+        lapply(all_category_instances, function(element) {
+          lapply(element, function(sub_element) {
+            if (is.null(sub_element)) {
+              NA
+            } else {
+              paste0(sub_element, collapse = ",")
+            }
+          })
+        })
+
+      all_category_instances <-
+        setNames(stack(all_category_instances)[2:1], c("id", "variable_category"))
+
+      output <-
+        data.frame(all_variables_file_id,
+          file_name = all_file_names_per_variable,
+          variable_name = do.call("rbind.data.frame", all_variable_names)[[1]],
+          variable_class = do.call("rbind.data.frame", all_variable_classes)[[1]],
+          missing_values = do.call("rbind.data.frame", all_variable_completeness)[[1]],
+          variable_category = all_category_instances["variable_category"]
+        )
+
+      csv_variable_metadata$variable_name <- ifelse(csv_variable_metadata$fix_variable == "" | is.na(csv_variable_metadata$fix_variable),
+        as.character(csv_variable_metadata$variable_name),
+        as.character(csv_variable_metadata$fix_variable)
+      )
+
+      # then check for descriptions
+      sorted_data <- csv_variable_metadata[with(csv_variable_metadata, order(variable_name, variable_class)), ]
+      # for(i in 2:nrow(sorted_data)) if(!is.na(sorted_data$fix_variable[i]) | sorted_data$fix_variable[i] != "") sorted_data$variable_description[i] <- sorted_data$variable_description[i-1]
+      csv_variable_metadata <- subset(unique(sorted_data), select = -c(fix_variable))
+    }
 
     # return(list(names = union(names(output), names(csv_variable_metadata)), curr = output, metadata = csv_variable_metadata))
     updated_csv_variable_metadata <- merge(x = output, y = csv_variable_metadata, by = c("variable_name", "variable_class"), all = TRUE)
     # if categories have been removed we need to address this here and remove them from the metadata
-    updated_csv_variable_metadata <- updated_csv_variable_metadata[!(is.na(updated_csv_variable_metadata$file_id) | is.na(updated_csv_variable_metadata$file_name)) ,]
+    updated_csv_variable_metadata <- updated_csv_variable_metadata[!(is.na(updated_csv_variable_metadata$file_id) | is.na(updated_csv_variable_metadata$file_name)), ]
     write.csv(updated_csv_variable_metadata, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
 
     if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
       message("File csv_categories.csv has been successfully updated.")
     }
-
   } else {
     write.csv(data.frame(output_with_variable_class),
       paste0(path(normalized_output_path, "csv_variables.csv")),
@@ -188,7 +188,7 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
 #' \dontrun{
 #' collect_csv_categories()
 #' }
-#'
+#' 
 #' @return No value is returned; this function is called for its side effects.
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
@@ -328,7 +328,7 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
     updated_csv_category_metadata <- merge(x = current_data, y = csv_category_metadata, by = c("variable_name", "variable_category"), all = TRUE)[, union(names(current_data), names(csv_category_metadata))]
 
     # if categories have been removed we need to address this here and remove them from the metadata
-    updated_csv_category_metadata <- updated_csv_category_metadata[!(is.na(updated_csv_category_metadata$file_id) | is.na(updated_csv_category_metadata$file_name)) ,]
+    updated_csv_category_metadata <- updated_csv_category_metadata[!(is.na(updated_csv_category_metadata$file_id) | is.na(updated_csv_category_metadata$file_name)), ]
     write.csv(updated_csv_category_metadata, paste0(path(normalized_output_path, "csv_categories.csv")), row.names = FALSE)
 
     if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
