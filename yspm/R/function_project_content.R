@@ -13,7 +13,7 @@
 #' data
 #' ...
 #' ...
-#' }
+#'}
 #'
 #' @importFrom fs path
 #'
