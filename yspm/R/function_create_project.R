@@ -274,7 +274,7 @@ create_project <- function(root_path = getwd(),
   tryCatch({
     devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
     non_writable_libraries <- as.numeric(which(file.access(.libPaths(), mode = 2) == -1))
-    # update.packages(ask = F, checkBuilt = T, instlib = .libPaths()[-non_writable_libraries])
+    update.packages(ask = F, checkBuilt = T, instlib = .libPaths()[-non_writable_libraries])
   },
   error = function(cond) {
     .libPaths(lib_paths_before)
