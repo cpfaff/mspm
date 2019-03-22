@@ -1,4 +1,4 @@
-#' A function to install packages #'
+#' A function to install packages
 #'
 #' A function which is installing packages without triggering the reload of the
 #' environment in R-Studio. It is a wrapper around the install.packages
