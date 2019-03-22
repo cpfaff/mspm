@@ -22,13 +22,13 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#' 
+#'
 #' enable_project(
 #'   root_path = "~/",
 #'   project_name = "my_phd_project"
 #' )
 #' }
-#' 
+#'
 #' @importFrom fs path file_create is_file dir_create dir_delete is_dir dir_exists file_exists
 #' @export enable_project
 
@@ -128,7 +128,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     project = project_path
   )
 
-  # require(yspm)
+  require(yspm)
   yspm::enabled_project("project_checkpoint" = package_date)
   yspm::enabled_project("project_path" = project_path)
 
