@@ -192,3 +192,12 @@ convert_params_to_list <- function() {
   setNames(second_pass, names(first_pass))
   return(second_pass)
 }
+
+# A function to globally search and replace across files.
+fix_factor_globally <- function(list_of_files = NULL, search_term, replace_term) {
+  for (a_file in list_of_files) {
+    lines_of_file <- readLines(a_file)
+    substituted_lines_of_file <- gsub(pattern = paste0("\\b", search_term, "\\b"), replacement = replace_term, lines_of_file)
+    cat(substituted_lines_of_file, file = a_file, sep = "\n")
+  }
+}
