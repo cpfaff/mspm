@@ -28,8 +28,8 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#'}
-#'
+#' }
+#' 
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
 #' @importFrom remotes update_packages
