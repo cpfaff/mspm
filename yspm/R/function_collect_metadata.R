@@ -13,12 +13,13 @@
 #' \dontrun{
 #' collect_csv_variables()
 #' }
-#' 
+#'
 #' @return No value is returned; this function is called for its side effects.
 #' @import dplyr
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
 #' @importFrom fs file_exists
+#' @importFrom utils install.packages installed.packages read.csv sessionInfo stack update.packages write.csv
 #' @export collect_csv_variables
 
 collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
@@ -188,7 +189,7 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
 #' \dontrun{
 #' collect_csv_categories()
 #' }
-#' 
+#'
 #' @return No value is returned; this function is called for its side effects.
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
