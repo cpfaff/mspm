@@ -24,7 +24,7 @@ data.
 }
 \examples{
 \dontrun{
-collect_csv_variables()
+collect_csv_variables(input_path = "~/test")
 }
 
 }

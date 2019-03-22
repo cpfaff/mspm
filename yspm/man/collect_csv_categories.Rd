@@ -22,7 +22,7 @@ Collect all csv file categories as metadata sheet.
 }
 \examples{
 \dontrun{
-collect_csv_categories()
+collect_csv_categories(input_path = "~/test")
 }
 
 }
