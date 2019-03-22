@@ -28,7 +28,7 @@
 #'     project_category = "Phd"
 #'   )
 #' )
-#' }
+#'}
 #'
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
@@ -40,7 +40,6 @@
 create_project <- function(root_path = getwd(),
                            project_name = NULL,
                            project_path = NULL) {
-
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
   if (is.null(project_name)) {
@@ -153,8 +152,8 @@ create_project <- function(root_path = getwd(),
   message("---")
   message("")
 
-  message(paste("*", yspm::project_structure("file_library_packages")))
-  file_create(path(project_path, yspm::project_structure("file_library_packages")))
+  message(paste("*", yspm::project_structure("file_library_generic")))
+  file_create(path(project_path, yspm::project_structure("file_library_generic")))
 
   message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
   file_create(path(project_path, yspm::project_structure("file_metadata_checkpoint")))
@@ -182,6 +181,9 @@ create_project <- function(root_path = getwd(),
 
   message(paste("*", yspm::project_structure("file_library_model_data")))
   file_create(path(project_path, yspm::project_structure("file_library_model_data")))
+
+  message(paste("*", yspm::project_structure("file_workflow_packages")))
+  file_create(path(project_path, yspm::project_structure("file_workflow_packages")))
 
   message(paste("*", yspm::project_structure("file_workflow_main")))
   file_create(path(project_path, yspm::project_structure("file_workflow_main")))
@@ -227,7 +229,7 @@ create_project <- function(root_path = getwd(),
 
   if (exists("metadata_from_parameters")) {
     message(paste("*", yspm::project_structure("file_metadata_project")))
-    metadata_from_parameters = c(project_date = unname(checkpoint), metadata_from_parameters)
+    metadata_from_parameters <- c(project_date = unname(checkpoint), metadata_from_parameters)
     write_list_to_dcf(metadata_from_parameters, path(project_path, yspm::project_structure("file_metadata_project")))
   }
 
