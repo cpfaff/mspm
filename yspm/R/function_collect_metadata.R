@@ -1,3 +1,24 @@
+#' Collect all csv related metadata
+#' 
+#' A thin wrapper around the collector for variables and categories
+#'
+#' @param ... Arguments passed into the functions to collect variables and
+#'        categories from csv files.
+#'
+#' @examples
+#' \dontrun{
+#' collect_csv_metadata(...)
+#' }
+#'
+#' @return No value is returned; this function is called for its side effects.
+#' @export collect_csv_metadata
+#' @export update_csv_metadata
+#'
+collect_csv_metadata <- update_csv_metadata <- function(...){
+  collect_csv_variables(...)
+  collect_csv_categories(...)
+} 
+
 #' Collect all csv variables as metadata sheet
 #'
 #' The function collects all csv files variable names, their class and count of mising
@@ -11,7 +32,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' collect_csv_variables()
+#' collect_csv_variables(input_path = "~/test")
 #' }
 #'
 #' @return No value is returned; this function is called for its side effects.
@@ -24,6 +45,27 @@
 
 collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
   check_if_project_is_enabled("collect_csv_variables")
+
+  switch(Sys.info()[['sysname']], 
+         Windows = {
+           if(grepl("German|de_DE", Sys.getlocale(category = "LC_ALL"))){
+             locale = "de"
+           } else {
+             locale = "other"
+           }
+         }, 
+         Linux  = {
+           if(grepl("de_DE", Sys.getenv("LANG"))){
+             locale = "de"
+           } else {
+             locale = "other"
+           }
+         }, 
+         Darwin = {
+           # implement me
+         }
+  )
+
 
   normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
   normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
@@ -161,16 +203,24 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
     updated_csv_variable_metadata <- merge(x = output, y = csv_variable_metadata, by = c("variable_name", "variable_class"), all = TRUE)
     # if categories have been removed we need to address this here and remove them from the metadata
     updated_csv_variable_metadata <- updated_csv_variable_metadata[!(is.na(updated_csv_variable_metadata$file_id) | is.na(updated_csv_variable_metadata$file_name)), ]
-    write.csv(updated_csv_variable_metadata, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
-
+    if (locale == "de") {
+      write.csv2(updated_csv_variable_metadata, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
+    } else { 
+      write.csv(updated_csv_variable_metadata, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
+    }
     if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
-      message("File csv_categories.csv has been successfully updated.")
+      message("File csv_variables.csv has been successfully updated.")
     }
   } else {
-    write.csv(data.frame(output_with_variable_class),
-      paste0(path(normalized_output_path, "csv_variables.csv")),
-      row.names = F
-    )
+    if(locale == "de"){
+      write.csv2(data.frame(output_with_variable_class),
+        paste0(path(normalized_output_path, "csv_variables.csv")),
+        row.names = F)
+    } else {
+      write.csv(data.frame(output_with_variable_class),
+        paste0(path(normalized_output_path, "csv_variables.csv")),
+        row.names = F)
+    }
 
     if (file_exists(paste0(path(normalized_output_path, "csv_variables.csv")))) {
       message("File csv_variables.csv has been created successfully.")
@@ -187,7 +237,7 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
 #'
 #' @examples
 #' \dontrun{
-#' collect_csv_categories()
+#' collect_csv_categories(input_path = "~/test")
 #' }
 #'
 #' @return No value is returned; this function is called for its side effects.
@@ -197,6 +247,26 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
 
 collect_csv_categories <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
   check_if_project_is_enabled("collect_csv_categories")
+
+  switch(Sys.info()[['sysname']], 
+         Windows = {
+           if(grepl("German|de_DE", Sys.getlocale(category = "LC_ALL"))){
+             locale = "de"
+           } else {
+             locale = "other"
+           }
+         }, 
+         Linux  = {
+           if(grepl("de_DE", Sys.getenv("LANG"))){
+             locale = "de"
+           } else {
+             locale = "other"
+           }
+         }, 
+         Darwin = {
+           # implement me
+         }
+  )
 
   normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
   normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
@@ -330,16 +400,26 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
 
     # if categories have been removed we need to address this here and remove them from the metadata
     updated_csv_category_metadata <- updated_csv_category_metadata[!(is.na(updated_csv_category_metadata$file_id) | is.na(updated_csv_category_metadata$file_name)), ]
-    write.csv(updated_csv_category_metadata, paste0(path(normalized_output_path, "csv_categories.csv")), row.names = FALSE)
+    
+    if(locale == "de"){
+      write.csv2(updated_csv_category_metadata, paste0(path(normalized_output_path, "csv_categories.csv")), row.names = FALSE)
+    } else {
+      write.csv(updated_csv_category_metadata, paste0(path(normalized_output_path, "csv_categories.csv")), row.names = FALSE)
+    }
 
     if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
       message("File csv_categories.csv has been successfully updated.")
     }
   } else {
+   if(locale == "de"){
+    write.csv2(data.frame(output_separated),
+      paste0(path(normalized_output_path, "csv_categories.csv")),
+      row.names = F)
+   } else {
     write.csv(data.frame(output_separated),
       paste0(path(normalized_output_path, "csv_categories.csv")),
-      row.names = F
-    )
+      row.names = F)
+   }
 
     if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
       message("File csv_categories.csv has been created successfully.")
