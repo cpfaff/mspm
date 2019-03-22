@@ -6,6 +6,8 @@
 #' the function will add packages and content to your active project to enable
 #' certain functionality.
 #'
+#' @param feature This allows adjusting whwat will be done later... e.g. inserting
+#'        a package into a project.
 
 #' @export use_that
 use_that <- function(feature) {
