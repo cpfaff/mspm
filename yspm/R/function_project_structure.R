@@ -5,10 +5,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' # list all
-#' agwdm::project_structure()
+#' project_structure(...)
 #' }
-#' 
+#'
 #' @export project_structure
 
 project_structure <- function(...) {
