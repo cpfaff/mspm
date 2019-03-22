@@ -22,6 +22,8 @@ instructions for different operating systems.
     - https://cran.rstudio.com/bin/windows/Rtools/
     - https://miktex.org/download
 
+(Make sure you check the option during the installation which ensures the
+location of compiler binaries is added to the search path)
 
 * Mac OS X
     - https://itunes.apple.com/us/app/xcode/id497799835?mt=12
@@ -31,10 +33,13 @@ instructions for different operating systems.
     - Well that highly depends on your Linux-Distribution. Check out the Wiki
       of your distribution or ask google.
 
+
+
 ```r
 install.packages("devtools")
 devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T)
 ```
+
 
 ## Getting started
 
