@@ -125,10 +125,10 @@ create_project <- function(root_path = getwd(),
   dir_create(path(project_path, yspm::project_structure("folder_figure_scripted")))
 
   message(paste("*", yspm::project_structure("folder_metadata_dataset")))
-  dir_create(path(project_path, yspm::project_structure("folder_metadata_dataset")))
+  dir_create(path(project_path, yspm::project_structure("folder_metadata_data")))
 
-  message(paste("*", yspm::project_structure("folder_metadata_package")))
-  dir_create(path(project_path, yspm::project_structure("folder_metadata_package")))
+  message(paste("*", yspm::project_structure("folder_metadata_project")))
+  dir_create(path(project_path, yspm::project_structure("folder_metadata_project")))
 
   message(paste("*", yspm::project_structure("folder_report_presentation")))
   dir_create(path(project_path, yspm::project_structure("folder_report_presentation")))
@@ -151,9 +151,6 @@ create_project <- function(root_path = getwd(),
   message(paste("* in:", project_path))
   message("---")
   message("")
-
-  message(paste("*", yspm::project_structure("file_library_generic")))
-  file_create(path(project_path, yspm::project_structure("file_library_generic")))
 
   message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
   file_create(path(project_path, yspm::project_structure("file_metadata_checkpoint")))
