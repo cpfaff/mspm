@@ -124,7 +124,7 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
   output_with_variable_class <- base::transform(output, variable_unit = ifelse(variable_class == "character", NA, ""))
 
   additional_columns <- c("variable_description")
-  output_with_variable_class[, additional_columns] <- NA
+  a[, additional_columns] <- c("")
 
   if (file_exists(paste0(path(normalized_output_path, "csv_variables.csv")))) {
     # when the file exists we need to preserve the information somehow in case
@@ -321,7 +321,7 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
 
   additional_columns <- c("variable_description")
 
-  output_separated[, additional_columns] <- NA
+  output_separated[, additional_columns] <- c("")
   output_separated <- output_separated[!is.na(output_separated$variable_category), ]
 
   if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
