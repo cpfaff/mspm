@@ -57,10 +57,8 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
   # read all the csv datasets and prepare them for metadata collection 
   output_with_variable_class <- prepare_csv_data_metadata(search_path = normalized_input_path)
   output_with_variable_class <- base::transform(output_with_variable_class, variable_unit = ifelse(variable_class == "character", "NA", ""))
-
-  additional_columns <- c("variable_description")
-  output_with_variable_class[, additional_columns] <- c("")
-  output_with_variable_class
+  output_with_variable_class <- 
+      output_with_variable_class[with(output_with_variable_class, order(file_id, file_name, variable_name)), ]
 
   # when the metadata file exists we need to preserve the information in case
   # that somebody already started to fill out the metadata file. They would
@@ -68,7 +66,8 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
   # with the existing one.
   if (file_exists(paste0(path(normalized_output_path, "csv_variables.csv")))) {
     # get all current data to update the information in the metadata if needed 
-    current_data <- subset(output_with_variable_class, select = -c(variable_unit, variable_description))
+    current_metadata <- subset(output_with_variable_class, select = -c(variable_unit))
+
     # we read from the current metadata all information which is used to merge the datasets and the columns which
     # are filled out by the user, the rest is complemented from the data
     if(locale == "de"){
@@ -83,27 +82,32 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
 
     # afterwards we go on and update the current meta data with new information
     updated_csv_variable_metadata <- 
-      merge(x = current_data, y = csv_variable_metadata, by = c("variable_name", "variable_class"), all = TRUE)[, union(names(current_data), names(csv_variable_metadata))]
-
-    # then we sort everything by file id and name
-    updated_csv_variable_metadata_sorted <- updated_csv_variable_metadata[with(updated_csv_variable_metadata, order(file_id, file_name)), ]
+      merge(x = current_metadata, y = csv_variable_metadata, by = c("variable_name", "variable_class"), all = TRUE)[, union(names(current_metadata), names(csv_variable_metadata))]
 
     # when categories have been removed they are still sticking around in the metadata we need to address this here 
     # and remove them 
     updated_csv_variable_metadata_cleaned <- 
-      updated_csv_variable_metadata_sorted[!(is.na(updated_csv_variable_metadata_sorted$file_id) | is.na(updated_csv_variable_metadata_sorted$file_name)), ]
+      updated_csv_variable_metadata[!(is.na(updated_csv_variable_metadata$file_id) | is.na(updated_csv_variable_metadata$file_name)), ]
+
+    # then we sort everything by file id and name
+    updated_csv_variable_metadata_sorted <- 
+      updated_csv_variable_metadata_cleaned[with(updated_csv_variable_metadata_cleaned, order(file_id, file_name, variable_name)), ]
 
     # in order to make opening with excel possible without problems 
     if (locale == "de") {
-      write.csv2(updated_csv_variable_metadata_cleaned, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
+      write.csv2(updated_csv_variable_metadata_sorted, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
     } else {
-      write.csv(updated_csv_variable_metadata_cleaned, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
+      write.csv(updated_csv_variable_metadata_sorted, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
     }
 
     if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
       message("File csv_variables.csv has been successfully updated.")
     }
   } else {
+    # when we write this for the first time then we add a description column
+    additional_columns <- c("variable_description")
+    output_with_variable_class[, additional_columns] <- c("")
+
     # in order to make opening with excel possible without the need to use an import
     if (locale == "de") {
       write.csv2(data.frame(output_with_variable_class),
@@ -156,6 +160,9 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
   # get all the raw data prepared for metadata collection
   output_with_variable_class <- 
     prepare_csv_data_metadata(search_path = normalized_input_path)
+
+  output_with_variable_class <- 
+    output_with_variable_class[with(output_with_variable_class, order(file_id, file_name, variable_name)), ]
 
   output_separated <- 
     tidyr::separate_rows(output_with_variable_class, variable_category, sep = ",")
@@ -218,16 +225,16 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
     updated_csv_category_metadata <- 
       updated_csv_category_metadata[!(is.na(updated_csv_category_metadata$file_id) | is.na(updated_csv_category_metadata$file_name)), ]
 
-    updated_csv_category_metadata_ordered <- 
-      updated_csv_category_metadata[with(updated_csv_category_metadata, order(file_id, file_name)), ]
+    updated_csv_category_metadata_sorted <- 
+      updated_csv_category_metadata[with(updated_csv_category_metadata, order(file_id, file_name, variable_name)), ]
 
-    updated_csv_category_metadata_ordered <-
-      subset(updated_csv_category_metadata_ordered, select = -c(variable_class, missing_values))
+    updated_csv_category_metadata_sorted <-
+      subset(updated_csv_category_metadata_sorted, select = -c(variable_class, missing_values))
 
     if (locale == "de") {
-      write.csv2(updated_csv_category_metadata_ordered, paste0(path(normalized_output_path, "csv_categories.csv")), row.names = FALSE)
+      write.csv2(updated_csv_category_metadata_sorted, paste0(path(normalized_output_path, "csv_categories.csv")), row.names = FALSE)
     } else {
-      write.csv(updated_csv_category_metadata_ordered, paste0(path(normalized_output_path, "csv_categories.csv")), row.names = FALSE)
+      write.csv(updated_csv_category_metadata_sorted, paste0(path(normalized_output_path, "csv_categories.csv")), row.names = FALSE)
     }
 
     if (file_exists(paste0(path(normalized_output_path, "csv_categories.csv")))) {
