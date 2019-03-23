@@ -234,8 +234,6 @@ create_project <- function(root_path = getwd(),
   license_for_project <- list(license = "https://creativecommons.org/licenses/by-sa/4.0/")
   write_list_to_dcf(license_for_project, path(project_path, yspm::project_structure("file_metadata_license")))
 
-  stop("HERE")
-
   message("")
   message(paste("Install packages:"))
   message("")
