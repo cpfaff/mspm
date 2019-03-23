@@ -7,7 +7,7 @@
 #' \dontrun{
 #' project_structure(...)
 #' }
-#'
+#' 
 #' @export project_structure
 
 project_structure <- function(...) {

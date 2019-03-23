@@ -25,11 +25,11 @@ construct_file_packages <- function(project_path) {
   )
 
   optional_packages <- c(
-    "readr", # fast reading of rectangular data 
+    "readr", # fast reading of rectangular data
     "tibble", # a new take on data frames
     "tidyr", # tidy your data
-    "dplyr", # split apply combine 
-    "purrr", # map functions on your data 
+    "dplyr", # split apply combine
+    "purrr", # map functions on your data
     "forcats", # better handling of categories (e.g. keeping the order or sorting)
     "lubridate", # better handling of dates
     "hms", # handling time
@@ -40,7 +40,7 @@ construct_file_packages <- function(project_path) {
     "drake", # a workflow tool for R
     "import", # selectively import functions of other packages into your workspace
     "readxl", # read excel data sheets
-    "haven", # Import foreign statistical formats into R (spss, stata, sas) 
+    "haven", # Import foreign statistical formats into R (spss, stata, sas)
     "httr", # Interact with web pages.
     "rvest", # web scraping tools
     "xml2", # read and write xml files
@@ -49,18 +49,19 @@ construct_file_packages <- function(project_path) {
     "rio" # a general purpose input output package (reads, writes, converts everything)
   )
 
-  package_description = (c(
-  "# The goal of 'readr' is to provide a fast and friendly way to read rectangular
+  package_description <- (c(
+    "# The goal of 'readr' is to provide a fast and friendly way to read rectangular
   # data (like 'csv', 'tsv', and 'fwf'). It is designed to flexibly parse many
   # types of data found in the wild, while still cleanly failing when data
   # unexpectedly changes.",
-  "# Tibbles are a new take on data frames in R. They dropped what is useless and
+    "# Tibbles are a new take on data frames in R. They dropped what is useless and
   # kept what is good with data frames.",
-  "# Tidyr is an evolution of 'reshape2'. It's designed specifically for data tidying
+    "# Tidyr is an evolution of 'reshape2'. It's designed specifically for data tidying
   (not general reshaping or aggregating) and works well with 'dplyr' data
-  pipelines.", 
-  "dplyr is A fast, consistent tool for working with data frame like objects, both in
-  memory and out of memory."))
+  pipelines.",
+    "dplyr is A fast, consistent tool for working with data frame like objects, both in
+  memory and out of memory."
+  ))
 
   constructed_library_calls <-
     lapply(
