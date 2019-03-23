@@ -30,7 +30,7 @@ location of compiler binaries is added to the search path)
     - http://www.tug.org/mactex/downloading.html
 
 * Linux
-    - Well that highly depends on your Linux-Distribution. Check out the Wiki
+    - Well, that highly depends on your Linux-Distribution. Check out the Wiki
       of your distribution or ask google.
 
 
@@ -150,29 +150,30 @@ but try it!
     │   └── scripted
     ├── metadata
     │   ├── dataset
-    │   └── package
-    │       ├── author.dcf
-    │       └── checkpoint.dcf
+    │   └── project
+    │       ├── checkpoint.dcf
+    │       ├── license.dcf
+    │       └── project.dcf
     ├── report
     │   ├── presentation
     │   ├── publication
     │   └── qualification
     └── source
         ├── library
-        │   ├── 01_packages.R
-        │   ├── 02_main.R
-        │   ├── 03_import_data.R
-        │   ├── 04_clean_data.R
-        │   ├── 05_transform_data.R
-        │   ├── 06_visualise_data.R
-        │   └── 07_model_data.R
+        │   ├── 01_lib_main.R
+        │   ├── 02_lib_import_data.R
+        │   ├── 03_lib_clean_data.R
+        │   ├── 04_lib_transform_data.R
+        │   ├── 05_lib_visualise_data.R
+        │   └── 06_lib_model_data.R
         └── workflow
-            ├── 01_main.R
-            ├── 02_import_data.R
-            ├── 03_clean_data.R
-            ├── 04_transform_data.R
-            ├── 05_visualise_data.R
-            └── 06_model_data.R
+            ├── 00_wf_load_packages.R
+            ├── 01_wf_main_script.R
+            ├── 02_wf_import_data.R
+            ├── 03_wf_clean_data.R
+            ├── 04_wf_transform_data.R
+            ├── 05_wf_visualise_data.R
+            └── 06_wf_model_data.R
 ```
 
 * data
@@ -232,9 +233,10 @@ The figure folder is divided in two sub-folders.
 └── project
     ├── metadata
     │   ├── dataset
-    │   └── package
-    │       ├── author.dcf
-    │       └── checkpoint.dcf
+    │   └── project
+    │       ├── checkpoint.dcf
+    │       ├── license.dcf
+    │       └── project.dcf
 ```
 
 The metadata folder is divided into two sub-folders which store
@@ -245,9 +247,9 @@ The metadata folder is divided into two sub-folders which store
     collect information about your datasets and place it here in a format that you
     can complement with metadata.
 
-2. package
+2. project
 
-   The package folder contains information about the project like the author of
+   The project folder contains information about the project like the author of
    the project and the checkpoint which is for now the date of project creation.
    The files in here are in Debian control file format (dcf). It is natively
    supported by the R environment and used in many places like e.g. the
@@ -262,7 +264,6 @@ The metadata folder is divided into two sub-folders which store
     │   ├── presentation
     │   ├── publication
     │   └── qualification
-
 ```
 
 The report folder is separated into three sub-folders which are pretty much
@@ -278,20 +279,20 @@ documents in office format and as pdf.
 └── project
     └── source
         ├── library
-        │   ├── 01_packages.R
-        │   ├── 02_main.R
-        │   ├── 03_import_data.R
-        │   ├── 04_clean_data.R
-        │   ├── 05_transform_data.R
-        │   ├── 06_visualise_data.R
-        │   └── 07_model_data.R
+        │   ├── 01_lib_main.R
+        │   ├── 02_lib_import_data.R
+        │   ├── 03_lib_clean_data.R
+        │   ├── 04_lib_transform_data.R
+        │   ├── 05_lib_visualise_data.R
+        │   └── 06_lib_model_data.R
         └── workflow
-            ├── 01_main.R
-            ├── 02_import_data.R
-            ├── 03_clean_data.R
-            ├── 04_transform_data.R
-            ├── 05_visualise_data.R
-            └── 06_model_data.R
+            ├── 00_wf_load_packages.R
+            ├── 01_wf_main_script.R
+            ├── 02_wf_import_data.R
+            ├── 03_wf_clean_data.R
+            ├── 04_wf_transform_data.R
+            ├── 05_wf_visualise_data.R
+            └── 06_wf_model_data.R
 ```
 
 The source folder is separated into two sub-folders. It is the place which
@@ -305,13 +306,12 @@ here. If you load a library it goes here. If you analyse data it goes here.
 └── project
     └── source
         ├── library
-        │   ├── 01_packages.R
-        │   ├── 02_main.R
-        │   ├── 03_import_data.R
-        │   ├── 04_clean_data.R
-        │   ├── 05_transform_data.R
-        │   ├── 06_visualise_data.R
-        │   └── 07_model_data.R
+        │   ├── 01_lib_main.R
+        │   ├── 02_lib_import_data.R
+        │   ├── 03_lib_clean_data.R
+        │   ├── 04_lib_transform_data.R
+        │   ├── 05_lib_visualise_data.R
+        │   └── 06_lib_model_data.R
 ```
 
 As a rule of thumb. When you have to copy and paste code more than 2 times in
@@ -333,23 +333,20 @@ from your main script.
 └── project
     └── source
         └── workflow
-            ├── 01_main.R
-            ├── 02_import_data.R
-            ├── 03_clean_data.R
-            ├── 04_transform_data.R
-            ├── 05_visualise_data.R
-            └── 06_model_data.R
+            ├── 00_wf_load_packages.R
+            ├── 01_wf_main_script.R
+            ├── 02_wf_import_data.R
+            ├── 03_wf_clean_data.R
+            ├── 04_wf_transform_data.R
+            ├── 05_wf_visualise_data.R
+            └── 06_wf_model_data.R
 ```
 
 The workflow folder contains your complete analysis script. The separate files
 in here are prepended with numbers for an ordering. The files are named after
-typical stages of a scientific data analysis. You can use the files to
-organized your script. The `01_main.R` file as a special role. It orchestrates
-your whole R project. It should source the `01_packages.R` as well as the
-personal library files with your functions and also the other files in the
-worlflow folder if the analysis script is spread across multiple files (which
-is recommende anyways). For references inside the project there is also the
-convenient function `project_content()` (see description below).
+typical stages of a scientific data analysis workflow. You can use the files to
+organized your script. For references in between the files there is also the a
+convenient function called `project_content()` (see description below).
 
 ### References
 
@@ -366,51 +363,51 @@ activated from your `manage_projects.R` file then the function
 project contains a folder named `project` the function also adds `project` to
 the path for you.
 
-Lets say we want to source one of the `02_import_data.R` file from the source
-folder in the `01_main.R` file in the workflow folder to import the functions
-into our workflow.
+Lets say we want to source one of the `02_wf_import_data.R` file from the
+source folder in the `01_wf_main_script.R` file in the workflow folder to
+import the functions into our workflow.
 
 ```
 2019-02-22_your_full_name
 └── project
     └── source
         ├── library
-        │   ├── 01_packages.R
-        │   ├── 02_main.R
-        │   ├── 03_import_data.R
-        │   ├── 04_clean_data.R
-        │   ├── 05_transform_data.R
-        │   ├── 06_visualise_data.R
-        │   └── 07_model_data.R
+        │   ├── 01_lib_main.R
+        │   ├── 02_lib_import_data.R
+        │   ├── 03_lib_clean_data.R
+        │   ├── 04_lib_transform_data.R
+        │   ├── 05_lib_visualise_data.R
+        │   └── 06_lib_model_data.R
         └── workflow
-            ├── 01_main.R
-            ├── 02_import_data.R
-            ├── 03_clean_data.R
-            ├── 04_transform_data.R
-            ├── 05_visualise_data.R
-            └── 06_model_data.R
+            ├── 00_wf_load_packages.R
+            ├── 01_wf_main_script.R
+            ├── 02_wf_import_data.R
+            ├── 03_wf_clean_data.R
+            ├── 04_wf_transform_data.R
+            ├── 05_wf_visualise_data.R
+            └── 06_wf_model_data.R
 ```
 
-Then we add the following line to our `01_main.R` file
+Then we add the following line to our `01_wf_main_script.R` file
 
 ```
 2019-02-22_your_full_name
 └── project
     └── source
         ├── library
-        │   ├── 01_packages.R
-        │   ├── 02_main.R
-        │   ├── 03_import_data.R
-        │   ├── 04_clean_data.R
-        │   ├── 05_transform_data.R
-        │   ├── 06_visualise_data.R
-        │   └── 07_model_data.R
+        │   ├── 01_lib_main.R
+        │   ├── 02_lib_import_data.R
+        │   ├── 03_lib_clean_data.R
+        │   ├── 04_lib_transform_data.R
+        │   ├── 05_lib_visualise_data.R
+        │   └── 06_lib_model_data.R
         └── workflow
-            ├── 01_main.R
+            ├── 00_wf_load_packages.R
+            ├── 01_wf_main_script.R
 
             ... file content ...
 
-            source(project_content("source/library/03_import_data.R"))
+            source(project_content("source/library/02_wf_import_data.R"))
 
             ...
 ```
@@ -418,5 +415,5 @@ Then we add the following line to our `01_main.R` file
 Which turns into:
 
 ```r
-source("2019-02-19_my_full_name/project/library/03_import_data.R"))
+source("2019-02-19_my_full_name/project/library/03_wf_import_data.R"))
 ```
