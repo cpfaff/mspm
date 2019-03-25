@@ -239,16 +239,17 @@ prepare_csv_data_metadata <- function(search_path = NULL){
   all_file_names_without_extension <- tools::file_path_sans_ext(all_file_names)
   list_of_imported_data <- rio::import_list(csv_file_paths)
   repetition_pattern <- list(unlist(lapply(list_of_imported_data, length), recursive = T, use.names = F))
-  file_id <- setNames(data.frame(unname(sapply(list_of_imported_data, identify_dataframe))), "file_id")
+  file_id <- list(seq_along(all_file_paths))
+  # file_id <- setNames(data.frame(unname(sapply(list_of_imported_data, identify_dataframe))), "file_id")
   all_variables_file_id <- data.frame(file_id = mapply(rep, file_id, repetition_pattern))
 
-  column_id_df = data.frame(column_id = unname(unlist(lapply(list_of_imported_data, function(dataset){
-           lapply(dataset, sha1)
-  }))))
+  # column_id_df = data.frame(column_id = unname(unlist(lapply(list_of_imported_data, function(dataset){
+           # lapply(dataset, sha1)
+  # }))))
 
   all_file_names_per_variable <- data.frame(file_name = mapply(rep, list(all_file_names), repetition_pattern))
 
-  file_id_path_and_name <- data.frame(file_id, file_path = all_file_paths, file_name = all_file_names)
+  file_id_path_and_name <- data.frame(file_id = seq_along(all_file_paths), file_path = all_file_paths, file_name = all_file_names)
 
   all_variable_names <- lapply(list_of_imported_data, get_variable_names)
   names(all_variable_names) <- unlist(file_id_path_and_name["file_id"])
@@ -278,7 +279,7 @@ prepare_csv_data_metadata <- function(search_path = NULL){
   output <-
     data.frame(all_variables_file_id,
                file_name = all_file_names_per_variable,
-               column_id = column_id_df,
+               # column_id = column_id_df,
                variable_name = do.call("rbind.data.frame", all_variable_names)[[1]],
                variable_class = do.call("rbind.data.frame", all_variable_classes)[[1]],
                missing_values = do.call("rbind.data.frame", all_variable_completeness)[[1]],
