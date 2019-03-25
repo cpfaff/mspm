@@ -254,14 +254,17 @@ The metadata folder is divided into two sub-folders which store
 
     Information about the datasets in your project. You can use the function
     `collect_csv_metadata()` to collect information about your datasets. It
-    will place two files in here in csv format that you can complement with
-    metadata. In case you have to change something in the data you can call it
-    again and it will update your metadata preserving what you already
-    described (you can use the alias: `update_csv_metadata()` as well).
+    will place two files (variables and categories) in here in csv format that
+    you can complement with metadata. In case you have to change something in
+    the data you can call it again and it will update your metadata preserving
+    what you already described (you can use the alias: `update_csv_metadata()`
+    as well).
 
-|file_id|file_name|column_id|variable_name |variable_class | missing_values|variable_category|variable_unit |variable_description | |:----------------------------------------|:----------|:----------------------------------------|:-------------|:--------------|--------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------|:--------------------| |44b09515d06f406c9c813556d57ea9143d6144ea |iris.csv|3e94c0f9903b48f616e037d50a6e0e1077548ef6 |Petal.Length|numeric|0|NA|NA|NA| |44b09515d06f406c9c813556d57ea9143d6144ea |iris.csv|788355e394427a7f1dae93aa51621eecb93e97e7 |Petal.Width|numeric|0|NA|NA|NA| |44b09515d06f406c9c813556d57ea9143d6144ea |iris.csv|1d7cd875f225c88b804b116c9863294ff3e2c758 |Sepal.Length|numeric|0|NA|NA|NA| |44b09515d06f406c9c813556d57ea9143d6144ea |iris.csv|967580c73349789b52434d6899ca63ff45df9a3e |Sepal.Width|numeric|0|NA|NA|NA| |44b09515d06f406c9c813556d57ea9143d6144ea |iris.csv|b631fae5385766e3b040cde5c3cc39c51c416089 |Species|character|0|setosa,versicolor,virginica|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |5da14f24265d88727f9e7e70f490666cfa8b0ea2 |am|integer|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |cbe2ae3f7e5a2c558d4c36cad5e27a906e8aef8d |car_name|character|0|Mazda RX4,Mazda RX4 Wag,Datsun 710,Hornet 4 Drive,Hornet Sportabout,Valiant,Duster 360,Merc 240D,Merc 230,Merc 280,Merc 280C,Merc 450SE,Merc 450SL,Merc 450SLC,Cadillac Fleetwood,Lincoln Continental,Chrysler Imperial,Fiat 128,Honda Civic,Toyota Corolla,Toyota Corona,Dodge Challenger,AMC Javelin,Camaro Z28,Pontiac Firebird,Fiat X1-9,Porsche 914-2,Lotus Europa,Ford Pantera L,Ferrari Dino,Maserati Bora,Volvo 142E |NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |c6ebaa73200c1dba886842d724c0e742ebdc6856 |carb|integer|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |44b5243af52a807d27585bb97af7459c36b4f3d5 |cyl|integer|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |17b4a9cd8140415658eedbac9c11903aec488ca8 |disp|numeric|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |5ca600590b2002b92bec4953963543fc316c2eb0 |drat|numeric|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |ea84e56a86b0eebc2760889c9e27d70c58dd81fd |gear|integer|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |1eed84cc86aa13fdcf58b0cad66457508046c2f9 |hp|integer|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |821ea006d4587878bf9acde7e1f8232154cf2892 |mpg|numeric|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |3d2d6afe7edc44efd9bbe25b4a27e44de299e69e |qsec|numeric|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |e90a70ad5ef14b7b6fa1249361bdc188079f9c93 |vs|integer|0|NA|NA|NA| |bd08124564b9e17524f14e6d8261fc426afc451e |mtcars.csv |0050da4a363cb02f18d354b5da6b594253232410 |wt|numeric|0|NA|NA|NA|
+| file_id | file_name | column_id | variable_name | variable_class | missing_values | variable_category | variable_unit | variable_description |
+| ------- | --------- | --------- | ------------- | -------------- | -------------- | ----------------- | ------------- | -------------------- |
+| ...     | ...       | ...       | ...           | ...            | ...            | ...               | ...           | ...                  |
 
-2. project
+2.project
 
    The project folder contains information about the project. This is a
    license, the author of the project and the creation time of the project but
