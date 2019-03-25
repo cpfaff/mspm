@@ -239,7 +239,7 @@ prepare_csv_data_metadata <- function(search_path = NULL){
   all_file_names_without_extension <- tools::file_path_sans_ext(all_file_names)
   list_of_imported_data <- rio::import_list(csv_file_paths)
   repetition_pattern <- list(unlist(lapply(list_of_imported_data, length), recursive = T, use.names = F))
-  file_id <- setNames(data.frame(unname(sapply(list_of_imported_data, identify_dataframe))), "id")
+  file_id <- setNames(data.frame(unname(sapply(list_of_imported_data, identify_dataframe))), "file_id")
   all_variables_file_id <- data.frame(file_id = mapply(rep, file_id, repetition_pattern))
 
   column_id_df = data.frame(column_id = unname(unlist(lapply(list_of_imported_data, function(dataset){
@@ -251,16 +251,16 @@ prepare_csv_data_metadata <- function(search_path = NULL){
   file_id_path_and_name <- data.frame(file_id, file_path = all_file_paths, file_name = all_file_names)
 
   all_variable_names <- lapply(list_of_imported_data, get_variable_names)
-  names(all_variable_names) <- unlist(file_id_path_and_name["id"])
+  names(all_variable_names) <- unlist(file_id_path_and_name["file_id"])
 
   all_variable_classes <- lapply(list_of_imported_data, get_variable_classes)
-  names(all_variable_classes) <- unlist(file_id_path_and_name["id"])
+  names(all_variable_classes) <- unlist(file_id_path_and_name["file_id"])
 
   all_variable_completeness <- lapply(list_of_imported_data, get_variable_completeness)
-  names(all_variable_completeness) <- unlist(file_id_path_and_name["id"])
+  names(all_variable_completeness) <- unlist(file_id_path_and_name["file_id"])
 
   all_category_instances <- lapply(list_of_imported_data, get_category_instances)
-  names(all_category_instances) <- unlist(file_id_path_and_name["id"])
+  names(all_category_instances) <- unlist(file_id_path_and_name["file_id"])
 
   all_category_instances <-
     lapply(all_category_instances, function(element) {
