@@ -151,7 +151,7 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
   normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
   normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
 
-  csv_file_paths <- normalizePath(list.files(normalized_input_path, pattern = "*.(csv|tsv)", ignore.case = TRUE, recursive = T, full.names = T))
+  csv_file_path <- normalizePath(list.files(normalized_input_path, pattern = "*.(csv|tsv)$", ignore.case = TRUE, recursive = T, full.names = T))
 
   if (identical(csv_file_paths, character(0))) {
     stop("collect_csv_categories failed: There is no data in your folder")
