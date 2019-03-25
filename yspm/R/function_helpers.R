@@ -239,11 +239,16 @@ prepare_csv_data_metadata <- function(search_path = NULL){
   all_file_names_without_extension <- tools::file_path_sans_ext(all_file_names)
   list_of_imported_data <- rio::import_list(csv_file_paths)
   repetition_pattern <- list(unlist(lapply(list_of_imported_data, length), recursive = T, use.names = F))
-  file_id <- list(seq_along(all_file_paths))
+  file_id <- setNames(data.frame(unname(sapply(list_of_imported_data, identify_dataframe))), "id")
   all_variables_file_id <- data.frame(file_id = mapply(rep, file_id, repetition_pattern))
+
+  column_id_df = data.frame(column_id = unname(unlist(lapply(list_of_imported_data, function(dataset){
+           lapply(dataset, sha1)
+  }))))
+
   all_file_names_per_variable <- data.frame(file_name = mapply(rep, list(all_file_names), repetition_pattern))
 
-  file_id_path_and_name <- data.frame(id = seq_along(all_file_paths), file_path = all_file_paths, file_name = all_file_names)
+  file_id_path_and_name <- data.frame(file_id, file_path = all_file_paths, file_name = all_file_names)
 
   all_variable_names <- lapply(list_of_imported_data, get_variable_names)
   names(all_variable_names) <- unlist(file_id_path_and_name["id"])
@@ -273,10 +278,24 @@ prepare_csv_data_metadata <- function(search_path = NULL){
   output <-
     data.frame(all_variables_file_id,
                file_name = all_file_names_per_variable,
+               column_id = column_id_df,
                variable_name = do.call("rbind.data.frame", all_variable_names)[[1]],
                variable_class = do.call("rbind.data.frame", all_variable_classes)[[1]],
                missing_values = do.call("rbind.data.frame", all_variable_completeness)[[1]],
                variable_category = all_category_instances["variable_category"]
     )
   return(output)
+}
+
+# a function to identify data frames. This allows files to be referenced even
+# if the user renames them. It returns a cryptographic hash that includes the 
+# header names the columns andn rows content.
+identify_dataframe <- function(input){
+  hashes_of_column_names = as.vector(unlist(lapply(names(input), sha1))) 
+  hash_sum_of_column_names = sha1(names(input))
+  hashes_of_columns = unname(sapply(input, function(column){sha1(column)}))
+  hash_sum_of_columns = sha1(hashes_of_columns)
+  hashes_of_rows = apply(input, 1, function(the_row){sha1(the_row)})
+  hash_sum_of_rows = sha1(hashes_of_rows)
+  sha1(c(hash_sum_of_column_names, hash_sum_of_columns, hash_sum_of_rows))
 }
