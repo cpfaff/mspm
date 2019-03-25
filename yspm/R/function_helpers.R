@@ -228,7 +228,7 @@ get_locale <- function(){
 
 # if there is no data in the project we do not need to proceed
 prepare_csv_data_metadata <- function(search_path = NULL){
-  csv_file_paths <- normalizePath(list.files(search_path, pattern = "*.(csv|tsv)", ignore.case = TRUE, recursive = T, full.names = T))
+  csv_file_paths <- normalizePath(list.files(search_path, pattern = "*.(csv|tsv)$", ignore.case = TRUE, recursive = T, full.names = T))
 
   if (identical(csv_file_paths, character(0))) {
     stop("collect_csv_variables failed: There is no data in your folder")
