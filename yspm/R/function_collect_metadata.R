@@ -72,17 +72,20 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
     # are filled out by the user, the rest is complemented from the data
     if(locale == "de"){
       csv_variable_metadata <- subset(read.csv2(path(normalized_output_path, "csv_variables.csv"), row.names = NULL, stringsAsFactors = F),
-        select = c("variable_name", "variable_class", "variable_unit", "variable_description")
+        select = c("file_id", "variable_name", "variable_class", "variable_unit", "variable_description")
       )
     } else {
       csv_variable_metadata <- subset(read.csv(path(normalized_output_path, "csv_variables.csv"), row.names = NULL, stringsAsFactors = F),
-        select = c("variable_name", "variable_class", "variable_unit", "variable_description")
+        select = c("file_id","variable_name", "variable_class", "variable_unit", "variable_description")
       )
     }
 
+
     # afterwards we go on and update the current meta data with new information
     updated_csv_variable_metadata <- 
-      merge(x = current_metadata, y = csv_variable_metadata, by = c("variable_name", "variable_class"), all = TRUE)[, union(names(current_metadata), names(csv_variable_metadata))]
+      merge(x = current_metadata, 
+            y = csv_variable_metadata, 
+            by = c("file_id", "variable_name", "variable_class"), all = TRUE)[, union(names(current_metadata), names(csv_variable_metadata))]
 
     # when categories have been removed they are still sticking around in the metadata we need to address this here 
     # and remove them 
@@ -151,7 +154,7 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
   normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
   normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
 
-  csv_file_path <- normalizePath(list.files(normalized_input_path, pattern = "*.(csv|tsv)$", ignore.case = TRUE, recursive = T, full.names = T))
+  csv_file_paths <- normalizePath(list.files(normalized_input_path, pattern = "*.(csv|tsv)$", ignore.case = TRUE, recursive = T, full.names = T))
 
   if (identical(csv_file_paths, character(0))) {
     stop("collect_csv_categories failed: There is no data in your folder")
@@ -178,10 +181,10 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
     # read the metadata information from before (however only preserve information for the merge
     if(locale == "de"){
       csv_category_metadata <- 
-        subset(read.csv2(path(normalized_output_path, "csv_categories.csv"), row.names = NULL), select = -c(file_id, file_name))
+        subset(read.csv2(path(normalized_output_path, "csv_categories.csv"), row.names = NULL), select = -c(file_name))
     } else {
       csv_category_metadata <- 
-        subset(read.csv(path(normalized_output_path, "csv_categories.csv"), row.names = NULL), select = -c(file_id, file_name))
+        subset(read.csv(path(normalized_output_path, "csv_categories.csv"), row.names = NULL), select = -c(file_name))
     }
 
     if (any(names(csv_category_metadata) %in% "fix_category")) {
@@ -219,7 +222,9 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
     }
 
     updated_csv_category_metadata <- 
-      merge(x = current_metadata, y = csv_category_metadata, by = c("variable_name", "variable_category"), all = TRUE)[, union(names(current_metadata), names(csv_category_metadata))]
+      merge(x = current_metadata, y = csv_category_metadata, by = c("file_id", 
+                                                                    "variable_name", 
+                                                                    "variable_category"), all = TRUE)[, union(names(current_metadata), names(csv_category_metadata))]
 
     # if categories have been removed we need to address this here and remove them from the metadata
     updated_csv_category_metadata <- 
