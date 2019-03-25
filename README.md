@@ -260,9 +260,23 @@ The metadata folder is divided into two sub-folders which store
     what you already described (you can use the alias: `update_csv_metadata()`
     as well).
 
-| file_id | file_name | column_id | variable_name | variable_class | missing_values | variable_category | variable_unit | variable_description |
-| ------- | --------- | --------- | ------------- | -------------- | -------------- | ----------------- | ------------- | -------------------- |
-| ...     | ...       | ...       | ...           | ...            | ...            | ...               | ...           | ...                  |
+    The variable file
+
+   | file_id                                  | file_name | column_id                                | variable_name | variable_class | missing_values | variable_category | variable_unit | variable_description     |
+   | -------                                  | --------- | ---------                                | ------------- | -------------- | -------------- | ----------------- | ------------- | --------------------     |
+   | 44b09515d06f406c9c813556d57ea9143d6144ea | iris.csv  | 3e94c0f9903b48f616e037d50a6e0e1077548ef6 | Petal.Length  | numeric        | 0              | NA                | cm            | The length of the petals |
+   | ...                                      | ...       | ...                                      | ...           | ...            | ...            | ...               | ...           | ...                      |
+   | ...                                      | ...       | ...                                      | ...           | ...            | ...            | ...               | ...           | ...                      |
+
+
+    The category file
+
+   | file_id                                  | file_name | column_id                                | variable_name | variable_category | variable_description |
+   | -------                                  | --------- | ---------                                | ------------- | --------------    | -------------------- |
+   | 44b09515d06f406c9c813556d57ea9143d6144ea | iris.csv  | b631fae5385766e3b040cde5c3cc39c51c416089 | Species       | setosa            | The setosa species   |
+   | 44b09515d06f406c9c813556d57ea9143d6144ea | iris.csv  | ...                                      | ...           | ...               | ...                  |
+   | 44b09515d06f406c9c813556d57ea9143d6144ea | ...       | ...                                      | ...           | ...               | ...                  |
+
 
 2.project
 
