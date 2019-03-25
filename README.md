@@ -1,14 +1,10 @@
 # Your small project management
 
-This repository contains the 'yspm' R package which is a project management
-tool for the famous R statistics environment. The package provides tools to
-easily create a predefined project folder structure, to create relative file
-and folder reference inside a project and a package management to allow for
-better reproducible project. It helps you to create self-contained, shareable
-and reproducible packages of projects. Several nice tools and ideas (e.g. the
-checkpoint package, ProjectTemplate, drake or the 'here' package), which are
-floating around in the R community, have been wrapped up into a streamlined
-solution.
+The 'yspm' package is a project management tool for the famous R statistics
+environment. The package provides tools to easily create a predefined project
+folder structure, helps to manage relative file and folder references inside a
+project and implements version management of dependencies to allow for creating
+better reproducible projects in R.
 
 ## Installation
 
@@ -30,16 +26,14 @@ location of compiler binaries is added to the search path)
     - http://www.tug.org/mactex/downloading.html
 
 * Linux
-    - Well, that highly depends on your Linux-Distribution. Check out the Wiki
-      of your distribution or ask google.
-
-
+    - That highly depends on your Linux-Distribution. Check out the Wiki
+      of your distribution or ask your prefered search engine.
 
 ```r
+# requires R: 3.5.2
 install.packages("devtools")
 devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T)
 ```
-
 
 ## Getting started
 
@@ -47,9 +41,10 @@ devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T)
 
 #### From an r-script
 
-After you have installed everything, you need to set up a location where all
-your future R-projects will reside in. The `yspm` package assists you with this
-task. It makes sense to put this folder inside your users directory somewhere.
+First you set up a folder where all of your future your future R-projects will
+reside in. The `yspm` package assists you with this task (see below). Calling
+the function creates the folder of your choice and inside of it a new R file
+called `manage_projects.R`.
 
 ```r
 # syntax
@@ -59,11 +54,9 @@ yspm::setup(root_path = <a new folder which will contain all your projects>)
 yspm::setup(root_path = "~/r_projects")
 ```
 
-The function creates the folder of your choice and inside of it a new R file
-called `manage_projects.R`. Using this file as basis you can now start managing
-your projects inside the folder. The file has some example content which helps
-you getting started. Open the file and make sure that you set the working
-directory to the new projects folder when working.
+This new file is the basis of your data management. It is filled with some
+example content to get you started. Open the file and make sure that you set
+the working directory to the new projects folder when working.
 
 ```r
 r_projects
@@ -77,46 +70,51 @@ You can also use R-Studio to set up your new project management. Just click on
 * File > New Project > New Directory
 
     There you can select a new template. Watch out for the "Your Small Project
-    Management Template" and select it.
+    Management Template" and select it (see image below).
 
 ![select template](assets/figures/documentation_dialogue_project_template.png "Select Template")
 
 Next you have to fill out a small form providing a folder name that should be
-used for all your new R projects and a location this folder should be based in.
+used for all your new R projects and a location this folder should be created
+in (see image below).
 
 ![select template](assets/figures/documentation_dialogue_project_template_with_rectangle.png "Select Template")
 
-The process creates the new folder and the `manage_projects.R` file. Finally, it
-open the project management file  and you can directly start from there.
+The process creates the new folder for you and a file `manage_projects.R`
+inside of it. Finally, it set the currect working director and opens the
+project management file and you can directly start managing your project from
+there.
 
 ### Create a new project
 
-From inside the `manage_projects.R` file we create a new project simply calling
-the function below.
+From inside the `manage_projects.R` file we can create a new project simply
+calling the function below.
 
 ```r
 create_project(project_name = compile_project_name(first_name = "Your first name",
 					           last_name = "Your last name"))
 ```
 
-It creates a new project folder in a location you desire. This location
-defaults to the current working directory. When you set this correctly then the
-new project will be created in your projects directory next to the
-`manage_projects.R` file. You can provide any project folder name that
-you want we here use a constructor function of yspm to help us to compile
-consistent project names `compile_project_name()`. It requires your first and
-last name and automatically prepends the creation date of the project which
-helps sorring when you have many projects in that folder (The format is
-`YYYY-MM-DD_your_first_name_your_last_name`). You can also create your own
-constructor function to use here. The only thing you need to ensure is that
-your functions returns a single string with the name of the folder that you
-want. If you pass in a function into the parameter `project_name` the function
-`create_project` collects the parameter names and the values and stores them as
-metadata in the metadata folder (see below) as a file called `project.dcf`
+It creates a new project folder inside of the current directory using the given
+project name. While you can provide any string for a project folder name, here
+a constructor function (`compile_project_name()`) is used which takes several
+parameters which are processed into a string (see below).
+
+```r
+compile_project_name(first_name = "Your first name", last_name = "Your last name"))
+[1] "2019-03-25_your_first_name_your_last_name"
+```
+
+This helps with a consistent naming of projects and is flexible. You can also
+create your own constructors. The only thing you need to ensure is that your
+functions returns a single string with the name of the folder that you want.
+The content of the parameters of the constructor are also collected into the
+metadata of the new project. You will find the information in the metadata
+folder inside of your new project in a file called `project.dcf` (see below).
 
 Note. The process to create a new project may take a while as it installs an
-independent R environment and packages into your new project. Afterwards you
-can enable the new project by executing the function below.
+independent R environment into your new project. Afterwards you can enable the
+new project by executing the function below.
 
 ```r
 enable_project(root_folder = choose.dir(),
@@ -126,15 +124,15 @@ enable_project(root_folder = choose.dir(),
 
 ### Project structure
 
-To get a better overview of the project folder structure a documentation of
-of the folders and files is provided below.
+Below you find an overview of the project folder structure with a more detailed
+documentation of the folders and files.
 
-NOTE: While you can name your files whatever you want it is recommended to
-follow some naming conventions. You should only use small letters, no special
-characters, no trailing and leading spaces and separate single words with an
-understore (i.e. snake_case, e.g. raw_tree_data.csv). You should also carefully
-select the names of files to best reflect their contents. I know this is hard,
-but try it!
+NOTE: While you can name all the files in your R project how you want, it is
+recommended to follow a naming convention. You should only use small letters,
+no special characters, no trailing and leading spaces and separate single words
+with an underscore (i.e. snake_case, e.g. raw_tree_data.csv). You should also
+carefully select the names of files to best reflect their contents. I know this
+is hard, but try it!
 
 * full overview
 
@@ -188,23 +186,34 @@ but try it!
 ```
 
 The data folder is separated into three sub-folders which are prepended with
-numbers for a fixed order.
+numbers for a fixed order. The data folder contains all the project related
+datasets no matter in which format they are (e.g. tables, images, audio).
 
 1. Primary data
 
-    It stores primary data of your research. Non of your R scripts should write
-    here.
+    This folder stores the primary data of your research. You should treat this
+    folder as write protected. That basically means, non of your R scripts should
+    write here.
 
 2. Interim data
 
-    Transformed, filtered, merged data products which are important for the
-    analysis or the results.
+   The interim folder is a scratchpad of your data. It can contain e.g. merged
+   or partially cleaned datasets. Another use-case is to store intermediate
+   data products here which include a long computation to produce them or calls
+   to external services. However, data stored in here should disposable. That
+   means you should always be able to regenerate the data in here from your
+   code.
 
 3. Cleaned data
 
-    Cleaned primary data which is used e.g. in modelling, plotting.
+   The folder contains data which has been thoroughly cleaned, and which is in
+   the right shape for your analysis. You should always be able to dispose the
+   data in here and regenerate from the raw data by executing your R script
 
 * figure
+
+The figures directory is the place which contains all the figures may they be
+created by yourself or taken from somewhere externally.
 
 ```
 2019-02-19_my_full_name
@@ -243,17 +252,21 @@ The metadata folder is divided into two sub-folders which store
 
 1. dataset
 
-    Information about the datasets in your project. You can use the function XXX to
-    collect information about your datasets and place it here in a format that you
-    can complement with metadata.
+    Information about the datasets in your project. You can use the function
+    `collect_csv_metadata()` to collect information about your datasets. It
+    will place two files in here in csv format that you can complement with
+    metadata. In case you have to change something in the data you can call it
+    again and it will update your metadata preserving what you already
+    described (you can use the alias: `update_csv_metadata()` as well).
 
 2. project
 
-   The project folder contains information about the project like the author of
-   the project and the checkpoint which is for now the date of project creation.
-   The files in here are in Debian control file format (dcf). It is natively
+   The project folder contains information about the project. This is a
+   license, the author of the project and the creation time of the project but
+   also the checkpoint date used to pin package versions. The files in here are
+   in Debian control file format (dcf). It is a structured text file natively
    supported by the R environment and used in many places like e.g. the
-   description file in R packages.
+   description of R packages.
 
 * report
 
@@ -296,8 +309,9 @@ documents in office format and as pdf.
 ```
 
 The source folder is separated into two sub-folders. It is the place which
-stores all external and internal source code. If you install a package it goes
-here. If you load a library it goes here. If you analyse data it goes here.
+stores all external (e.g. libraries) and internal source code (your scripts and
+functions). If you install a package it goes here. If you load a library it
+goes here. If you analyse data it goes here.
 
 * source > library
 
@@ -314,17 +328,14 @@ here. If you load a library it goes here. If you analyse data it goes here.
         │   └── 06_lib_model_data.R
 ```
 
-As a rule of thumb. When you have to copy and paste code more than 2 times in
-one of your scripts, create a function so you can reuse it across your project.
-These functions go into the library folder (your personal library of
-functions). The separate files in here are prepended with numbers for a logical
-ordering. The files are named after typical stages of a scientific data
-analysis workflow (except the packages file). You can use the this to organize
-your own functions. Then you can source the files in each of the files in the
-workflow folder where it is needed to use the functionality. The packages file
-is the place for your package management. If you need an R package for your
-analysis list it there with a `library(packagename)` call and sourde the file
-from your main script.
+When you have to copy and paste code more than 2 times in one of your scripts,
+then you should consider creating a function so you can reuse it across your
+project. These functions go into the files in the library folder (your personal
+library of functions). The separate files in here are prepended with numbers
+for a logical ordering. The files are named after typical stages of a
+scientific data analysis workflow. You can use the default files to
+organize your own functions a little bit. Then you can source the files in each
+of the files in the workflow folder where the functionality is needed.
 
 * source > workflow
 
@@ -350,18 +361,15 @@ convenient function called `project_content()` (see description below).
 
 ### References
 
-A typical problem which breaks R code is using absolute paths e.g. in setting
-the working directory in the beginning of a script. This is likely only working
-for the very environment and only for a short time. If your code is shared the
-likelyhood of the `setwd()` working on another computer is 0%. Thus the `yspm`
-provides a function to reference content in the project which will always work
-when the tool is setup like explained above and a project is enabled. It works
-similar like the `here` R package and constructs paths always from the top of
-your active project. For example if the project `2019-02-19_my_full_name` is
-activated from your `manage_projects.R` file then the function
-`reference_content()` will use that folder as root to construct paths. As each
-project contains a folder named `project` the function also adds `project` to
-the path for you.
+One problem when sharing R code is the paths it contains. The likelihood that
+these are working on another computer is 0%. Thus `setwd()` calls in scripts
+should be prevented. The `yspm` provides a function to reference content in a
+project which will always work when the tool is setup and the particular
+project is activated (like explained above). For example if the project
+`2019-02-19_my_full_name` is activated from your `manage_projects.R` file then
+the function `reference_content()` will use that folder as root to construct
+paths. As each project contains a folder named `project` the function also adds
+`project` to the path for you.
 
 Lets say we want to source one of the `02_wf_import_data.R` file from the
 source folder in the `01_wf_main_script.R` file in the workflow folder to
