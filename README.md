@@ -134,9 +134,11 @@ documentation of the folders and files.
 NOTE: While you can name all the files in your R project how you want, it is
 recommended to follow one naming convention. Here we use small letters only, no
 special characters, no trailing and leading white spaces and separate words are
-combined with an underscore (i.e. snake_case, e.g. `raw_tree_data.csv`). You
-should also carefully select the names of files to best reflect their contents.
-I know this is hard, but try it!
+combined with an underscore (i.e. snake_case, e.g. `raw_tree_data.csv`). With
+this I also follow the recommendations in the tidyverse [style
+guide](https://style.tidyverse.org/). You should also carefully select the
+names of your files to best reflect their contents. I know this is hard, but
+try it!
 
 * full overview
 
