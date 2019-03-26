@@ -419,6 +419,14 @@ typical stages of a scientific data analysis workflow. You can use the files to
 organized your script. For references in between the files there is also a
 convenient function called `project_content()` (see description below).
 
+The `yspm` project management tool helps you manage the external dependencies
+of your project. In any of your scripts in the source folder you can reference
+R libraries. This typically is done using the function `library(<package>)`, or
+`require(<package>)`. If you add a new library call to a project source file,
+you can run the function `install_dependencies()` from your project mangement
+file. It screens all project scipt files and ensures that all packages that are
+reference are installed.
+
 ### References
 
 One problem when sharing R code is the paths it contains. The likelihood that
@@ -496,15 +504,7 @@ linter across all the R code files it can find. This correct e.g. lines which
 are to long, replaces equal character for assignment again the arrow and
 ensures correct spacing around parentheses and operators.
 
-
-## More to come
-
-Check out the [issues](https://github.com/cpfaff/yspm/issues) page of this
-project. There you can find currently open ideas or problems. You can easily
-contribute, provide suggestions or bug reports there. The only thing you need
-is a GitHub [account](https://github.com/join).
-
-### Naming helper
+## Naming helper
 
 During an analysis often data products need to be saved. The `yspm` package
 provides convenient constructors functions which help to compile consisten
@@ -517,3 +517,14 @@ compile_plot_filename(name = "01I-am-not sure what I amDoing", ext = "PNG")
 
 "2019-03-22_claas_thido_pfaff/project/figure/scripted/01_i_am_not_sure_what_i_am_doing_doc.png"
 ```
+
+Datasets:
+
+...
+
+## More to come
+
+Check out the [issues](https://github.com/cpfaff/yspm/issues) page of this
+project. There you can find currently open ideas or problems. You can easily
+contribute, provide suggestions or bug reports there. The only thing you need
+is a GitHub [account](https://github.com/join).
