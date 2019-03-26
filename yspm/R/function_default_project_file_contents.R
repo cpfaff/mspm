@@ -157,6 +157,8 @@ standardize_project_code()
 # collect metadata
 #
 collect_csv_metadata()
+# you can also use the alias below
+# update_csv_metadata()
 
 # This function crates two new files. One for the variables of your datasets and one for the categories. 
 # You can find the files located in the metadata folder of your project. There you can edit them to add
@@ -164,4 +166,11 @@ collect_csv_metadata()
 # will be updated based on your current data (content that you already described will be preserved). There
 # is also a synonymous function called update_csv_metadata() for a better readability of your code if you
 # wish.
+
+# During an analysis often data products need to be saved. The `yspm` package
+# provides convenient constructors functions which help to compile consisten
+# names for the content in your project folder structure.
+
+# for example for plots:
+compile_plot_filename(name = "01I-am-not sure what I amDoing", ext = "PNG")
 '
