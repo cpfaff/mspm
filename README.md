@@ -293,12 +293,24 @@ The metadata folder is divided into two sub-folders which store
 
 2.project
 
-   The project folder contains information about the project. This is a
-   license, the author of the project and the creation time of the project but
-   also the checkpoint date used to pin package versions. The files in here are
-   in Debian control file format (dcf). It is a structured text file natively
-   supported by the R environment and used in many places like e.g. the
-   description of R packages.
+   The project folder contains information about the project. This is a license
+   (currently defaults to CCBYSA 4.0), the author of the project and the
+   creation time of the project but also the checkpoint date used to pin
+   package versions.
+
+   The `project.dcf` file:
+
+```r
+project_date: 2019-03-23
+first_name: Claas-Thido
+last_name: Pfaff
+...
+```
+
+   Note: The files are in Debian control file format (dcf). It is a structured
+   text file natively supported by the R environment and used in many places
+   like e.g. the description of R packages.
+
 
 * report
 
