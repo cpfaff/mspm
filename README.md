@@ -515,5 +515,5 @@ Plots:
 ```r
 compile_plot_filename(name = "01I-am-not sure what I amDoing", ext = "PNG")
 
-2019-03-22_claas_thido_pfaff/project/figure/scripted/01_i_am_not_sure_what_i_am_doing_doc.png
+"2019-03-22_claas_thido_pfaff/project/figure/scripted/01_i_am_not_sure_what_i_am_doing_doc.png"
 ```
