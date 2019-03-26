@@ -504,3 +504,16 @@ project. There you can find currently open ideas or problems. You can easily
 contribute, provide suggestions or bug reports there. The only thing you need
 is a GitHub [account](https://github.com/join).
 
+### Naming helper
+
+During an analysis often data products need to be saved. The `yspm` package
+provides convenient constructors functions which help to compile consisten
+names for the content in your project folder structure.
+
+Plots:
+
+```r
+compile_plot_filename(name = "01I-am-not sure what I amDoing", ext = "PNG")
+
+2019-03-22_claas_thido_pfaff/project/figure/scripted/01_i_am_not_sure_what_i_am_doing_doc.png
+```
