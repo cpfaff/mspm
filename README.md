@@ -179,6 +179,9 @@ I know this is hard, but try it!
             └── 06_wf_model_data.R
 ```
 
+When a project is enabled you can also issue the function `show_content()` to
+create a tree in your R console like the above to get a better overview.
+
 * data
 
 ```
@@ -468,3 +471,13 @@ Which turns into:
 ```r
 source("2019-02-22_my_full_name/project/library/03_wf_import_data.R"))
 ```
+
+## Code-Styling
+
+The `yspm` R package also installes the styler package and thus allows you to
+easily check and correct your source code to follow the tidyverse style guide
+which you can find [here](https://style.tidyverse.org/). Just issue the command
+`standardize_project_code()` when with an enabled project and it will run the
+linter across all the R code files it can find. This correct e.g. lines which
+are to long, replaces equal character for assignement agains the arrow and
+ensures correct spacing around parentheses and operators.
