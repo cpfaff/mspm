@@ -102,7 +102,7 @@ parameters which are processed into a string (see below).
 
 ```r
 compile_project_name(first_name = "Your first name", last_name = "Your last name"))
-[1] "2019-03-25_your_first_name_your_last_name"
+[1] "2019-03-22_your_first_name_your_last_name"
 ```
 
 This helps with a consistent naming of projects and is flexible. You can also
@@ -142,7 +142,7 @@ is hard, but try it!
 * full overview
 
 ```
-2019-02-22_your_full_name
+2019-03-22_your_full_name
 └── project
     ├── data
     │   ├── 01_primary
@@ -182,7 +182,7 @@ is hard, but try it!
 * data
 
 ```
-2019-02-19_my_full_name
+2019-02-22_my_full_name
 └── project
     ├── data
     │   ├── 01_primary
@@ -221,7 +221,7 @@ The figures directory is the place which contains all the figures may they be
 created by yourself or taken from somewhere externally.
 
 ```
-2019-02-19_my_full_name
+2019-02-22_my_full_name
 └── project
     ├── figure
     │   ├── external
@@ -243,7 +243,7 @@ The figure folder is divided in two sub-folders.
 * metadata
 
 ```
-2019-02-19_my_full_name
+2019-02-22_my_full_name
 └── project
     ├── metadata
     │   ├── dataset
@@ -301,7 +301,7 @@ The metadata folder is divided into two sub-folders which store
    The `project.dcf` file:
 
 ```r
-project_date: 2019-03-23
+project_date: 2019-03-22
 first_name: Claas-Thido
 last_name: Pfaff
 ...
@@ -315,7 +315,7 @@ last_name: Pfaff
 * report
 
 ```
-2019-02-19_my_full_name
+2019-02-22_my_full_name
 └── project
     ├── report
     │   ├── presentation
@@ -384,7 +384,7 @@ of the files in the workflow folder where the functionality is needed.
 * source > workflow
 
 ```
-2019-02-19_my_full_name
+2019-02-22_my_full_name
 └── project
     └── source
         └── workflow
@@ -410,7 +410,7 @@ these are working on another computer is 0%. Thus `setwd()` calls in scripts
 should be prevented. The `yspm` provides a function to reference content in a
 project which will always work when the tool is setup and the particular
 project is activated (like explained above). For example if the project
-`2019-02-19_my_full_name` is activated from your `manage_projects.R` file then
+`2019-02-22_my_full_name` is activated from your `manage_projects.R` file then
 the function `reference_content()` will use that folder as root to construct
 paths. As each project contains a folder named `project` the function also adds
 `project` to the path for you.
@@ -467,5 +467,5 @@ Then we add the following line to our `01_wf_main_script.R` file
 Which turns into:
 
 ```r
-source("2019-02-19_my_full_name/project/library/03_wf_import_data.R"))
+source("2019-02-22_my_full_name/project/library/03_wf_import_data.R"))
 ```
