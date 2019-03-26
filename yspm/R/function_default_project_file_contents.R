@@ -133,29 +133,26 @@ show_content()
 
 reference_content("source/library/01_packages.R")
 
-# Adhering to some rules for styling the source code of your R projects can
-# increase the readability significantly. While learning some style does not
-# hurt your can also use the function below which will format your files
-# according to the tidyverse style guide (which is an extended version of the
-# google style guide for R)
-
-standardize_project_code()
-
 # When you finished your project you should start documenting your data. The
 # example below creates some dummy content to show you how yspm helps you with
 # documenting your data.
 
-# create example content to collect metadata
-# require(tibble)
-# require(readr)
-# require(magrittr)
+# create example content to try collect metadata
+# import::from(tibble, tibble, rownames_to_column, as_tibble)
+# import::from(readr, write_csv)
+# import::from(magrittr, "%>%")
 
 # add example content
-# mtcars %>% tibble::rownames_to_column("car_name") %>% readr::write_csv(reference_content("data/01_primary/mtcars.csv"))
-# iris %>% readr::write_csv(reference_content("data/01_primary/iris.csv"))
+# mtcars %>% 
+  # rownames_to_column("car_name") %>%
+  # as_tibble()%>% 
+  # write_csv(reference_content("data/01_primary/mtcars.csv"))
+
+# iris %>% 
+  # write_csv(reference_content("data/01_primary/iris.csv"))
 
 # collect metadata
-#
+
 collect_csv_metadata()
 # you can also use the alias below
 # update_csv_metadata()
@@ -167,10 +164,23 @@ collect_csv_metadata()
 # is also a synonymous function called update_csv_metadata() for a better readability of your code if you
 # wish.
 
+# naming helpers
+
 # During an analysis often data products need to be saved. The `yspm` package
 # provides convenient constructors functions which help to compile consisten
 # names for the content in your project folder structure.
 
 # for example for plots:
 compile_plot_filename(name = "01I-am-not sure what I amDoing", ext = "PNG")
+
+# styling
+
+# Adhering to some rules for styling the source code of your R projects can
+# increase the readability significantly. While learning some style does not
+# hurt your can also use the function below which will format your files
+# according to the tidyverse style guide (which is an extended version of the
+# google style guide for R)
+
+standardize_project_code()
 '
+
