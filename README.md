@@ -495,3 +495,12 @@ which you can find [here](https://style.tidyverse.org/). Just issue the command
 linter across all the R code files it can find. This correct e.g. lines which
 are to long, replaces equal character for assignement agains the arrow and
 ensures correct spacing around parentheses and operators.
+
+
+## More to come
+
+Check out the [issues](https://github.com/cpfaff/yspm/issues) page of this
+project. There you can find currently open ideas or problems. You can easily
+contribute, provide suggestions or bug reports there. The only thing you need
+is a GitHub [account](https://github.com/join).
+
