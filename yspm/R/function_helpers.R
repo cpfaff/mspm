@@ -203,7 +203,7 @@ fix_factor_globally <- function(list_of_files = NULL, search_term, replace_term)
 }
 
 # get the system information for writing the correct csv file type with metadata
-get_locale <- function(){
+get_locale <- function() {
   switch(Sys.info()[["sysname"]],
     Windows = {
       if (grepl("German|de_DE", Sys.getlocale(category = "LC_ALL"))) {
@@ -227,7 +227,7 @@ get_locale <- function(){
 
 
 # if there is no data in the project we do not need to proceed
-prepare_csv_data_metadata <- function(search_path = NULL){
+prepare_csv_data_metadata <- function(search_path = NULL) {
   csv_file_paths <- normalizePath(list.files(search_path, pattern = "*.(csv|tsv)$", ignore.case = TRUE, recursive = T, full.names = T))
 
   if (identical(csv_file_paths, character(0))) {
@@ -244,7 +244,7 @@ prepare_csv_data_metadata <- function(search_path = NULL){
   all_variables_file_id <- data.frame(file_id = mapply(rep, file_id, repetition_pattern))
 
   # column_id_df = data.frame(column_id = unname(unlist(lapply(list_of_imported_data, function(dataset){
-           # lapply(dataset, sha1)
+  # lapply(dataset, sha1)
   # }))))
 
   all_file_names_per_variable <- data.frame(file_name = mapply(rep, list(all_file_names), repetition_pattern))
@@ -265,38 +265,42 @@ prepare_csv_data_metadata <- function(search_path = NULL){
 
   all_category_instances <-
     lapply(all_category_instances, function(element) {
-             lapply(element, function(sub_element) {
-                      if (is.null(sub_element)) {
-                        NA_character_
-                      } else {
-                        paste0(sub_element, collapse = ",")
-                      }
+      lapply(element, function(sub_element) {
+        if (is.null(sub_element)) {
+          NA_character_
+        } else {
+          paste0(sub_element, collapse = ",")
+        }
+      })
     })
-  })
 
   all_category_instances <- setNames(stack(all_category_instances)[2:1], c("id", "variable_category"))
 
   output <-
     data.frame(all_variables_file_id,
-               file_name = all_file_names_per_variable,
-               # column_id = column_id_df,
-               variable_name = do.call("rbind.data.frame", all_variable_names)[[1]],
-               variable_class = do.call("rbind.data.frame", all_variable_classes)[[1]],
-               missing_values = do.call("rbind.data.frame", all_variable_completeness)[[1]],
-               variable_category = all_category_instances["variable_category"]
+      file_name = all_file_names_per_variable,
+      # column_id = column_id_df,
+      variable_name = do.call("rbind.data.frame", all_variable_names)[[1]],
+      variable_class = do.call("rbind.data.frame", all_variable_classes)[[1]],
+      missing_values = do.call("rbind.data.frame", all_variable_completeness)[[1]],
+      variable_category = all_category_instances["variable_category"]
     )
   return(output)
 }
 
 # a function to identify data frames. This allows files to be referenced even
-# if the user renames them. It returns a cryptographic hash that includes the 
+# if the user renames them. It returns a cryptographic hash that includes the
 # header names the columns andn rows content.
-identify_dataframe <- function(input){
-  hashes_of_column_names = as.vector(unlist(lapply(names(input), sha1))) 
-  hash_sum_of_column_names = sha1(names(input))
-  hashes_of_columns = unname(sapply(input, function(column){sha1(column)}))
-  hash_sum_of_columns = sha1(hashes_of_columns)
-  hashes_of_rows = apply(input, 1, function(the_row){sha1(the_row)})
-  hash_sum_of_rows = sha1(hashes_of_rows)
+identify_dataframe <- function(input) {
+  hashes_of_column_names <- as.vector(unlist(lapply(names(input), sha1)))
+  hash_sum_of_column_names <- sha1(names(input))
+  hashes_of_columns <- unname(sapply(input, function(column) {
+    sha1(column)
+  }))
+  hash_sum_of_columns <- sha1(hashes_of_columns)
+  hashes_of_rows <- apply(input, 1, function(the_row) {
+    sha1(the_row)
+  })
+  hash_sum_of_rows <- sha1(hashes_of_rows)
   sha1(c(hash_sum_of_column_names, hash_sum_of_columns, hash_sum_of_rows))
 }

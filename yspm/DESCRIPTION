@@ -20,6 +20,7 @@ Imports:
     import,
     devtools,
     remotes,
+    snakecase,
     stringr,
     parallel,
     magrittr,

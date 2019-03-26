@@ -48,55 +48,57 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
   check_if_project_is_enabled("collect_csv_variables")
 
   # in order to read and write the correct csv type for the metadata
-  locale = get_locale()
+  locale <- get_locale()
 
   # normalize the paths
   normalized_input_path <- suppressWarnings(normalizePath(path(input_path)))
   normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
-  
-  # read all the csv datasets and prepare them for metadata collection 
+
+  # read all the csv datasets and prepare them for metadata collection
   output_with_variable_class <- prepare_csv_data_metadata(search_path = normalized_input_path)
   output_with_variable_class <- base::transform(output_with_variable_class, variable_unit = ifelse(variable_class == "character", "NA", ""))
-  output_with_variable_class <- 
-      output_with_variable_class[with(output_with_variable_class, order(file_id, file_name, variable_name)), ]
+  output_with_variable_class <-
+    output_with_variable_class[with(output_with_variable_class, order(file_id, file_name, variable_name)), ]
 
   # when the metadata file exists we need to preserve the information in case
   # that somebody already started to fill out the metadata file. They would
   # be really mad if we overwrite it. ;-). We create a new table and then merge
   # with the existing one.
   if (file_exists(paste0(path(normalized_output_path, "csv_variables.csv")))) {
-    # get all current data to update the information in the metadata if needed 
+    # get all current data to update the information in the metadata if needed
     current_metadata <- subset(output_with_variable_class, select = -c(variable_unit))
 
     # we read from the current metadata all information which is used to merge the datasets and the columns which
     # are filled out by the user, the rest is complemented from the data
-    if(locale == "de"){
+    if (locale == "de") {
       csv_variable_metadata <- subset(read.csv2(path(normalized_output_path, "csv_variables.csv"), row.names = NULL, stringsAsFactors = F),
         select = c("file_id", "variable_name", "variable_class", "variable_unit", "variable_description")
       )
     } else {
       csv_variable_metadata <- subset(read.csv(path(normalized_output_path, "csv_variables.csv"), row.names = NULL, stringsAsFactors = F),
-        select = c("file_id","variable_name", "variable_class", "variable_unit", "variable_description")
+        select = c("file_id", "variable_name", "variable_class", "variable_unit", "variable_description")
       )
     }
 
 
     # afterwards we go on and update the current meta data with new information
-    updated_csv_variable_metadata <- 
-      merge(x = current_metadata, 
-            y = csv_variable_metadata, 
-            by = c("file_id", "variable_name", "variable_class"), all = TRUE)[, union(names(current_metadata), names(csv_variable_metadata))]
+    updated_csv_variable_metadata <-
+      merge(
+        x = current_metadata,
+        y = csv_variable_metadata,
+        by = c("file_id", "variable_name", "variable_class"), all = TRUE
+      )[, union(names(current_metadata), names(csv_variable_metadata))]
 
-    # when categories have been removed they are still sticking around in the metadata we need to address this here 
-    # and remove them 
-    updated_csv_variable_metadata_cleaned <- 
+    # when categories have been removed they are still sticking around in the metadata we need to address this here
+    # and remove them
+    updated_csv_variable_metadata_cleaned <-
       updated_csv_variable_metadata[!(is.na(updated_csv_variable_metadata$file_id) | is.na(updated_csv_variable_metadata$file_name)), ]
 
     # then we sort everything by file id and name
-    updated_csv_variable_metadata_sorted <- 
+    updated_csv_variable_metadata_sorted <-
       updated_csv_variable_metadata_cleaned[with(updated_csv_variable_metadata_cleaned, order(file_id, file_name, variable_name)), ]
 
-    # in order to make opening with excel possible without problems 
+    # in order to make opening with excel possible without problems
     if (locale == "de") {
       write.csv2(updated_csv_variable_metadata_sorted, paste0(path(normalized_output_path, "csv_variables.csv")), row.names = FALSE)
     } else {
@@ -161,13 +163,13 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
   }
 
   # get all the raw data prepared for metadata collection
-  output_with_variable_class <- 
+  output_with_variable_class <-
     prepare_csv_data_metadata(search_path = normalized_input_path)
 
-  output_with_variable_class <- 
+  output_with_variable_class <-
     output_with_variable_class[with(output_with_variable_class, order(file_id, file_name, variable_name)), ]
 
-  output_separated <- 
+  output_separated <-
     tidyr::separate_rows(output_with_variable_class, variable_category, sep = ",")
 
   # remove all variableswhich are not categorical as they are not going to be described here.
@@ -179,11 +181,11 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
     # be really mad if we overwrite it. ;-).
 
     # read the metadata information from before (however only preserve information for the merge
-    if(locale == "de"){
-      csv_category_metadata <- 
+    if (locale == "de") {
+      csv_category_metadata <-
         subset(read.csv2(path(normalized_output_path, "csv_categories.csv"), row.names = NULL), select = -c(file_name))
     } else {
-      csv_category_metadata <- 
+      csv_category_metadata <-
         subset(read.csv(path(normalized_output_path, "csv_categories.csv"), row.names = NULL), select = -c(file_name))
     }
 
@@ -199,14 +201,14 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
       )
 
       # when we do this we need to read the files again
-      output_with_variable_class <- 
+      output_with_variable_class <-
         prepare_csv_data_metadata(search_path = normalized_input_path)
 
-      output_separated <- 
+      output_separated <-
         tidyr::separate_rows(output_with_variable_class, variable_category, sep = ",")
 
       # because we do not want non categorical variables bein in here
-      current_metadata <- 
+      current_metadata <-
         output_separated[!is.na(output_separated$variable_category), ]
 
       # then fix the naming in the metadata
@@ -217,20 +219,22 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
 
       # then check for descriptions
       # sorted_data <- csv_category_metadata[with(csv_category_metadata, order(variable_name, variable_category)), ]
-      csv_category_metadata <- 
+      csv_category_metadata <-
         subset(unique(csv_category_metadata), select = -c(fix_category))
     }
 
-    updated_csv_category_metadata <- 
-      merge(x = current_metadata, y = csv_category_metadata, by = c("file_id", 
-                                                                    "variable_name", 
-                                                                    "variable_category"), all = TRUE)[, union(names(current_metadata), names(csv_category_metadata))]
+    updated_csv_category_metadata <-
+      merge(x = current_metadata, y = csv_category_metadata, by = c(
+        "file_id",
+        "variable_name",
+        "variable_category"
+      ), all = TRUE)[, union(names(current_metadata), names(csv_category_metadata))]
 
     # if categories have been removed we need to address this here and remove them from the metadata
-    updated_csv_category_metadata <- 
+    updated_csv_category_metadata <-
       updated_csv_category_metadata[!(is.na(updated_csv_category_metadata$file_id) | is.na(updated_csv_category_metadata$file_name)), ]
 
-    updated_csv_category_metadata_sorted <- 
+    updated_csv_category_metadata_sorted <-
       updated_csv_category_metadata[with(updated_csv_category_metadata, order(file_id, file_name, variable_name)), ]
 
     updated_csv_category_metadata_sorted <-
