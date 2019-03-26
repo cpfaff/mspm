@@ -295,10 +295,14 @@ The metadata folder is divided into two sub-folders which store
 
 2.project
 
-   The project folder contains information about the project. This is a license
-   (currently defaults to CCBYSA 4.0), the author of the project and the
-   creation time of the project but also the checkpoint date used to pin
-   package versions.
+   The project folder contains information about the project. The files are in
+   Debian control file format (dcf). It is a structured text file natively
+   supported by the R environment and used in many places like e.g. the
+   description of R packages.
+
+   This folder holds e.g. a license (currently defaults to CCBYSA 4.0), the
+   author of the project and the creation time of the project but also the date
+   used to pin package versions (checkpoint).
 
    The `project.dcf` file:
 
@@ -309,10 +313,19 @@ last_name: Pfaff
 ...
 ```
 
-   Note: The files are in Debian control file format (dcf). It is a structured
-   text file natively supported by the R environment and used in many places
-   like e.g. the description of R packages.
+  Now you might ask yourself how that information gets in here. It is filled in
+  during the creation. Do you remember the function call from above. If we
+  create the project like so...
 
+   ```r
+   create_project(project_name = compile_project_name(first_name = "Claas-Thido",
+                                                      last_name = "Pfaff"))
+   ```
+
+  The parameters of the constructor function for the `project_name` are used as
+  fields and the values you passed in are the corresponding values in this
+  key-value file. NOTE: This form of collection only works if you use a
+  constructor function otherwise the metadata will be empty.
 
 * report
 
