@@ -133,11 +133,11 @@ Below you find an overview of the project folder structure with a more detailed
 documentation of the folders and files.
 
 NOTE: While you can name all the files in your R project how you want, it is
-recommended to follow a naming convention. You should only use small letters,
-no special characters, no trailing and leading spaces and separate single words
-with an underscore (i.e. snake_case, e.g. raw_tree_data.csv). You should also
-carefully select the names of files to best reflect their contents. I know this
-is hard, but try it!
+recommended to follow one naming convention. Here we use small letters only, no
+special characters, no trailing and leading white spaces and separate words are
+combined with an underscore (i.e. snake_case, e.g. `raw_tree_data.csv`). You
+should also carefully select the names of files to best reflect their contents.
+I know this is hard, but try it!
 
 * full overview
 
@@ -196,9 +196,9 @@ datasets no matter in which format they are (e.g. tables, images, audio).
 
 1. Primary data
 
-    This folder stores the primary data of your research. You should treat this
-    folder as write protected. That basically means, non of your R scripts should
-    write here.
+   This folder stores the primary data of your research. You should treat this
+   folder as write protected. That basically means, non of your R scripts should
+   write here.
 
 2. Interim data
 
@@ -257,18 +257,18 @@ The metadata folder is divided into two sub-folders which store
 
 1. dataset
 
-    Information about the datasets in your project. You can use the function
-    `collect_csv_metadata()` to collect information about your datasets. It
-    will place two files (variables and categories) in here in csv format that
-    you can complement with metadata. In case you have to change something in
-    the data you can call it again and it will update your metadata preserving
-    what you already described (you can use the alias: `update_csv_metadata()`
-    as well).
+   Information about the datasets in your project. You can use the function
+   `collect_csv_metadata()` to collect information about your datasets. It
+   will place two files (variables and categories) in here in csv format that
+   you can complement with metadata. In case you have to change something in
+   the data you can call it again and it will update your metadata preserving
+   what you already described (you can use the alias: `update_csv_metadata()`
+   as well).
 
-    The variable file:
+   The variable file:
 
-    Here information on variable level is resolved. You can add information like
-    units and a generic description.
+   Here information on variable level is resolved. You can add information like
+   units and a generic description.
 
    | file_id | file_name | variable_name | variable_class | missing_values | variable_category | variable_unit | variable_description     |
    | ------- | --------- | ------------- | -------------- | -------------- | ----------------- | ------------- | --------------------     |
@@ -277,12 +277,11 @@ The metadata folder is divided into two sub-folders which store
    | ...     | ...       | ...           | ...            | ...            | ...               | ...           | ...                      |
 
 
-    The category file:
+   The category file:
 
-    Here information on category level is resolved. You can add information
-    like a generic description. This can help to understand what each of your
-    categories actually means.
-
+   Here information on category level is resolved. You can add information
+   like a generic description. This can help to understand what each of your
+   categories actually means.
 
    | file_id | file_name |  variable_name | variable_category | variable_description |
    | ------- | --------- |  ------------- | --------------    | -------------------- |
