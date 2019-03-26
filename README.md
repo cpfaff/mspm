@@ -122,6 +122,11 @@ enable_project(root_folder = choose.dir(),
 					           last_name = "Your last name"))
 ```
 
+This will set the working directory, the library path and the correct package
+repository to use. Further enabling a package also checks if all packages which
+are required by the project are installed. If not they will be installed before
+you can use it.
+
 ### Project structure
 
 Below you find an overview of the project folder structure with a more detailed
@@ -260,22 +265,30 @@ The metadata folder is divided into two sub-folders which store
     what you already described (you can use the alias: `update_csv_metadata()`
     as well).
 
-    The variable file
+    The variable file:
 
-   | file_id                                  | file_name | column_id                                | variable_name | variable_class | missing_values | variable_category | variable_unit | variable_description     |
-   | -------                                  | --------- | ---------                                | ------------- | -------------- | -------------- | ----------------- | ------------- | --------------------     |
-   | 44b09515d06f406c9c813556d57ea9143d6144ea | iris.csv  | 3e94c0f9903b48f616e037d50a6e0e1077548ef6 | Petal.Length  | numeric        | 0              | NA                | cm            | The length of the petals |
-   | ...                                      | ...       | ...                                      | ...           | ...            | ...            | ...               | ...           | ...                      |
-   | ...                                      | ...       | ...                                      | ...           | ...            | ...            | ...               | ...           | ...                      |
+    Here information on variable level is resolved. You can add information like
+    units and a generic description.
+
+   | file_id | file_name | variable_name | variable_class | missing_values | variable_category | variable_unit | variable_description     |
+   | ------- | --------- | ------------- | -------------- | -------------- | ----------------- | ------------- | --------------------     |
+   | 1       | iris.csv  | Petal.Length  | numeric        | 0              | NA                | cm            | The length of the petals |
+   | 1       | ...       | ...           | ...            | ...            | ...               | ...           | ...                      |
+   | ...     | ...       | ...           | ...            | ...            | ...               | ...           | ...                      |
 
 
-    The category file
+    The category file:
 
-   | file_id                                  | file_name | column_id                                | variable_name | variable_category | variable_description |
-   | -------                                  | --------- | ---------                                | ------------- | --------------    | -------------------- |
-   | 44b09515d06f406c9c813556d57ea9143d6144ea | iris.csv  | b631fae5385766e3b040cde5c3cc39c51c416089 | Species       | setosa            | The setosa species   |
-   | 44b09515d06f406c9c813556d57ea9143d6144ea | iris.csv  | ...                                      | ...           | ...               | ...                  |
-   | 44b09515d06f406c9c813556d57ea9143d6144ea | ...       | ...                                      | ...           | ...               | ...                  |
+    Here information on category level is resolved. You can add information
+    like a generic description. This can help to understand what each of your
+    categories actually means.
+
+
+   | file_id | file_name |  variable_name | variable_category | variable_description |
+   | ------- | --------- |  ------------- | --------------    | -------------------- |
+   | 1       | iris.csv  |  Species       | setosa            | The setosa species   |
+   | 1       | iris.csv  |  ...           | ...               | ...                  |
+   | 1       | ...       |  ...           | ...               | ...                  |
 
 
 2.project
