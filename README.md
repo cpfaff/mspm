@@ -32,7 +32,7 @@ location of compiler binaries is added to the search path)
 ```r
 # requires R: 3.5.2
 install.packages("devtools", dependencies = TRUE)
-devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = T)
+devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
 ```
 
 ## Getting started
