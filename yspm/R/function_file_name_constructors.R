@@ -1,6 +1,6 @@
 #' Create a file name for a plot
 #'
-#' @importFrom snakecase as_snake_case
+#' @importFrom snakecase to_snake_case
 #' @export compile_plot_filename
 
 compile_plot_filename <- function(name = NULL, extension = NULL) {

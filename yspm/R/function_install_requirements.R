@@ -1,13 +1,12 @@
-#' A function to crawl for required packages in a project
+#' A function to install packages into a project
 #'
-#' If we load a project we do not know which packages are
-#' required to run it. This function detects all references which
-#' are made to packages in the project. Then it checks of they are
-#' existing in the project library. If not they are finally
-#' installed.
+#' You can call the function to install all packages that are reference in
+#' the source code of your project. This function is also used during enabling
+#' a project to ensure all requirements are installed. The function detects
+#' all calls to library(), require(), import::import_from(). 
 #' @param path Provide the path folder all scripts are located in.
 #' @importFrom stringr str_extract_all
-#
+#' @export install_requirements
 install_requirements <- function(path = yspm::project_structure("folder_source")) {
   path <- suppressWarnings(normalizePath(path(path)))
 

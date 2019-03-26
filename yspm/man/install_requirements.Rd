@@ -2,7 +2,7 @@
 % Please edit documentation in R/function_install_requirements.R
 \name{install_requirements}
 \alias{install_requirements}
-\title{A function to crawl for required packages in a project}
+\title{A function to install packages into a project}
 \usage{
 install_requirements(path = yspm::project_structure("folder_source"))
 }
@@ -10,9 +10,8 @@ install_requirements(path = yspm::project_structure("folder_source"))
 \item{path}{Provide the path folder all scripts are located in.}
 }
 \description{
-If we load a project we do not know which packages are
-required to run it. This function detects all references which
-are made to packages in the project. Then it checks of they are
-existing in the project library. If not they are finally
-installed.
+You can call the function to install all packages that are reference in
+the source code of your project. This function is also used during enabling
+a project to ensure all requirements are installed. The function detects
+all calls to library(), require(), import::import_from().
 }
