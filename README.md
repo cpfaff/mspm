@@ -27,7 +27,7 @@ location of compiler binaries is added to the search path)
 
 * Linux
     - That highly depends on your Linux-Distribution. Check out the Wiki
-      of your distribution or ask your prefered search engine.
+      of your distribution or ask your preferred search engine.
 
 ```r
 # requires R: 3.5.2
@@ -81,7 +81,7 @@ in (see image below).
 ![select template](assets/figures/documentation_dialogue_project_template_with_rectangle.png "Select Template")
 
 The process creates the new folder for you and a file `manage_projects.R`
-inside of it. Finally, it set the currect working director and opens the
+inside of it. Finally, it set the correct working directors and opens the
 project management file and you can directly start managing your project from
 there.
 
@@ -263,7 +263,7 @@ The metadata folder is divided into two sub-folders which store
 
    Information about the datasets in your project. You can use the function
    `collect_csv_metadata()` to collect information about your datasets. It
-   will place two files (variables and categories) in here in csv format that
+   will place two files (variables and categories) in here in CSV format that
    you can complement with metadata. In case you have to change something in
    the data you can call it again and it will update your metadata preserving
    what you already described (you can use the alias: `update_csv_metadata()`
@@ -416,7 +416,7 @@ of the files in the workflow folder where the functionality is needed.
 The workflow folder contains your complete analysis script. The separate files
 in here are prepended with numbers for an ordering. The files are named after
 typical stages of a scientific data analysis workflow. You can use the files to
-organized your script. For references in between the files there is also the a
+organized your script. For references in between the files there is also a
 convenient function called `project_content()` (see description below).
 
 ### References
@@ -488,12 +488,12 @@ source("2019-02-22_my_full_name/project/library/03_wf_import_data.R"))
 
 ## Code-Styling
 
-The `yspm` R package also installes the styler package and thus allows you to
+The `yspm` R package also installs the styler package and thus allows you to
 easily check and correct your source code to follow the tidyverse style guide
 which you can find [here](https://style.tidyverse.org/). Just issue the command
 `standardize_project_code()` when with an enabled project and it will run the
 linter across all the R code files it can find. This correct e.g. lines which
-are to long, replaces equal character for assignement agains the arrow and
+are to long, replaces equal character for assignment again the arrow and
 ensures correct spacing around parentheses and operators.
 
 
