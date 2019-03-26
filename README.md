@@ -117,8 +117,7 @@ independent R environment into your new project. Afterwards you can enable the
 new project by executing the function below.
 
 ```r
-enable_project(root_folder = choose.dir(),
-	       project_name = compile_project_name(first_name = "Your first name",
+enable_project(project_name = compile_project_name(first_name = "Your first name",
 					           last_name = "Your last name"))
 ```
 
