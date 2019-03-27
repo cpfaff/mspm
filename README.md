@@ -65,7 +65,9 @@ r_projects
 
 #### From R-studio
 
-You can also use R-Studio to set up your new project management. Just click on
+You can also use R-Studio to set up your new project management. This however
+requires RStudio in version v1.1.28 or greater to be installed on your
+computer. If you meet the requirement just click on:
 
 * File > New Project > New Directory
 
