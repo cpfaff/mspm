@@ -4,8 +4,8 @@
 #' folder structure. The structure separates into folder like data, metadata,
 #' source and reporting to help better organize your new project.
 #'
-#' @param root_path The path to theroot folder designates the location in the
-#'        filesystem where the project will bestored.
+#' @param root_path The path to the root folder designates the location in the
+#'        file system where the project will be stored.
 #' @param project_name The project name is the name of the folder the predefined
 #'        structure is created in. This parameter allows you to freely name the
 #'        project. You can use it together with the compile_project_name
@@ -15,7 +15,7 @@
 #'        project.dc in the metadata folder of the project. The package comes
 #'        with a default constructor called compile_project_name()
 #' @param project_path Instead of using the root_folder and project_name arguments
-#'        the full path allows to specify the the path to the folder in which which
+#'        the full path allows to specify the path to the folder in which which
 #'        the predefined project folder structure will be created in.
 #'
 #' @examples
@@ -279,7 +279,7 @@ create_project <- function(root_path = getwd(),
     options(repos = repo_before)
 
     message("")
-    message("Some problems occured installing and updating packages in the environment.")
+    message("Some problems occurred installing and updating packages in the environment.")
     message("")
   },
   finally = {
@@ -290,7 +290,7 @@ create_project <- function(root_path = getwd(),
     message("")
     message("Done:")
     message("")
-    message("You can use the fuction enable_project() to initialize it for usage.")
+    message("You can use the function enable_project() to initialize it for usage.")
     message("--------------------------")
   }
   )
