@@ -16,14 +16,14 @@ instructions for different operating systems.
 
 * Windows:
     - https://cran.rstudio.com/bin/windows/Rtools/
-    - https://miktex.org/download
+    - https://miktex.org/download (optional for manuals)
 
 (Make sure you check the option during the installation which ensures the
 location of compiler binaries is added to the search path)
 
 * Mac OS X
     - https://itunes.apple.com/us/app/xcode/id497799835?mt=12
-    - http://www.tug.org/mactex/downloading.html
+    - http://www.tug.org/mactex/downloading.html (optional for manuals)
 
 * Linux
     - That highly depends on your Linux-Distribution. Check out the Wiki
