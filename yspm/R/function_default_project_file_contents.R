@@ -92,7 +92,7 @@ content_setup_manage_projects <- '# In this file you will manage all your future
 getwd()
 
 # if we are not in the right directory set it now
-# setdw(<your projects directory>)
+# setwd(<your projects directory>)
 
 # load the project mangement package
 library(yspm)
