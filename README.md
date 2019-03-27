@@ -427,8 +427,8 @@ The `yspm` project management tool helps you manage the external dependencies
 of your project. In any of your scripts in the source folder you can reference
 R libraries. This typically is done using the function `library(<package>)`, or
 `require(<package>)`. If you add a new library call to a project source file,
-you can run the function `install_dependencies()` from your project mangement
-file. It screens all project scipt files and ensures that all packages that are
+you can run the function `install_dependencies()` from your project management
+file. It screens all project script files and ensures that all packages that are
 reference are installed.
 
 ### References
@@ -511,7 +511,7 @@ ensures correct spacing around parentheses and operators.
 ## Naming helper
 
 During an analysis often data products need to be saved. The `yspm` package
-provides convenient constructors functions which help to compile consisten
+provides convenient constructors functions which help to compile consistent
 names for the content in your project folder structure.
 
 Plots:
