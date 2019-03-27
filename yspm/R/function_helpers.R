@@ -167,7 +167,7 @@ get_variable_classes <- function(dataset) {
 }
 
 get_variable_completeness <- function(dataset) {
-  list(colMeans(is.na(dataset)))
+  list(colSums(is.na(dataset)))
 }
 
 get_category_instances <- function(dataset) {
@@ -224,7 +224,6 @@ get_locale <- function() {
     }
   )
 }
-
 
 # if there is no data in the project we do not need to proceed
 prepare_csv_data_metadata <- function(search_path = NULL) {
