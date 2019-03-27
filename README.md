@@ -500,12 +500,12 @@ source("2019-02-22_my_full_name/project/library/03_wf_import_data.R"))
 
 ## Code-Styling
 
-The `yspm` R package also installs the styler package and thus allows you to
+The `yspm` R package installs the styler package for R and thus allows you to
 easily check and correct your source code to follow the tidyverse style guide
 which you can find [here](https://style.tidyverse.org/). Just issue the command
-`standardize_project_code()` when with an enabled project and it will run the
-linter across all the R code files it can find. This correct e.g. lines which
-are to long, replaces equal character for assignment again the arrow and
+`standardize_project_code()` when a project is enabled and it will run the code
+check across all the R files in the project. This corrects e.g. lines which are
+to long, replaces equal character for assignment against the arrow (`<-`) and
 ensures correct spacing around parentheses and operators.
 
 ## Naming helper
