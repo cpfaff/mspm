@@ -200,9 +200,11 @@ datasets no matter in which format they are (e.g. tables, images, audio).
 
 1. Primary data
 
-   This folder stores the primary data of your research. You should treat this
-   folder as write protected. That basically means, non of your R scripts should
-   write here.
+   This folder stores the primary data of your research. That includes e.g.
+   data which you just typed in from your field book or data which is not yet
+   checked for plausibility and integrity. You should treat this folder as
+   write protected. That basically means, non of your R scripts should write
+   here.
 
 2. Interim data
 
