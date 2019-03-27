@@ -8,9 +8,10 @@
 #' @importFrom stringr str_extract_all
 #' @export install_requirements
 install_requirements <- function(path = yspm::project_structure("folder_source")) {
-  path <- suppressWarnings(normalizePath(path(path)))
+  the_function = match.call()[[1]]
+  check_if_project_is_enabled(the_function)
 
-  check_if_project_is_enabled("install_requirements")
+  path <- suppressWarnings(normalizePath(path(path)))
 
   list_of_files <-
     list.files(path = path, recursive = T, ignore.case = T, pattern = "*.R")
