@@ -162,8 +162,25 @@ get_variable_names <- function(dataset) {
   list(names(dataset))
 }
 
-get_variable_classes <- function(dataset) {
-  list(unlist(lapply(dataset, class), use.names = F))
+# this function contains heuristics to detect variables in rectangular datasets
+# that are numeric but meant to be used as grouping factors for the data.
+get_variable_class <- function(column) {
+   unname(if(class(column) == "numeric"){
+       # when it is numeric test if is a potential category
+       if(isTRUE(all.equal(column, floor(column)))){
+         # when it is a potential category apply a normality test
+         # this however only works for reasonable sample size between 3 and 5000
+         # when the sample size is larger we need to switch to anderson darling
+         # or take only the first 5000 values as representatives (maybe sampling
+         # would be better then)
+         if(shapiro.test(column)$p.value < .01) {"character"} else {"numeric"}
+       } else {
+         "numeric"
+       }
+       # if it is then test if for normality
+     } else {
+       "character"
+     })
 }
 
 get_variable_completeness <- function(dataset) {
@@ -171,12 +188,7 @@ get_variable_completeness <- function(dataset) {
 }
 
 get_category_instances <- function(dataset) {
-  lapply(dataset, function(column) {
-    if (is.character(column)) {
-      unique(column)
-    } else if (is.factor(column)) {
-      unique(as.character(column))
-    }
+  lapply(dataset, function(column){ if(get_variable_class(column) == "character"){ unique(column) }
   })
 }
 
@@ -253,7 +265,11 @@ prepare_csv_data_metadata <- function(search_path = NULL) {
   all_variable_names <- lapply(list_of_imported_data, get_variable_names)
   names(all_variable_names) <- unlist(file_id_path_and_name["file_id"])
 
-  all_variable_classes <- lapply(list_of_imported_data, get_variable_classes)
+  all_variable_classes <- lapply(list_of_imported_data, function(dataset){
+           list(unlist(lapply(dataset, get_variable_class), use.names = F))
+  })
+
+  # all_variable_classes <- lapply(list_of_imported_data, get_variable_class)
   names(all_variable_classes) <- unlist(file_id_path_and_name["file_id"])
 
   all_variable_completeness <- lapply(list_of_imported_data, get_variable_completeness)
@@ -279,11 +295,12 @@ prepare_csv_data_metadata <- function(search_path = NULL) {
     data.frame(all_variables_file_id,
       file_name = all_file_names_per_variable,
       # column_id = column_id_df,
-      variable_name = do.call("rbind.data.frame", all_variable_names)[[1]],
-      variable_class = do.call("rbind.data.frame", all_variable_classes)[[1]],
+      variable_name = do.call("rbind.data.frame", all_variable_names)[[1]] ,
+      variable_class = as.character(do.call("rbind.data.frame", all_variable_classes)[[1]]),
       missing_values = do.call("rbind.data.frame", all_variable_completeness)[[1]],
       variable_category = all_category_instances["variable_category"]
     )
+
   return(output)
 }
 

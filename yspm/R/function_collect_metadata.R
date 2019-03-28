@@ -44,10 +44,11 @@ collect_csv_metadata <- update_csv_metadata <- function(...) {
 #' @export collect_csv_variables
 
 collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
+  the_function = match.call()[[1]]
   # otherwise the function does not know where to look for information
-  check_if_project_is_enabled("collect_csv_variables")
+  check_if_project_is_enabled(the_function)
 
-  # in order to read and write the correct csv type for the metadata
+  # in order to read and write the correct csv type for the metadata 
   locale <- get_locale()
 
   # normalize the paths
@@ -56,6 +57,7 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
 
   # read all the csv datasets and prepare them for metadata collection
   output_with_variable_class <- prepare_csv_data_metadata(search_path = normalized_input_path)
+  tibble::as_tibble(output_with_variable_class)
   output_with_variable_class <- base::transform(output_with_variable_class, variable_unit = ifelse(variable_class == "character", "NA", ""))
   output_with_variable_class <-
     output_with_variable_class[with(output_with_variable_class, order(file_id, file_name, variable_name)), ]
