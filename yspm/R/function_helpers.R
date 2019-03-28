@@ -163,27 +163,45 @@ get_variable_names <- function(dataset) {
 }
 
 # this function contains heuristics to detect variables in rectangular datasets
-# that are numeric but meant to be used as grouping factors for the data.
+# that are numeric but meant to be used as grouping factors for the data. Further
+# it sorts out if a character or factor column in a dataframe is a date in iso
+# 8601 format.
+
 get_variable_class <- function(variable) {
-   unname(if(class(variable) == "numeric"){
-       # when it is numeric test if is a potential category
-       if(isTRUE(all.equal(variable, floor(variable)))){
-         # when it is a potential category apply a normality test
-         # this however only works for reasonable sample size between 3 and 5000
-         # when the sample size is larger we need to switch to anderson darling
-         # or take only the first 5000 values as representatives (maybe sampling
-         # would be better then)
-         if (length(variable) > 5000){
-           variable = sample(variable, 5000)
-         }
-         # normalizty test is likely to fail for categories
-         if(shapiro.test(variable)$p.value < .01) {"character"} else {"numeric"}
-       } else {
-         "numeric"
-       }
-     } else {
-       "character"
-     })
+  if(class(variable) == "character" | class(variable) == "factor"){
+    # Year (is not matched as i cannot distinguish this from a normal integer):
+    # YYYY (eg 1997)
+    # Year and month (matches):
+    # YYYY-MM (eg 1997-07)
+    # Complete date (matches):
+    # YYYY-MM-DD (eg 1997-07-16)
+    # Complete date plus hours and minutes (matches):
+    # YYYY-MM-DDThh:mmTZD (eg 1997-07-16T19:20+01:00)
+    # Complete date plus hours, minutes and seconds (matches):
+    # YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
+    # Complete date plus hours, minutes, seconds and a decimal fraction of a second
+    # YYYY-MM-DDThh:mm:ss.sTZD (eg 1997-07-16T19:20:30.45+01:00)
+    if(any(grepl("(^\\d{4}-[01]\\d$|^\\d{4}-[01]\\d-[0-3]\\d$|^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z))$|^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))$)", variable, perl = T))){"date"} else {"character"}
+  } else{
+    unname(if(class(variable) == "numeric"){
+             # when it is numeric test if is a potential category
+             if(isTRUE(all.equal(variable, floor(variable)))){
+               # when it is a potential category apply a normality test
+               # this however only works for reasonable sample size between 3 and 5000
+               # when the sample size is larger we need to switch to anderson darling
+               # or take only the first 5000 values as representatives (maybe sampling
+               # would be better then)
+               if (length(variable) > 5000){
+                 variable = sample(variable, 5000)
+               }
+               if(shapiro.test(variable)$p.value < .01) {"character"} else {"numeric"}
+             } else {
+               "numeric"
+             }
+               } else {
+                 "character"
+               })
+  }
 }
 
 get_variable_completeness <- function(dataset) {
