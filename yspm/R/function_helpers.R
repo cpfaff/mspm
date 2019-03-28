@@ -173,6 +173,9 @@ get_variable_class <- function(column) {
          # when the sample size is larger we need to switch to anderson darling
          # or take only the first 5000 values as representatives (maybe sampling
          # would be better then)
+         if (length(column) > 5000){
+           column = sample(column, 5000)
+         }
          if(shapiro.test(column)$p.value < .01) {"character"} else {"numeric"}
        } else {
          "numeric"
