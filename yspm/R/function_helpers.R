@@ -164,23 +164,23 @@ get_variable_names <- function(dataset) {
 
 # this function contains heuristics to detect variables in rectangular datasets
 # that are numeric but meant to be used as grouping factors for the data.
-get_variable_class <- function(column) {
-   unname(if(class(column) == "numeric"){
+get_variable_class <- function(variable) {
+   unname(if(class(variable) == "numeric"){
        # when it is numeric test if is a potential category
-       if(isTRUE(all.equal(column, floor(column)))){
+       if(isTRUE(all.equal(variable, floor(variable)))){
          # when it is a potential category apply a normality test
          # this however only works for reasonable sample size between 3 and 5000
          # when the sample size is larger we need to switch to anderson darling
          # or take only the first 5000 values as representatives (maybe sampling
          # would be better then)
-         if (length(column) > 5000){
-           column = sample(column, 5000)
+         if (length(variable) > 5000){
+           variable = sample(variable, 5000)
          }
-         if(shapiro.test(column)$p.value < .01) {"character"} else {"numeric"}
+         # normalizty test is likely to fail for categories
+         if(shapiro.test(variable)$p.value < .01) {"character"} else {"numeric"}
        } else {
          "numeric"
        }
-       # if it is then test if for normality
      } else {
        "character"
      })
