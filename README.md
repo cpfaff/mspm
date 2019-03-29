@@ -1,6 +1,6 @@
 # Your small project management
 
-![yspmlogo](assets/figures/yspm.png "yspm logo")
+![yspmlogo](assets/figures/yspm.png "yspm logo" width=100)
 
 The 'yspm' package is a project management tool for the famous R statistics
 environment. The package provides tools to easily create a predefined project
