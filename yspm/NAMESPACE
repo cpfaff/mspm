@@ -3,6 +3,8 @@
 export(collect_csv_categories)
 export(collect_csv_metadata)
 export(collect_csv_variables)
+export(compile_data_filename)
+export(compile_filename)
 export(compile_plot_filename)
 export(compile_project_name)
 export(create_project)

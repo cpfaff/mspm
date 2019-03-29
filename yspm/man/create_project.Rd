@@ -8,8 +8,8 @@ create_project(root_path = getwd(), project_name = NULL,
   project_path = NULL)
 }
 \arguments{
-\item{root_path}{The path to theroot folder designates the location in the
-filesystem where the project will bestored.}
+\item{root_path}{The path to the root folder designates the location in the
+file system where the project will be stored.}
 
 \item{project_name}{The project name is the name of the folder the predefined
 structure is created in. This parameter allows you to freely name the
@@ -21,7 +21,7 @@ project.dc in the metadata folder of the project. The package comes
 with a default constructor called compile_project_name()}
 
 \item{project_path}{Instead of using the root_folder and project_name arguments
-the full path allows to specify the the path to the folder in which which
+the full path allows to specify the path to the folder in which which
 the predefined project folder structure will be created in.}
 }
 \description{
