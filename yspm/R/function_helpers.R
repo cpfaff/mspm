@@ -235,26 +235,46 @@ fix_factor_globally <- function(list_of_files = NULL, search_term, replace_term)
   }
 }
 
-# get the system information for writing the correct csv file type with metadata
+
+# get the name of the current operating system
+get_os <- function(){
+  sysinf <- Sys.info()
+  if (!is.null(sysinf)){
+    os <- sysinf['sysname']
+    if (os == 'Darwin')
+      os <- "osx"
+  } else { ## mystery machine
+    os <- .Platform$OS.type
+    if (grepl("^darwin", R.version$os))
+      os <- "osx"
+    if (grepl("linux-gnu", R.version$os))
+      os <- "linux"
+  }
+  tolower(os)
+}
+
+# get system information from locales to know which falvor of csv files to use
+# when we write metadata sheets. This is important as otherwise they cannot be
+# opened directly e.g. with microsoft office (needs import).
 get_locale <- function() {
-  switch(Sys.info()[["sysname"]],
-    Windows = {
-      if (grepl("German|de_DE", Sys.getlocale(category = "LC_ALL"))) {
-        return("de")
-      } else {
-        return("other")
-      }
-    },
-    Linux = {
-      if (grepl("de_DE", Sys.getenv("LANG"))) {
-        return("de")
-      } else {
-        return("other")
-      }
-    },
-    Darwin = {
-      # implement me
-    }
+  switch(get_os(),
+         windows = {
+           if (grepl("German|de_DE", Sys.getlocale(category = "LC_ALL"))) {
+             return("de")
+           } else {
+             return("en")
+           }
+         },
+         linux = {
+           if (grepl("de_DE", Sys.getenv("LANG"))) {
+             return("de")
+           } else {
+             return("en")
+           }
+         },
+         darwin = {
+           # implement me
+         }
   )
 }
 
