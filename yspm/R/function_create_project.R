@@ -256,7 +256,7 @@ create_project <- function(root_path = getwd(),
 
   setwd(project_path)
 
-  # if we run in rstudio to prevent the dialogue
+  # if we run in rstudio to prevent the dialogue detach all packages that are not required
   if (Sys.getenv("RSTUDIO") == "1") {
     loaded_packages <- names(sessionInfo()$otherPkgs)
     exclude_packages <- c("yspm")
@@ -290,7 +290,7 @@ create_project <- function(root_path = getwd(),
     options(repos = repo_before)
 
     message("")
-    message("Some problems occurred installing and updating packages in the environment.")
+    message("Some problems occurred during the installation and update of packages in the new environment.")
     message("")
   },
   finally = {
