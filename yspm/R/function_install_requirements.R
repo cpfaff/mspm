@@ -3,12 +3,12 @@
 #' You can call the function to install all packages that are reference in
 #' the source code of your project. This function is also used during enabling
 #' a project to ensure all requirements are installed. The function detects
-#' all calls to library(), require(), import::import_from(). 
+#' all calls to library(), require(), import::import_from().
 #' @param path Provide the path folder all scripts are located in.
 #' @importFrom stringr str_extract_all
 #' @export install_requirements
 install_requirements <- function(path = yspm::project_structure("folder_source")) {
-  the_function = match.call()[[1]]
+  the_function <- match.call()[[1]]
   check_if_project_is_enabled(the_function)
 
   path <- suppressWarnings(normalizePath(path(path)))

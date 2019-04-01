@@ -4,10 +4,10 @@
 #' metadata collectors for variables and for categories in csv files.
 #'
 #' @param ... The arguments are further passed into the functions which collect
-#'        the variables and the categories from csv files. You can find the 
+#'        the variables and the categories from csv files. You can find the
 #'        parameterse in their documentation.
 #'
-#' @seealso collect_csv_variables 
+#' @seealso collect_csv_variables
 #' @seealso collect_csv_categories
 #'
 #' @examples
@@ -31,9 +31,9 @@ collect_csv_metadata <- update_csv_metadata <- function(...) {
 #' in the data folder inside of an enabled project. It also collects the class of
 #' each variable and the count of mising values. It compiles a file in the folder
 #' which contains the metadata. There a user can provide further inforamtion about
-#' each column with a description or a unit if this is applicable. The function 
+#' each column with a description or a unit if this is applicable. The function
 #' can be called multiple times when the underlying data updates. It preserves
-#' information which has been written by the user 
+#' information which has been written by the user
 #'
 #' @param input_path A path used to a folder which is used to search for csv files
 #'        in. The folder which you provide here is recursively searched through for
@@ -57,8 +57,7 @@ collect_csv_metadata <- update_csv_metadata <- function(...) {
 #' @export collect_csv_variables
 
 collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
-
-  the_function = match.call()[[1]]
+  the_function <- match.call()[[1]]
 
   check_if_project_is_enabled(the_function)
 
@@ -70,10 +69,10 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
   normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
 
   # read all the csv datasets and prepare them for metadata collection
-  output_with_variable_class <- 
+  output_with_variable_class <-
     prepare_csv_data_metadata(search_path = normalized_input_path)
 
-  output_with_variable_class <- 
+  output_with_variable_class <-
     base::transform(output_with_variable_class, variable_unit = ifelse(variable_class == "character", "NA", ""))
 
   output_with_variable_class <-

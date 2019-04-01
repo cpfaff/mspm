@@ -2,23 +2,30 @@
 % Please edit documentation in R/function_collect_metadata.R
 \name{collect_csv_metadata}
 \alias{collect_csv_metadata}
-\title{Collect all csv related metadata}
+\title{Collect information from csv files as metadata}
 \usage{
 collect_csv_metadata(...)
 }
 \arguments{
-\item{...}{Arguments passed into the functions to collect variables and
-categories from csv files.}
+\item{...}{The arguments are further passed into the functions which collect
+the variables and the categories from csv files. You can find the 
+parameterse in their documentation.}
 }
 \value{
 No value is returned; this function is called for its side effects.
 }
 \description{
-A thin wrapper around the collector for variables and categories
+This function is a thin wrapper around two functions which serve as separate
+metadata collectors for variables and for categories in csv files.
 }
 \examples{
 \dontrun{
 collect_csv_metadata(...)
 }
 
+}
+\seealso{
+collect_csv_variables
+
+collect_csv_categories
 }

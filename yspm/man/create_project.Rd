@@ -24,6 +24,9 @@ with a default constructor called compile_project_name()}
 the full path allows to specify the path to the folder in which which
 the predefined project folder structure will be created in.}
 }
+\value{
+This function does not return anything; It is called for its side effect
+}
 \description{
 A function that creates a new project. A project consists of a predefined
 folder structure. The structure separates into folder like data, metadata,

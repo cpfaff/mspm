@@ -2,25 +2,30 @@
 % Please edit documentation in R/function_collect_metadata.R
 \name{collect_csv_variables}
 \alias{collect_csv_variables}
-\title{Collect all csv variables as metadata sheet}
+\title{Collect variables from csv files into a metadata sheet}
 \usage{
 collect_csv_variables(input_path = yspm::reference_content("data"),
   output_path = yspm::reference_content("metadata/dataset"))
 }
 \arguments{
-\item{input_path}{A path to look for csv files. Defaults to the data
-folder of the active project.}
+\item{input_path}{A path used to a folder which is used to search for csv files
+in. The folder which you provide here is recursively searched through for
+files. The parameter defaults to the data folder of the active project.}
 
-\item{output_path}{A path to save the collected metadata to.
-Defaults to the metadata folder of the active project.}
+\item{output_path}{A path to a folder which is used to save the collected
+metadata to. This defaults to the metadata folder of the active project.}
 }
 \value{
 No value is returned; this function is called for its side effects.
 }
 \description{
-The function collects all csv files variable names, their class and count of mising
-values. It compiles a file in the
-data.
+The function collects names of variables from all the datasets which are found
+in the data folder inside of an enabled project. It also collects the class of
+each variable and the count of mising values. It compiles a file in the folder
+which contains the metadata. There a user can provide further inforamtion about
+each column with a description or a unit if this is applicable. The function 
+can be called multiple times when the underlying data updates. It preserves
+information which has been written by the user
 }
 \examples{
 \dontrun{

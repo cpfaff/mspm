@@ -168,7 +168,7 @@ get_variable_names <- function(dataset) {
 # 8601 format.
 
 get_variable_class <- function(variable) {
-  if(class(variable) == "character" | class(variable) == "factor"){
+  if (class(variable) == "character" | class(variable) == "factor") {
     # Year (is not matched as i cannot distinguish this from a normal integer):
     # YYYY (eg 1997)
     # Year and month (matches):
@@ -181,26 +181,34 @@ get_variable_class <- function(variable) {
     # YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
     # Complete date plus hours, minutes, seconds and a decimal fraction of a second
     # YYYY-MM-DDThh:mm:ss.sTZD (eg 1997-07-16T19:20:30.45+01:00)
-    if(any(grepl("(^\\d{4}-[01]\\d$|^\\d{4}-[01]\\d-[0-3]\\d$|^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z))$|^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))$)", variable, perl = T))){"date"} else {"character"}
-  } else{
-    unname(if(class(variable) == "numeric"){
-             # when it is numeric test if is a potential category
-             if(isTRUE(all.equal(variable, floor(variable)))){
-               # when it is a potential category apply a normality test
-               # this however only works for reasonable sample size between 3 and 5000
-               # when the sample size is larger we need to switch to anderson darling
-               # or take only the first 5000 values as representatives (maybe sampling
-               # would be better then)
-               if (length(variable) > 5000){
-                 variable = sample(variable, 5000)
-               }
-               if(shapiro.test(variable)$p.value < .01) {"character"} else {"numeric"}
-             } else {
-               "numeric"
-             }
-               } else {
-                 "character"
-               })
+    if (any(grepl("(^\\d{4}-[01]\\d$|^\\d{4}-[01]\\d-[0-3]\\d$|^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z))$|^(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))|(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d([+-][0-2]\\d:[0-5]\\d|Z))$)", variable, perl = T))) {
+      "date"
+    } else {
+      "character"
+    }
+  } else {
+    unname(if (class(variable) == "numeric") {
+      # when it is numeric test if is a potential category
+      if (isTRUE(all.equal(variable, floor(variable)))) {
+        # when it is a potential category apply a normality test
+        # this however only works for reasonable sample size between 3 and 5000
+        # when the sample size is larger we need to switch to anderson darling
+        # or take only the first 5000 values as representatives (maybe sampling
+        # would be better then)
+        if (length(variable) > 5000) {
+          variable <- sample(variable, 5000)
+        }
+        if (shapiro.test(variable)$p.value < .01) {
+          "character"
+        } else {
+          "numeric"
+        }
+      } else {
+        "numeric"
+      }
+    } else {
+      "character"
+    })
   }
 }
 
@@ -209,7 +217,10 @@ get_variable_completeness <- function(dataset) {
 }
 
 get_category_instances <- function(dataset) {
-  lapply(dataset, function(column){ if(get_variable_class(column) == "character"){ unique(column) }
+  lapply(dataset, function(column) {
+    if (get_variable_class(column) == "character") {
+      unique(column)
+    }
   })
 }
 
@@ -237,18 +248,21 @@ fix_factor_globally <- function(list_of_files = NULL, search_term, replace_term)
 
 
 # get the name of the current operating system
-get_os <- function(){
+get_os <- function() {
   sysinf <- Sys.info()
-  if (!is.null(sysinf)){
-    os <- sysinf['sysname']
-    if (os == 'Darwin')
+  if (!is.null(sysinf)) {
+    os <- sysinf["sysname"]
+    if (os == "Darwin") {
       os <- "osx"
+    }
   } else { ## mystery machine
     os <- .Platform$OS.type
-    if (grepl("^darwin", R.version$os))
+    if (grepl("^darwin", R.version$os)) {
       os <- "osx"
-    if (grepl("linux-gnu", R.version$os))
+    }
+    if (grepl("linux-gnu", R.version$os)) {
       os <- "linux"
+    }
   }
   tolower(os)
 }
@@ -258,23 +272,23 @@ get_os <- function(){
 # opened directly e.g. with microsoft office (needs import).
 get_locale <- function() {
   switch(get_os(),
-         windows = {
-           if (grepl("German|de_DE", Sys.getlocale(category = "LC_ALL"))) {
-             return("de")
-           } else {
-             return("en")
-           }
-         },
-         linux = {
-           if (grepl("de_DE", Sys.getenv("LANG"))) {
-             return("de")
-           } else {
-             return("en")
-           }
-         },
-         darwin = {
-           # implement me
-         }
+    windows = {
+      if (grepl("German|de_DE", Sys.getlocale(category = "LC_ALL"))) {
+        return("de")
+      } else {
+        return("en")
+      }
+    },
+    linux = {
+      if (grepl("de_DE", Sys.getenv("LANG"))) {
+        return("de")
+      } else {
+        return("en")
+      }
+    },
+    darwin = {
+      # implement me
+    }
   )
 }
 
@@ -306,8 +320,8 @@ prepare_csv_data_metadata <- function(search_path = NULL) {
   all_variable_names <- lapply(list_of_imported_data, get_variable_names)
   names(all_variable_names) <- unlist(file_id_path_and_name["file_id"])
 
-  all_variable_classes <- lapply(list_of_imported_data, function(dataset){
-           list(unlist(lapply(dataset, get_variable_class), use.names = F))
+  all_variable_classes <- lapply(list_of_imported_data, function(dataset) {
+    list(unlist(lapply(dataset, get_variable_class), use.names = F))
   })
 
   # all_variable_classes <- lapply(list_of_imported_data, get_variable_class)
@@ -336,7 +350,7 @@ prepare_csv_data_metadata <- function(search_path = NULL) {
     data.frame(all_variables_file_id,
       file_name = all_file_names_per_variable,
       # column_id = column_id_df,
-      variable_name = do.call("rbind.data.frame", all_variable_names)[[1]] ,
+      variable_name = do.call("rbind.data.frame", all_variable_names)[[1]],
       variable_class = as.character(do.call("rbind.data.frame", all_variable_classes)[[1]]),
       missing_values = do.call("rbind.data.frame", all_variable_completeness)[[1]],
       variable_category = all_category_instances["variable_category"]

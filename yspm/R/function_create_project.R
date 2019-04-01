@@ -30,7 +30,7 @@
 #' )
 #' }
 #' 
-#' @return This function does not return anything; It is called for its side effect 
+#' @return This function does not return anything; It is called for its side effect
 #'
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
@@ -44,9 +44,9 @@ create_project <- function(root_path = getwd(),
                            project_path = NULL) {
 
   # get the name of the current function
-  the_function = match.call()[[1]]
+  the_function <- match.call()[[1]]
 
-  # check if a project is enabled 
+  # check if a project is enabled
   check_if_project_is_enabled(the_function)
 
   # normalize the root_path
