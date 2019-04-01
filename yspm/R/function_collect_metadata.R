@@ -1,9 +1,14 @@
-#' Collect all csv related metadata
+#' Collect information from csv files as metadata
 #'
-#' A thin wrapper around the collector for variables and categories
+#' This function is a thin wrapper around two functions which serve as separate
+#' metadata collectors for variables and for categories in csv files.
 #'
-#' @param ... Arguments passed into the functions to collect variables and
-#'        categories from csv files.
+#' @param ... The arguments are further passed into the functions which collect
+#'        the variables and the categories from csv files. You can find the 
+#'        parameterse in their documentation.
+#'
+#' @seealso collect_csv_variables 
+#' @seealso collect_csv_categories
 #'
 #' @examples
 #' \dontrun{
@@ -11,24 +16,30 @@
 #' }
 #' 
 #' @return No value is returned; this function is called for its side effects.
+#'
 #' @export collect_csv_metadata
 #' @export update_csv_metadata
-#'
+#
 collect_csv_metadata <- update_csv_metadata <- function(...) {
   collect_csv_variables(...)
   collect_csv_categories(...)
 }
 
-#' Collect all csv variables as metadata sheet
+#' Collect variables from csv files into a metadata sheet
 #'
-#' The function collects all csv files variable names, their class and count of mising
-#' values. It compiles a file in the
-#' data.
+#' The function collects names of variables from all the datasets which are found
+#' in the data folder inside of an enabled project. It also collects the class of
+#' each variable and the count of mising values. It compiles a file in the folder
+#' which contains the metadata. There a user can provide further inforamtion about
+#' each column with a description or a unit if this is applicable. The function 
+#' can be called multiple times when the underlying data updates. It preserves
+#' information which has been written by the user 
 #'
-#' @param input_path A path to look for csv files. Defaults to the data
-#'        folder of the active project.
-#' @param output_path A path to save the collected metadata to.
-#'        Defaults to the metadata folder of the active project.
+#' @param input_path A path used to a folder which is used to search for csv files
+#'        in. The folder which you provide here is recursively searched through for
+#'        files. The parameter defaults to the data folder of the active project.
+#' @param output_path A path to a folder which is used to save the collected
+#'        metadata to. This defaults to the metadata folder of the active project.
 #'
 #' @examples
 #' \dontrun{
@@ -36,19 +47,22 @@ collect_csv_metadata <- update_csv_metadata <- function(...) {
 #' }
 #' 
 #' @return No value is returned; this function is called for its side effects.
+#'
 #' @import dplyr
 #' @importFrom rio import
 #' @importFrom tidyr separate_rows
 #' @importFrom fs file_exists
 #' @importFrom utils install.packages installed.packages read.csv sessionInfo stack update.packages write.csv
+#'
 #' @export collect_csv_variables
 
 collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
+
   the_function = match.call()[[1]]
-  # otherwise the function does not know where to look for information
+
   check_if_project_is_enabled(the_function)
 
-  # in order to read and write the correct csv type for the metadata 
+  # in order to read and write the correct csv type for the metadata (very hacky)
   locale <- get_locale()
 
   # normalize the paths
@@ -56,9 +70,12 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
   normalized_output_path <- suppressWarnings(normalizePath(path(output_path)))
 
   # read all the csv datasets and prepare them for metadata collection
-  output_with_variable_class <- prepare_csv_data_metadata(search_path = normalized_input_path)
-  tibble::as_tibble(output_with_variable_class)
-  output_with_variable_class <- base::transform(output_with_variable_class, variable_unit = ifelse(variable_class == "character", "NA", ""))
+  output_with_variable_class <- 
+    prepare_csv_data_metadata(search_path = normalized_input_path)
+
+  output_with_variable_class <- 
+    base::transform(output_with_variable_class, variable_unit = ifelse(variable_class == "character", "NA", ""))
+
   output_with_variable_class <-
     output_with_variable_class[with(output_with_variable_class, order(file_id, file_name, variable_name)), ]
 
