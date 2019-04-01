@@ -30,6 +30,8 @@
 #' )
 #' }
 #' 
+#' @return This function does not return anything; It is called for its side effect 
+#'
 #' @importFrom fs path dir_create file_create
 #' @importFrom devtools install_github
 #' @importFrom remotes update_packages
@@ -40,33 +42,42 @@
 create_project <- function(root_path = getwd(),
                            project_name = NULL,
                            project_path = NULL) {
+
+  # get the name of the current function
+  the_function = match.call()[[1]]
+
+  # check if a project is enabled 
+  check_if_project_is_enabled(the_function)
+
+  # normalize the root_path
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
+  # check if the project name parameter is used
   if (is.null(project_name)) {
     stop("create_project: requires the parameter project name")
   }
 
-  # if we have a function call in here evaluate it to check if it is a valid call
+  # if project name contains a function call evaluate it
   if (is.call(project_name)) {
     eval(project_name)
   }
 
-  # test if we get back a string
+  # test if we get back a string from the project name function
   if (is.call(project_name)) {
     if (!is.character(eval(project_name))) {
-      stop("Your project name constructor does not return a string!")
+      stop("Your project name constructor function does not return a string!")
     }
   }
 
-  # check if we have a single string
+  # check if project name is a single string
   if (length(eval(project_name)) > 1) {
-    stop(paste("Your project name constructor needs to return a single string! Instead of", length(eval(project_name))))
+    stop(paste("Your project name constructor function does not return a single string! Instead we have", length(eval(project_name))))
   }
 
   # if we get a constructor passed into the project name then deconstruct the given parameters
-  # as this allows to reuse the information as metadata.
-  convert_call_to_list <- function(x) {
-    if (is.call(x)) as.list(x) else x
+  # as this allows to reuse the information as metadata later.
+  convert_call_to_list <- function(project_name_value) {
+    if (is.call(project_name_value)) as.list(project_name_value) else project_name_value
   }
 
   first_pass <- as.list(match.call())
@@ -94,9 +105,9 @@ create_project <- function(root_path = getwd(),
   }
 
   if (is_dir(path(project_path, "project"))) {
-    stop("The function create_project: cannot create a project inside an existing one.
+    stop(paste0(the_function, ": cannot create a project inside an existing one.
          Please Select another project folder. If you want to work on the project
-         then execute the function enable_project(<project_path>)")
+         then execute the function enable_project(<project_path>)"))
   }
 
   big_message("Creating your project")
