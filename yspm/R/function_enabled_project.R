@@ -76,4 +76,33 @@ project_structure <- function(...) {
   }
 }
 
+#' Query or set package options
+#'
+#' @export yspm_options
+
+yspm_options <- function(...) {
+  lst <- list(...)
+  .yspm.yspm_options <- .yspm.env$.yspm.yspm_options
+  if (length(lst)) {
+    if (is.null(names(lst)) && !is.list(lst[[1]])) {
+      lst <- unlist(lst)
+      if (length(lst) == 1) .yspm.yspm_options[[lst]] else .yspm.yspm_options[lst]
+    }
+    else {
+      omf <- .yspm.yspm_options
+      if (is.list(lst[[1]])) {
+        lst <- lst[[1]]
+      }
+      if (length(lst) > 0) {
+        .yspm.yspm_options[names(lst)] <- lapply(lst, gsub, pattern = "\\s", replacement = "")
+        .yspm.env$.yspm.yspm_options <- .yspm.yspm_options
+      }
+      invisible(omf)
+    }
+  }
+  else {
+    .yspm.yspm_options
+  }
+}
+
 .yspm.env <- new.env()
