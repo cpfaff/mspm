@@ -46,9 +46,6 @@ create_project <- function(root_path = getwd(),
   # get the name of the current function
   the_function <- match.call()[[1]]
 
-  # check if a project is enabled
-  check_if_project_is_enabled(the_function)
-
   # normalize the root_path
   normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
 
@@ -163,14 +160,8 @@ create_project <- function(root_path = getwd(),
   message("---")
   message("")
 
-  message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
-  file_create(path(project_path, yspm::project_structure("file_metadata_checkpoint")))
-
   message(paste("*", yspm::project_structure("file_metadata_project")))
   file_create(path(project_path, yspm::project_structure("file_metadata_project")))
-
-  message(paste("*", yspm::project_structure("file_metadata_license")))
-  file_create(path(project_path, yspm::project_structure("file_metadata_license")))
 
   message(paste("*", yspm::project_structure("file_library_main")))
   file_create(path(project_path, yspm::project_structure("file_library_main")))
@@ -232,18 +223,23 @@ create_project <- function(root_path = getwd(),
     }
   } else {
     checkpoint <- list(checkpoint = Sys.Date())
-  }
-  write_list_to_dcf(checkpoint, path(project_path, yspm::project_structure("file_metadata_checkpoint")))
+  }  
+
+  
+  write_project_metadata(data.frame(checkpoint = checkpoint), file_path = path(project_path, yspm::project_structure("file_metadata_project")))
 
   if (exists("metadata_from_parameters")) {
     message(paste("*", yspm::project_structure("file_metadata_project")))
-    metadata_from_parameters <- c(project_date = unname(checkpoint), metadata_from_parameters)
-    write_list_to_dcf(metadata_from_parameters, path(project_path, yspm::project_structure("file_metadata_project")))
+    current_project_metadata <- read_project_metadata(file_path = path(project_path, yspm::project_structure("file_metadata_project")))
+    new_project_metadata <- set_project_metadata(old_metadata = current_project_metadata, new_metadata = metadata_from_parameters)
+    write_project_metadata(metadata = new_project_metadata, file_path = path(project_path, yspm::project_structure("file_metadata_project")))
   }
 
   message(paste("*", yspm::project_structure("file_metadata_license")))
-  license_for_project <- list(license = "https://creativecommons.org/licenses/by-sa/4.0/")
-  write_list_to_dcf(license_for_project, path(project_path, yspm::project_structure("file_metadata_license")))
+  license_for_project <- list(license = yspm::yspm_options("project_license"))
+  current_project_metadata <- read_project_metadata(file_path = path(project_path, yspm::project_structure("file_metadata_project")))
+  new_project_metadata <- set_project_metadata(old_metadata = current_project_metadata, new_metadata = license_for_project)
+  write_project_metadata(metadata = new_project_metadata, file_path = path(project_path, yspm::project_structure("file_metadata_project")))
 
   message("")
   message(paste("Install packages:"))

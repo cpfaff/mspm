@@ -63,9 +63,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     dir_exists(path(project_path, yspm::project_structure("folder_figure_scripted"))),
     dir_exists(path(project_path, yspm::project_structure("folder_metadata_dataset"))),
     dir_exists(path(project_path, yspm::project_structure("folder_metadata_package"))),
-    file_exists(path(project_path, yspm::project_structure("file_metadata_checkpoint"))),
     file_exists(path(project_path, yspm::project_structure("file_metadata_project"))),
-    file_exists(path(project_path, yspm::project_structure("file_metadata_license"))),
     dir_exists(path(project_path, yspm::project_structure("folder_report_presentation"))),
     dir_exists(path(project_path, yspm::project_structure("folder_report_publication"))),
     dir_exists(path(project_path, yspm::project_structure("folder_report_qualification"))),
@@ -98,8 +96,11 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
 
   setwd(project_path)
 
+  project_metadata <-
+    read_project_metadata(file_path = fs::path(project_path, yspm::project_structure("file_metadata_project")))
+
   package_date <-
-    as.character(read_dcf_to_list(fs::path(project_path, yspm::project_structure("file_metadata_checkpoint"))))
+    get_project_metadata(project_metadata, "checkpoint")
 
   message("")
   message(paste("Set checkpoint:"))

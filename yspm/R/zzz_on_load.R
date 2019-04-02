@@ -14,9 +14,7 @@
     folder_figure_scripted = "project/figure/scripted",
     folder_metadata_data = "project/metadata/dataset",
     folder_metadata_project = "project/metadata/project",
-    file_metadata_checkpoint = "project/metadata/project/checkpoint.dcf",
     file_metadata_project = "project/metadata/project/project.dcf",
-    file_metadata_license = "project/metadata/project/license.dcf",
     folder_report_presentation = "project/report/presentation",
     folder_report_publication = "project/report/publication",
     folder_report_qualification = "project/report/qualification",
@@ -36,6 +34,10 @@
     file_workflow_transform_data = "project/source/workflow/04_wf_transform_data.R",
     file_workflow_visualise_data = "project/source/workflow/05_wf_visualise_data.R",
     file_workflow_model_data = "project/source/workflow/06_wf_model_data.R"
+  )
+
+  .yspm.env$.yspm.yspm_options <- list(
+    project_license = "https://creativecommons.org/licenses/by-sa/4.0/"
   )
 
   # speed up the compilation of packages from source
