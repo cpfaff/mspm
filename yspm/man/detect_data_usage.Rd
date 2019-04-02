@@ -19,8 +19,8 @@ The function returns named vector pointing out dataset usage in scripts
 }
 \description{
 It collects all names of the data files and script files in the data and scource
-directory and check if there are references inthe scripts to the data. It returns 
-the name of the dataset file which has been used the most often. This is likely 
+directory and check if there are references inthe scripts to the data. It returns
+the name of the dataset file which has been used the most often. This is likely
 the main data of the project. The function takes into account R scripts as well as
 R-Markdown files in the workflow folder in the source directory and all files in
 the data folder.

@@ -8,7 +8,7 @@ collect_csv_metadata(...)
 }
 \arguments{
 \item{...}{The arguments are further passed into the functions which collect
-the variables and the categories from csv files. You can find the 
+the variables and the categories from csv files. You can find the
 parameterse in their documentation.}
 }
 \value{

@@ -23,7 +23,7 @@ The function collects names of variables from all the datasets which are found
 in the data folder inside of an enabled project. It also collects the class of
 each variable and the count of mising values. It compiles a file in the folder
 which contains the metadata. There a user can provide further inforamtion about
-each column with a description or a unit if this is applicable. The function 
+each column with a description or a unit if this is applicable. The function
 can be called multiple times when the underlying data updates. It preserves
 information which has been written by the user
 }

@@ -10,8 +10,8 @@ compile_filename(name = NULL, extension = NULL)
 \item{name}{A filename to create for a plot. It will be forced to snake
 case.}
 
-\item{extension}{The extension the file is using. This string will be 
-forced to lower case letters only and appended to the file 
+\item{extension}{The extension the file is using. This string will be
+forced to lower case letters only and appended to the file
 name.}
 }
 \value{
@@ -19,13 +19,13 @@ The function returns the constructed file name
 }
 \description{
 The package comes with family of functions which will help you with
-referencing and naming content inside of a project. This provides you 
-with an unobtrusive way to keep your project clean, while adhering to 
+referencing and naming content inside of a project. This provides you
+with an unobtrusive way to keep your project clean, while adhering to
 a unified naming schema.
 }
 \examples{
 \dontrun{
- compile_filename(name = "01 my first plot", extension = "PNG")
+compile_filename(name = "01 my first plot", extension = "PNG")
 }
 
 }

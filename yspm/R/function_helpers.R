@@ -89,8 +89,8 @@ read_dcf_to_list <- function(filename) {
 
 # Converts a list into a DCF file.
 #
-# This function will talk an R list and convert write it to a
-# data dcf file.
+# This function will take an R list and convert it to a
+# dcf file.
 #
 # The contents of the DCF file are stored as character strings.
 #

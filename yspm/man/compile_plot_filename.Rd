@@ -11,8 +11,8 @@ compile_plot_filename(name = NULL, extension = NULL)
 case and the name will be augmented with the path to folder that
 contains all R script generated plots in your project.}
 
-\item{extension}{The extension the file is using. This string will be 
-forced to lower case letters only and appended to the file 
+\item{extension}{The extension the file is using. This string will be
+forced to lower case letters only and appended to the file
 name.}
 }
 \value{
@@ -20,13 +20,13 @@ The function returns the constructed file path
 }
 \description{
 The package comes with family of functions which will help you with
-referencing and naming content inside of a project. This provides you 
-with an unobtrusive way to keep your project clean, while adhering to 
+referencing and naming content inside of a project. This provides you
+with an unobtrusive way to keep your project clean, while adhering to
 a unified naming schema.
 }
 \examples{
 \dontrun{
- compile_plot_filename(name = "01 my first plot", extension = "PNG")
+compile_plot_filename(name = "01 my first plot", extension = "PNG")
 }
 
 }

@@ -17,7 +17,7 @@ The function returns a string with the names script files which are not
 }
 \description{
 It collects all script files in the scource directory and check if the are
-referencing each other. It returns the names of the scripts which are not 
+referencing each other. It returns the names of the scripts which are not
 mentioned by other scripts. They are either unused scripts in the project, or
 the exist for a a specific purpose. However, we cannot guess their function
 and the order of execution to make the whole project work is unclear.
