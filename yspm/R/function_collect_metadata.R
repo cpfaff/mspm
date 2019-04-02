@@ -57,6 +57,7 @@ collect_csv_metadata <- update_csv_metadata <- function(...) {
 #' @export collect_csv_variables
 
 collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
+
   the_function <- match.call()[[1]]
 
   check_if_project_is_enabled(the_function)
@@ -90,14 +91,13 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
     # are filled out by the user, the rest is complemented from the data
     if (locale == "de") {
       csv_variable_metadata <- subset(read.csv2(path(normalized_output_path, "csv_variables.csv"), row.names = NULL, stringsAsFactors = F),
-        select = c("file_id", "variable_name", "variable_class", "variable_unit", "variable_description")
+        select = c("file_id", "variable_name", "variable_class", "variable_unit", "variable_description", "variable_instrumentation")
       )
     } else {
       csv_variable_metadata <- subset(read.csv(path(normalized_output_path, "csv_variables.csv"), row.names = NULL, stringsAsFactors = F),
-        select = c("file_id", "variable_name", "variable_class", "variable_unit", "variable_description")
+        select = c("file_id", "variable_name", "variable_class", "variable_unit", "variable_description", "variable_instrumentation")
       )
     }
-
 
     # afterwards we go on and update the current meta data with new information
     updated_csv_variable_metadata <-
@@ -128,7 +128,7 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
     }
   } else {
     # when we write this for the first time then we add a description column
-    additional_columns <- c("variable_description")
+    additional_columns <- c("variable_description", "variable_instrumentation")
     output_with_variable_class[, additional_columns] <- c("")
 
     # in order to make opening with excel possible without the need to use an import
@@ -270,7 +270,7 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
   } else {
     # when we write the whole thing for the first time add colum for the description
     current_metadata <- subset(current_metadata, select = -c(variable_class, missing_values))
-    additional_columns <- c("variable_description")
+    additional_columns <- c("variable_description", "variable_instrumentation")
     current_metadata[, additional_columns] <- c("")
 
     if (locale == "de") {
