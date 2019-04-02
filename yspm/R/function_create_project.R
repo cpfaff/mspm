@@ -236,10 +236,12 @@ create_project <- function(root_path = getwd(),
   }
 
   message(paste("*", yspm::project_structure("file_metadata_license")))
-  license_for_project <- list(license = yspm::yspm_options("project_license"))
+  license_and_system <- list(license = yspm::yspm_options("project_license"), sytstem = get_os())
   current_project_metadata <- read_project_metadata(file_path = path(project_path, yspm::project_structure("file_metadata_project")))
-  new_project_metadata <- set_project_metadata(old_metadata = current_project_metadata, new_metadata = license_for_project)
+  new_project_metadata <- set_project_metadata(old_metadata = current_project_metadata, new_metadata = license_and_system)
   write_project_metadata(metadata = new_project_metadata, file_path = path(project_path, yspm::project_structure("file_metadata_project")))
+
+  stop("HERE")
 
   message("")
   message(paste("Install packages:"))
