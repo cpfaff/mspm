@@ -57,7 +57,6 @@ collect_csv_metadata <- update_csv_metadata <- function(...) {
 #' @export collect_csv_variables
 
 collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
-
   the_function <- match.call()[[1]]
 
   check_if_project_is_enabled(the_function)

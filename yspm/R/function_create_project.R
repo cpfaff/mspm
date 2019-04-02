@@ -223,9 +223,9 @@ create_project <- function(root_path = getwd(),
     }
   } else {
     checkpoint <- list(checkpoint = Sys.Date())
-  }  
+  }
 
-  
+
   write_project_metadata(data.frame(checkpoint = checkpoint), file_path = path(project_path, yspm::project_structure("file_metadata_project")))
 
   if (exists("metadata_from_parameters")) {
