@@ -56,7 +56,7 @@ collect_csv_metadata <- update_csv_metadata <- function(...) {
 #'
 #' @export collect_csv_variables
 
-collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
+collect_csv_variables <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/data")) {
   the_function <- match.call()[[1]]
 
   check_if_project_is_enabled(the_function)
@@ -166,7 +166,7 @@ collect_csv_variables <- function(input_path = yspm::reference_content("data"), 
 #' @importFrom tidyr separate_rows
 #' @export collect_csv_categories
 
-collect_csv_categories <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/dataset")) {
+collect_csv_categories <- function(input_path = yspm::reference_content("data"), output_path = yspm::reference_content("metadata/data")) {
   check_if_project_is_enabled("collect_csv_categories")
   locale <- get_locale()
 
