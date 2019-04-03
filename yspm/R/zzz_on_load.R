@@ -12,7 +12,7 @@
     folder_cleaned_data = "project/data/03_cleaned",
     folder_figure_external = "project/figure/external",
     folder_figure_scripted = "project/figure/scripted",
-    folder_metadata_data = "project/metadata/dataset",
+    folder_metadata_data = "project/metadata/data",
     folder_metadata_project = "project/metadata/project",
     file_metadata_project = "project/metadata/project/project.dcf",
     folder_report_presentation = "project/report/presentation",

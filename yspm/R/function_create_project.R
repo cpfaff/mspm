@@ -132,7 +132,7 @@ create_project <- function(root_path = getwd(),
   message(paste("*", yspm::project_structure("folder_figure_scripted")))
   dir_create(path(project_path, yspm::project_structure("folder_figure_scripted")))
 
-  message(paste("*", yspm::project_structure("folder_metadata_dataset")))
+  message(paste("*", yspm::project_structure("folder_metadata_data")))
   dir_create(path(project_path, yspm::project_structure("folder_metadata_data")))
 
   message(paste("*", yspm::project_structure("folder_metadata_project")))
