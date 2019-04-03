@@ -176,8 +176,6 @@ try it!
     ├── metadata
     │   ├── dataset
     │   └── project
-    │       ├── checkpoint.dcf
-    │       ├── license.dcf
     │       └── project.dcf
     ├── report
     │   ├── presentation
@@ -275,8 +273,6 @@ The figure folder is divided in two sub-folders.
     ├── metadata
     │   ├── dataset
     │   └── project
-    │       ├── checkpoint.dcf
-    │       ├── license.dcf
     │       └── project.dcf
 ```
 
@@ -285,12 +281,20 @@ The metadata folder is divided into two sub-folders which store
 1. dataset
 
    Information about the datasets in your project. You can use the function
-   `collect_csv_metadata()` to collect information about your datasets. It
-   will place two files (variables and categories) in here in CSV format that
-   you can complement with metadata. In case you have to change something in
-   the data you can call it again and it will update your metadata preserving
-   what you already described (you can use the alias: `update_csv_metadata()`
-   as well).
+   `collect_csv_metadata()` to collect information about your datasets. It will
+   create two files in different resolutions (variables and categories) in here
+   in CSV format which you can browse and complement with information about
+   your data (e.g. meaning of variables). In case you have to change something
+   in the data you can call the function again and it will update your metadata
+   preserving what you already described if this is possible (you can use the
+   alias: `update_csv_metadata()` as well).
+
+   Treatment of variables:
+
+   * Dates in iso 8601 (End up in the variable sheet)
+   * Numeric variables which are meant to be used as categories are detected
+     using some heuristics and end up in the category file so for each of the
+     variable categories your can provide a description of their meaning.
 
    The variable file:
 
@@ -319,7 +323,7 @@ The metadata folder is divided into two sub-folders which store
 
 2.project
 
-   The project folder contains information about the project. The files are in
+   The project folder contains information about the project. The file is in
    Debian control file format (dcf). It is a structured text file natively
    supported by the R environment and used in many places like e.g. the
    description of R packages.
