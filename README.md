@@ -35,9 +35,9 @@ instructions for different operating systems.
       of your distribution or ask your preferred search engine.
 
 ```r
-# requires R: 3.5.2
+# requires R: 3.5.3
 install.packages("devtools", dependencies = TRUE)
-devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
+devtools::install_github("cpfaff/yspm@0.0.2", subdir = "yspm", dependencies = TRUE)
 ```
 
 ## Getting started
