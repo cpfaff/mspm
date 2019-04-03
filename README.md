@@ -74,13 +74,13 @@ computer. If you meet the requirement just click on:
     There you can select a new template. Watch out for the "Your Small Project
     Management Template" and select it (see image below).
 
-![create project](assets/figures/create_project_one.png "Create project first step")
+![create project](assets/figures/create_project_one_small.png "Create project first step")
 
 Next you have to fill out a small form providing a folder name that should be
 used for all your new R projects and a location this folder should be created
 in (see image below).
 
-![create project](assets/figures/create_project_two.png "Create project second step")
+![create project](assets/figures/create_project_two_small.png "Create project second step")
 
 The process creates the new folder for you and a file `manage_projects.R`
 inside of it. Finally, it set the correct working directors and opens the
