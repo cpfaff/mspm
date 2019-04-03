@@ -338,6 +338,8 @@ The metadata folder is divided into two sub-folders which store
 project_date: 2019-03-22
 first_name: Claas-Thido
 last_name: Pfaff
+checkpoint: 2019-03-22
+system: linux
 ...
 ```
 
