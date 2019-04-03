@@ -16,10 +16,15 @@ instructions for different operating systems.
 
 * Windows:
     - https://cran.rstudio.com/bin/windows/Rtools/
+
+    Please check that you are using an up to date version of Rtools that
+    matches your R version. Otherwise building package will not work properly.
+    Also make sure you check the option during the installation which ensures
+    that the location in which the compiler binaries are installed are added to
+    the sesarch path of your sytem. Otherwise other tools cannot find it.
+
     - https://miktex.org/download (optional for manuals)
 
-(Make sure you check the option during the installation which ensures the
-location of compiler binaries is added to the search path)
 
 * Mac OS X
     - https://itunes.apple.com/us/app/xcode/id497799835?mt=12
