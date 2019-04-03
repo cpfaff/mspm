@@ -55,7 +55,7 @@ called `manage_projects.R`.
 # syntax
 yspm::setup(root_path = <a new folder which will contain all your projects>)
 
-# example (on linux)
+# example
 yspm::setup(root_path = "~/r_projects")
 ```
 
