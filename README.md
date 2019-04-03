@@ -80,6 +80,20 @@ Next you have to fill out a small form providing a folder name that should be
 used for all your new R projects and a location this folder should be created
 in (see image below).
 
+A note important for windows users. While the default tilde in the dialogue
+resolves to the home directory in Linux, it resolves to the Documents folder of
+the active user in Windows. Windows has a limitation when it comes to path
+lengths in the file system (260 characters). If you store your projects in the
+Users Documents folder then depending on the name of the user you loose
+characters that you could use to name your projects contents. While in most
+cases that should be no problem. It easily gets one if you build packages
+inside of the project folder. When the installation of one or more packages
+fails with a note that a file could not be found, the path length is likely the
+cause. A short term remedy to this is to store the project management folder
+close to the root directory e.g. `c:/`. In the long run Windows needs to update
+their file system to support longer paths (e.g. in most Linux file systems the
+path can be 4096 characters long).
+
 ![create project](assets/figures/create_project_two_small.png "Create project second step")
 
 The process creates the new folder for you and a file `manage_projects.R`
