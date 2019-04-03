@@ -241,8 +241,6 @@ create_project <- function(root_path = getwd(),
   new_project_metadata <- set_project_metadata(old_metadata = current_project_metadata, new_metadata = license_and_system)
   write_project_metadata(metadata = new_project_metadata, file_path = path(project_path, yspm::project_structure("file_metadata_project")))
 
-  stop("HERE")
-
   message("")
   message(paste("Install packages:"))
   message("")
