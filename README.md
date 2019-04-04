@@ -46,7 +46,7 @@ devtools::install_github("cpfaff/yspm@0.0.2", subdir = "yspm", dependencies = TR
 
 For  the initial setup you have the choice between using the R console with the
 two commands below, or to use the R-Studio integration of the `yspm` package
-which is described right after.
+which is described right after that.
 
 #### From an r-script
 
