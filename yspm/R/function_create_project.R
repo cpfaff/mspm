@@ -212,7 +212,6 @@ create_project <- function(root_path = getwd(),
   message("---")
   message("")
 
-  message(paste("*", yspm::project_structure("file_metadata_checkpoint")))
   # the checkpoint is modifyable however the creation date of the project is set
   # automatically to the sytem date we create the project
   if (exists("metadata_from_parameters")) {
@@ -235,7 +234,6 @@ create_project <- function(root_path = getwd(),
     write_project_metadata(metadata = new_project_metadata, file_path = path(project_path, yspm::project_structure("file_metadata_project")))
   }
 
-  message(paste("*", yspm::project_structure("file_metadata_license")))
   license_and_system <- list(license = yspm::yspm_options("project_license"), sytstem = get_os())
   current_project_metadata <- read_project_metadata(file_path = path(project_path, yspm::project_structure("file_metadata_project")))
   new_project_metadata <- set_project_metadata(old_metadata = current_project_metadata, new_metadata = license_and_system)
@@ -276,9 +274,11 @@ create_project <- function(root_path = getwd(),
   )
 
   tryCatch({
+    # On windows it can happen that, depending on which location the user installs 
+    # the package cannot be successfully installed into a new project as the name 
+    # of paths grows over the allowed length of 260 characters. Then the paths are
+    # broken. I have no fix for this. 
     devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
-    # non_writable_libraries <- as.numeric(which(file.access(.libPaths(), mode = 2) == -1))
-    # update.packages(ask = F, checkBuilt = T, instlib = .libPaths()[-non_writable_libraries])
   },
   error = function(cond) {
     .libPaths(lib_paths_before)
