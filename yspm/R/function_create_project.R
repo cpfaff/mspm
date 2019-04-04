@@ -273,32 +273,13 @@ create_project <- function(root_path = getwd(),
     project = project_path
   )
 
-  tryCatch({
-    # On windows it can happen that, depending on which location the user installs 
-    # the package cannot be successfully installed into a new project as the name 
-    # of paths grows over the allowed length of 260 characters. Then the paths are
-    # broken. I have no fix for this. 
-    devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
-  },
-  error = function(cond) {
-    .libPaths(lib_paths_before)
-    setwd(wd_before)
-    options(repos = repo_before)
+  .libPaths(lib_paths_before)
+  setwd(wd_before)
+  options(repos = repo_before)
 
-    message("")
-    message("Some problems occurred during the installation and update of packages in the new environment.")
-    message("")
-  },
-  finally = {
-    .libPaths(lib_paths_before)
-    setwd(wd_before)
-    options(repos = repo_before)
-
-    message("")
-    message("Done:")
-    message("")
-    message("You can use the function enable_project() to initialize it for usage.")
-    message("--------------------------")
-  }
-  )
+  message("")
+  message("Done:")
+  message("")
+  message("You can use the function enable_project() to initialize it for usage.")
+  message("--------------------------")
 }

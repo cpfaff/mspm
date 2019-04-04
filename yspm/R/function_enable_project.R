@@ -94,6 +94,10 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   message("---")
   message("")
 
+  wd_before <- getwd()
+  repo_before <- getOption("repos")
+  lib_paths_before <- suppressWarnings(normalizePath(unique(.libPaths())))
+
   setwd(project_path)
 
   project_metadata <-
@@ -128,6 +132,8 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     checkpointLocation = normalizePath(fs::path(project_path, yspm::project_structure("folder_source_library"))),
     project = project_path
   )
+
+  .libPaths(c(.libPaths(), lib_paths_before))
 
   require(yspm)
   yspm::enabled_project("project_checkpoint" = package_date)
