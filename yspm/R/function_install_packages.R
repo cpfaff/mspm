@@ -12,7 +12,7 @@
 install_packages <- function(name) {
   if (Sys.getenv("RSTUDIO") == "1") {
     message("")
-    message(paste("Clean your workspace from packages:"))
+    message(paste("Cleaning your workspace from attached packages:"))
     message("")
 
     loaded_packages <- names(sessionInfo()$otherPkgs)
@@ -27,7 +27,7 @@ install_packages <- function(name) {
 
   if (Sys.getenv("RSTUDIO") == "1") {
     message("")
-    message(paste("Restore your workspace with packages:"))
+    message(paste("Restore your workspace with formerly attached packages:"))
     message("")
     suppressWarnings(lapply(loaded_packages, require, character.only = TRUE))
   }
