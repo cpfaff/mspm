@@ -1,5 +1,11 @@
-# an internal function which supports the create_project function in writing
-# the package management into the packages file
+#' A function which fills the packages file with content 
+#'
+#' An internally used function which fills the file in the project which contains
+#' the packages which are required.
+#' @param project_path The path to a project
+#'
+#' @return The function does not return anything; It is called for its side-
+#' effects
 
 construct_file_packages <- function(project_path) {
   file_documentation <- list(
@@ -82,6 +88,12 @@ construct_file_packages <- function(project_path) {
   )
 }
 
+#' A function which fills the project mangement file with content 
+#'
+#' An internally used function which fills the file in project management file 
+#' to get the user started after installation.
+
+# TODO: This could be wrapped into a function as well
 content_setup_manage_projects <- '# In this file you will manage all your future R projects.
 # Below you can find some example code to get you started.
 

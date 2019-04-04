@@ -289,3 +289,72 @@ collect_csv_categories <- function(input_path = yspm::reference_content("data"),
     }
   }
 }
+
+#' Functions to read project metadata
+#'
+#'  functions to read metadata from a dcf formated file into
+#' a data frame and write from a data frame to a new project
+#' metadata dcf file.
+#'
+#' @param file_path A file path to the dcf formated metadata
+read_project_metadata <- function(file_path) {
+  read.dcf(file_path, all = T, keep.white = NULL)
+}
+
+#' Function to rite project metadata
+#'
+#' A function to write a metadata dataframe into a project
+#' metadata dcf file.
+#'
+#' @param metadata A data frame with the project metadata read
+#' from the dcf file of an active project
+#' @param element_name The name of a field in the metadata
+#' read from the dcf file of an active project
+write_project_metadata <- function(metadata, file_path) {
+  quiet(write.dcf(metadata, file = file_path, append = FALSE, keep.white = NULL))
+}
+
+#' A function to get a specific metadata element 
+#'
+#' The metadata can be read from a dcf file into a data frame. The function
+#' can be used to query the metadat for specific information.
+#'
+#' @param metadata A data frame with the project metadata read
+#' from the dcf file of an active project
+#' @param element_name The name of a field in the metadata
+#' read from the dcf file of an active project
+get_project_metadata <- function(metadata, element_name) {
+  return(metadata[, element_name])
+}
+
+#' A function to modify a specific metadata element 
+#'
+#' The metadata can be read from a dcf file into a data frame. The
+#' function can be used to modify a specific element of the metadata if
+#' this is required.
+#'
+#' @param old_metadata A data frame with the project metadata read
+#' from the dcf file of an active project
+#' @param new_metadata A data frame with the new metadata. This will
+#' update existing fields in the metadata data frame and add new ones
+#' that have been unkown
+#'
+set_project_metadata <- function(old_metadata, new_metadata) {
+  names_old_metadata <-
+    names(old_metadata)
+
+  names_new_metadata <-
+    names(new_metadata)
+
+  metadata_with_new_fields <-
+    data.frame(old_metadata, 
+               new_metadata[which(!(names_new_metadata %in% names_old_metadata))])
+
+  names_of_metadata_fields_to_update <- 
+    names(new_metadata[names_new_metadata %in% names_old_metadata])
+
+  metadata_with_new_fields[names_of_metadata_fields_to_update] <- 
+    new_metadata[names_of_metadata_fields_to_update]
+
+  return(metadata_with_new_fields)
+}

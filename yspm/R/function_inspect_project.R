@@ -1,3 +1,101 @@
+#' Inspect a project folder
+#'
+#' As enabling a project can take a while, installing all the dependencies, this
+#' function allows to peek into a project without enabling it. It will present a
+#' summary of packages which are required, the files which are used and metadata
+#' as well as it can show if the project contains a library which is compatible
+#' with the current sytem architecture.
+#'
+#' @param root_path The root folder designates the path in the filesystem
+#'        where the project is stored.
+#' @param project_name The project name is the name of the folder the predefined
+#'        project structure has been created in. This parameter allows you to freely
+#'        name the project. You can use it together with the compile_project_name
+#'        function to get the same streamlined project names as during the project
+#'        creation.
+#' @param project_path Instead of using the root_path and project_name arguments
+#'        the full path to the project folder can be specifified here.
+#'
+#' @examples
+#' \dontrun{
+#' inspect_project(
+#'   root_path = getwd(),
+#'   project_name = compile_project_name(
+#'     first_name = "Max",
+#'     last_name = "Mustermann",
+#'     project_category = "Phd"
+#'   )
+#' )
+#' 
+#' inspect_project(
+#'   root_path = "~/",
+#'   project_name = "my_phd_project"
+#' )
+#' }
+#' 
+#' @export inspect_project
+#
+
+inspect_project <- function(root_path = getwd(), project_name = NULL, project_path = NULL){
+  the_function <- match.call()[[1]]
+
+  normalized_root_path <- suppressWarnings(normalizePath(path(root_path)))
+
+  if (is.null(project_path)) {
+    project_path <- path(normalized_root_path, project_name)
+  } else {
+    project_path <- suppressWarnings(normalizePath(path(project_path)))
+  }
+
+  if (!is_dir(path(project_path))) {
+    stop(paste(
+      "inspect_project failed: The project_path you provide does not exist.
+                 Please check the spelling.",
+      project_path
+    ))
+  }
+
+  big_message("Inspecting project")
+  small_message("Tasks")
+
+  # that might be a to restrictive test as the structure might need to be a little
+  # bit more flexible to adapt by the user. It should be a suggestion so maybe we
+  # rather check for the first level of folder under the project folder only.
+  if (!all(
+    dir_exists(path(project_path, yspm::project_structure("folder_primary_data"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_interim_data"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_cleaned_data"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_figure_external"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_figure_scripted"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_metadata_dataset"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_metadata_package"))),
+    file_exists(path(project_path, yspm::project_structure("file_metadata_project"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_report_presentation"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_report_publication"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_report_qualification"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_packages"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_source_library"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_main"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_import_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_clean_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_transform_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_visualise_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_library_model_data"))),
+    dir_exists(path(project_path, yspm::project_structure("folder_source_workflow"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_main"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_import_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_clean_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_transform_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_visualise_data"))),
+    file_exists(path(project_path, yspm::project_structure("file_workflow_model_data")))
+  )) {
+    stop(paste("inspect_project failed: The project_path seems not to contain a valid project.
+                 Choose a different location, or check the spelling."))
+  }
+
+}
+
+
 #' Find the main script of a project
 #'
 #' It collects all script files in the scource directory and check if the are
@@ -232,3 +330,22 @@ detect_data_usage <- function(data_path = yspm::project_structure("folder_data")
 
   return(dataset_usage)
 }
+
+
+# helpers for inspecting projects
+get_index_of_main_script <- function(input) {
+  which(input == max(input))
+}
+
+get_index_of_disconnected_scripts <- function(input) {
+  which(input == 0)
+}
+
+name_list_elements_after_file_names <- function(a_list, the_names) {
+  setNames(a_list, the_names)
+}
+
+
+
+
+
