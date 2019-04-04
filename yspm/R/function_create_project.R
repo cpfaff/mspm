@@ -277,7 +277,7 @@ create_project <- function(root_path = getwd(),
     # On windows it can happen that, depending on which location the user installs 
     # the package cannot be successfully installed into a new project as the name 
     # of paths grows over the allowed length of 260 characters. Then the paths are
-    # broken. At the moment I have no fix for this. 
+    # broken. I have no fix for this. 
     devtools::install_github("cpfaff/yspm", subdir = "yspm", dependencies = TRUE)
   },
   error = function(cond) {
