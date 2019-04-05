@@ -138,7 +138,7 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
   yspm::enabled_project("project_checkpoint" = package_date)
   yspm::enabled_project("project_path" = project_path)
 
-  install_requirements(packages = list_requirements())
+  install_requirements(package_names = list_requirements())
 
   message("")
   message(paste("Done"))
