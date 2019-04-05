@@ -13,13 +13,13 @@
 #' @export list_requirements
 #
 list_requirements <- function(search_path = getwd()) {
-  search_path <- suppressWarnings(normalizePath(path(search_path)))
+  search_path <- suppressWarnings(normalizePath(file.path(search_path)))
 
   list_of_files <-
     list.files(path = search_path, recursive = T, ignore.case = T, pattern = "*.(r|rmd)$")
 
   list_of_files_with_path <-
-    lapply(list_of_files, function(file_name) path(search_path, file_name))
+    lapply(list_of_files, function(file_name) file.path(search_path, file_name))
 
   if (length(list_of_files) > 0) {
     big_message("List requirements")
@@ -36,9 +36,9 @@ list_requirements <- function(search_path = getwd()) {
 
     required_packages <-
       unique(Filter(length, c(
-        str_extract_all(vector_of_file_content, "(?<!^#.{1,5000})(?<=(library\\((\"|')?|require\\((\"|')?))[A-z]+(?=(,|\"|'|\\)))"),
-        str_extract_all(vector_of_file_content, "(?<!^#.{1,5000})(?<=(import::(from)\\((\"|')?))[A-z]+(?=(,|\"|'|\\)))"),
-        str_extract_all(vector_of_file_content, "(?<!^#.{1,5000})\\w[A-z]+(?=:{2,3}(?!from))")
+        str_extract_all(vector_of_file_content, "(?<!^#.{1,5000})(?<=(library\\((\"|')?|require\\((\"|')?))[A-z0-9]+(?=(,|\"|'|\\)))"),
+        str_extract_all(vector_of_file_content, "(?<!^#.{1,5000})(?<=(import::(from)\\((\"|')?))[A-z0-9]+(?=(,|\"|'|\\)))"),
+        str_extract_all(vector_of_file_content, "(?<!^#.{1,5000})\\w[A-z0-9]+(?=:{2,3}(?!from))")
       )))
 
     return(required_packages)
