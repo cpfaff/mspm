@@ -240,7 +240,7 @@ create_project <- function(root_path = getwd(),
   write_project_metadata(metadata = new_project_metadata, file_path = path(project_path, yspm::project_structure("file_metadata_project")))
 
   message("")
-  message(paste("Install packages:"))
+  message(paste("Install R lirary:"))
   message("")
   message(paste("* in:", project_path))
   message("---")
