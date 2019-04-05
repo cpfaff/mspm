@@ -133,9 +133,8 @@ enable_project <- function(root_path = getwd(), project_name = NULL, project_pat
     project = project_path
   )
 
-  .libPaths(c(.libPaths(), lib_paths_before))
+  require(yspm, lib.loc = lib_paths_before)
 
-  require(yspm)
   yspm::enabled_project("project_checkpoint" = package_date)
   yspm::enabled_project("project_path" = project_path)
 
