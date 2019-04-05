@@ -4,13 +4,12 @@
 \alias{list_requirements}
 \title{A function to list packages used in a project}
 \usage{
-list_requirements(root_path,
-  path = yspm::project_structure("folder_source"))
+list_requirements(search_path = getwd())
 }
 \arguments{
-\item{root_path}{The path to the project.}
-
-\item{path}{Provide the path folder all scripts are located in.}
+\item{search_path}{Provide the path to a folder all your scripts are located 
+in. This can be e.g. the root directory of a project. The function 
+searches recursively all folders for R and R-Markdown files.}
 }
 \description{
 You can call the function to list all packages that are reference in
