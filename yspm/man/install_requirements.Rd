@@ -7,7 +7,7 @@
 install_requirements(package_names)
 }
 \arguments{
-\item{packages}{a vector or list providing all package names to be installed.}
+\item{package_names}{a vector or list providing all package names to be installed.}
 }
 \description{
 You can call the function to install all packages you pass in the names of
