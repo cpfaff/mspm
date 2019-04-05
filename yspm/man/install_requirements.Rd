@@ -4,10 +4,10 @@
 \alias{install_requirements}
 \title{A function to install packages which are not yet installed}
 \usage{
-install_requirements(package_names)
+install_requirements(packages)
 }
 \arguments{
-\item{package_names}{a vector or list providing all package names to be installed.}
+\item{packages}{a vector or list providing all package names to be installed.}
 }
 \description{
 You can call the function to install all packages you pass in the names of

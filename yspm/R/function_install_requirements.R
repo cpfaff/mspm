@@ -52,11 +52,11 @@ list_requirements <- function(search_path = getwd()) {
 #' together with list_requirements when a project is enabled to ensure that all 
 #' the required dependencies are installed.  
 #'
-#' @param package_names a vector or list providing all package names to be installed.
+#' @param packages a vector or list providing all package names to be installed.
 #'
 #' @export install_requirements
 #
-install_requirements <- function(package_names) {
+install_requirements <- function(packages) {
   the_function <- match.call()[[1]]
   check_if_project_is_enabled(the_function)
 
